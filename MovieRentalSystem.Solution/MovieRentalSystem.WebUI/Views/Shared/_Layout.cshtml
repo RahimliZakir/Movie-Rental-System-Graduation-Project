@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title | YouVideo</title>
+    <link rel="stylesheet" href="~/assets/sources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/sources/css/all.min.css" />
+    <link rel="stylesheet" href="~/assets/sources/css/icons.bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/sources/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="~/assets/sources/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/assets/sources/css/magnific-popup.min.css" />
+    <link rel="stylesheet"
+          href="~/assets/sources/css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="~/assets/css/style.min.css" />
+    @await RenderSectionAsync("css", required: false)
+    <link rel="shortcut icon"
+          href="~/assets/icons/favicon.ico"
+          type="image/x-icon" />
+</head>
+<body>
+    <!-- header start -->
+    <header>
+        <!-- nav start -->
+        <nav>
+            <div class="container nav-container">
+                <div class="row nav-row">
+                    <div class="col-6 col-xl-2 col-lg-2 col-md-6 col-sm-6 left-nav">
+                        <a href="index.html"> You <span>video.</span> </a>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 right-nav">
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="movies.html">Movies</a></li>
+                            <li><a href="shows.html">Shows</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="comingsoon.html">Coming Soon</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="contactus.html">Contact Us</a></li>
+                            <li class="nav-login-li"><a href="login.html">Login</a></li>
+                            <li class="cart-shopping-li">
+                                <a href="shopping-cart.html">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span class="card-budget">0</span>
+                                </a>
+                            </li>
+                            <li class="wishlist-li">
+                                <a href="wishlist.html">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <span class="wishlist">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-6 col-sm-6 right-nav-collapsed">
+                        <button class="right-nav-collapse-btn">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-12 collapsed-nav-items">
+                        <ul class="collapsed-nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="movies.html">Movies</a></li>
+                            <li><a href="shows.html">Shows</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="comingsoon.html">Coming Soon</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="contactus.html">Contact Us</a></li>
+                            <li class="nav-login-li"><a href="login.html">Login</a></li>
+                            <li class="cart-shopping-li">
+                                <a href="shopping-cart.html"> Shopping Cart </a>
+                            </li>
+                            <li class="wishlist-li">
+                                <a href="wishlist.html"> Wishlist </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- nav end -->
+    </header>
+    <!-- header end -->
+    <!-- main start -->
+    <main>
+        @RenderBody()
+    </main>
+    <!-- main end -->
+    <!-- footer start -->
+    <footer>
+        <!-- shortcut paths start -->
+        <section id="shortcut-paths">
+            <div class="container shortcut-paths-container">
+                <div class="row shortcut-paths-row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 connect-side">
+                        <a class="connect-logo" href="#"> You <span>video.</span> </a>
+                        <p class="connect-description">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's
+                        </p>
+                        <ul class="connect-apps-box">
+                            <li>
+                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 movies-side">
+                        <h4 class="movies-heading">Movies</h4>
+                        <div class="movies-side-box">
+                            <div class="row movies-side-box-row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 movies-side-box-left-side">
+                                    <div class="movie-item"><a href="#">Drama</a></div>
+                                    <div class="movie-item"><a href="#">Action</a></div>
+                                    <div class="movie-item"><a href="#">Animation</a></div>
+                                    <div class="movie-item"><a href="#">Comedy</a></div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 movies-side-box-right-side">
+                                    <div class="movie-item"><a href="#">Crime</a></div>
+                                    <div class="movie-item"><a href="#">Fantacy</a></div>
+                                    <div class="movie-item"><a href="#">Horror</a></div>
+                                    <div class="movie-item"><a href="#">Romance</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 tv-shows-side">
+                        <h4 class="tv-shows-heading">Tv Shows</h4>
+                        <div class="tv-shows-side-box">
+                            <div class="row tv-shows-side-box-row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 tv-shows-side-box-left-side">
+                                    <div class="tv-shows-item">
+                                        <a href="#">Breaking Bad</a>
+                                    </div>
+                                    <div class="tv-shows-item"><a href="#">Grimm</a></div>
+                                    <div class="tv-shows-item"><a href="#">Friends</a></div>
+                                    <div class="tv-shows-item"><a href="#">Supergirl</a></div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 tv-shows-side-box-right-side">
+                                    <div class="tv-shows-item">
+                                        <a href="#">Breaking Bad</a>
+                                    </div>
+                                    <div class="tv-shows-item"><a href="#">Grimm</a></div>
+                                    <div class="tv-shows-item"><a href="#">Friends</a></div>
+                                    <div class="tv-shows-item"><a href="#">Supergirl</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 my-account-side">
+                        <h4 class="my-account-heading">My Account</h4>
+                        <div class="my-account-side-box">
+                            <div class="row my-account-side-box-row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 my-account-side-box-left-side">
+                                    <div class="my-account-item">
+                                        <a href="#">My Account</a>
+                                    </div>
+                                    <div class="my-account-item"><a href="#">FAQ</a></div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 my-account-side-box-right-side">
+                                    <div class="my-account-item"><a href="#"></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- shortcut paths end -->
+        <!-- copyright start -->
+        <section id="copyright">
+            <div class="container copyright-container">
+                <p class="copyright-content text-center">
+                    YouVideo - © 2022 All Rights Reserved
+                </p>
+            </div>
+        </section>
+        <!-- copyright end -->
+    </footer>
+    <!-- footer end -->
+
+    <script src="~/assets/sources/js/jquery.min.js"></script>
+    <script src="~/assets/sources/js/bootstrap.min.js"></script>
+    <script src="~/assets/sources/js/swiper-bundle.min.js"></script>
+    <script src="~/assets/sources/js/owl.carousel.min.js"></script>
+    <script src="~/assets/sources/js/magnific-popup.min.js"></script>
+    <script src="~/assets/sources/js/mixitup.min.js"></script>
+    <script src="~/assets/js/header.js"></script>
+    @await RenderSectionAsync("js", required: false)
+</body>
+</html>

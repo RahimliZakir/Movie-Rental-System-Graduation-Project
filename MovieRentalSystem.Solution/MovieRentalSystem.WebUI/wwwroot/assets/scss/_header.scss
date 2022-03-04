@@ -1,0 +1,204 @@
+header {
+  nav {
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 2% 0;
+    border-bottom: 1px solid white;
+
+    @include MediaRespond("tel") {
+      background-color: white;
+    }
+
+    @include MediaRespond("tablet") {
+      background-color: white;
+    }
+
+    .nav-container {
+      .nav-row {
+        align-items: center;
+        .left-nav {
+          a {
+            display: inline-block;
+            color: white;
+            font-family: "Baloo";
+            font-size: 1.6rem;
+            font-weight: 600;
+
+            span {
+              color: $this-red;
+            }
+          }
+
+          @include MediaRespond("tablet") {
+            a {
+              color: black;
+              font-size: 1.8rem;
+
+              span {
+                color: $this-red;
+              }
+            }
+          }
+
+          @include MediaRespond("tel") {
+            a {
+              color: black;
+
+              span {
+                color: $this-red;
+              }
+            }
+          }
+        }
+
+        .right-nav {
+          .nav-links {
+            @include Flexing(center, flex-end);
+
+            li {
+              a {
+                display: inline-block;
+                color: white;
+                font-weight: 600;
+              }
+
+              .active {
+                color: $this-red;
+              }
+            }
+
+            li.nav-login-li {
+              a {
+                background-color: $this-red;
+                border-radius: 5px;
+                padding: 10px 30px;
+                transition: 0.2s;
+
+                &:hover {
+                  background-color: $red-btn-hover;
+                }
+              }
+            }
+
+            .cart-shopping-li,
+            .wishlist-li {
+              position: relative;
+
+              span {
+                position: absolute;
+                display: inline-block;
+                color: white;
+                background-color: $this-red;
+                width: 15px;
+                height: 15px;
+                text-align: center;
+                line-height: 15px;
+                border-radius: 50%;
+                font-size: 0.7rem;
+                right: -50%;
+                bottom: 65%;
+              }
+            }
+
+            li:not(:last-child) {
+              margin-right: 5%;
+            }
+          }
+
+          @include MediaRespond("tel") {
+            display: none;
+          }
+
+          @include MediaRespond("tablet") {
+            display: none;
+          }
+        }
+
+        .right-nav-collapsed {
+          display: none;
+
+          @include MediaRespond("tablet") {
+            display: block;
+            text-align: right;
+
+            .right-nav-collapse-btn {
+              display: inline-block;
+              font-size: 1.8rem;
+              color: $this-red;
+              border: none;
+              background-color: transparent;
+            }
+          }
+
+          @include MediaRespond("tel") {
+            display: block;
+            text-align: right;
+
+            .right-nav-collapse-btn {
+              display: inline-block;
+              font-size: 1.4rem;
+              color: $this-red;
+              border: none;
+              background-color: transparent;
+            }
+          }
+        }
+
+        .collapsed-nav-items {
+          display: none;
+
+          @include MediaRespond("tablet") {
+            border-top: 1px solid #ededed;
+            border-bottom: 1px solid #ededed;
+
+            .collapsed-nav-links {
+              padding: 2.5% 0;
+
+              li {
+                margin-bottom: 2.5%;
+
+                a {
+                  display: inline-block;
+                  font-weight: 600;
+                  color: black;
+                  font-size: 1.8rem;
+                }
+
+                .active {
+                  color: $this-red;
+                }
+              }
+            }
+          }
+
+          @include MediaRespond("tel") {
+            border-top: 1px solid #ededed;
+            border-bottom: 1px solid #ededed;
+
+            .collapsed-nav-links {
+              padding: 2.5% 0;
+
+              li {
+                margin-bottom: 2.5%;
+
+                a {
+                  display: inline-block;
+                  font-weight: 600;
+                  color: black;
+                  font-size: 1rem;
+                }
+
+                .active {
+                  color: $this-red;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

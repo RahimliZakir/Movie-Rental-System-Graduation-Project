@@ -23,6 +23,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Entities\" />
+    <Folder Include="AppCode\" />
+    <Folder Include="wwwroot\admin-assets\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,98 @@
+#blog-starter {
+  background-image: url(../images/common/rows-red-seats-theater.jpg);
+  background-size: cover;
+  padding: 12.5% 0;
+
+  @include MediaRespond("tablet") {
+    padding: 25% 0 12.5%;
+  }
+
+  @include MediaRespond("tel") {
+    padding: 27.75% 0 12.5%;
+  }
+
+  .blog-starter-container {
+    .blog-starter-row {
+      .blog-starter-heading {
+        font-family: "RobotoSerif";
+        color: white;
+        text-align: center;
+        font-size: 3.5rem;
+
+        @include MediaRespond("tablet") {
+          font-size: 4.4rem;
+        }
+
+        @include MediaRespond("tel") {
+          font-size: 3.2rem;
+        }
+      }
+    }
+  }
+}
+
+#blogs {
+  padding: 5% 0;
+  border-bottom: 1px solid #ededed;
+
+  @include MediaRespond("tel") {
+    padding: 10% 0;
+  }
+
+  .blogs-container {
+    .blogs-row {
+      .blogs-col {
+        .blogs-card {
+          margin-bottom: 3.5%;
+
+          img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+          }
+
+          .card-body {
+            text-align: center;
+
+            .card-title {
+              font-weight: 600;
+            }
+
+            .card-text {
+              margin-bottom: 2.5%;
+            }
+
+            .card-like-unlike-side {
+              @include Flexing(center, center);
+              margin: 2.5% 0;
+
+              .like-side,
+              .unlike-side {
+                i {
+                  display: inline-block;
+                  cursor: pointer;
+                  transition: 0.3s;
+
+                  &:hover {
+                    color: $this-red;
+                  }
+                }
+              }
+
+              .unlike-side {
+                margin-left: 3.75%;
+              }
+            }
+
+            .details-btn {
+              display: inline-block;
+              background-color: $this-red;
+              border: none;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

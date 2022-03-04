@@ -1,0 +1,1136 @@
+#films-swiper {
+  .films-swiper-carousel {
+    .swiper-wrapper {
+      .films-swiper-item {
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 15% 0;
+
+        @include MediaRespond("tablet") {
+          background-position: center;
+        }
+
+        @include MediaRespond("tel") {
+          padding: 35% 0;
+        }
+
+        .films-swiper-container {
+          .films-swiper-row {
+            .films-swiper-col {
+              .films-swiper-badge {
+                background-color: #ffd230;
+                padding: 0.5% 1%;
+              }
+
+              h2 {
+                color: white;
+                font-family: "Baloo";
+                font-weight: 600;
+                font-size: 4.8rem;
+
+                @include MediaRespond("tel") {
+                  font-size: 2.2rem;
+                }
+
+                @include MediaRespond("tablet") {
+                  font-size: 3rem;
+                }
+              }
+
+              .casts {
+                @include MediaRespond("tel") {
+                  margin-bottom: 3.5%;
+                }
+
+                .casts-heading {
+                  font-weight: 600;
+                  color: white;
+                  font-family: "Baloo";
+                }
+
+                .casts-actor-actress {
+                  color: white;
+                  font-size: 0.8rem;
+                  font-family: "RobotoSerif";
+                }
+              }
+
+              .film-types {
+                @include Flexing(center);
+
+                @include MediaRespond("tel") {
+                  margin-bottom: 3.5%;
+                  flex-direction: column;
+                  align-items: flex-start;
+                }
+
+                .film-type {
+                  color: white;
+
+                  strong {
+                    margin-right: 2.5px;
+                  }
+
+                  i {
+                    display: inline-block;
+                    font-size: 1.2rem;
+                  }
+                }
+
+                .film-type:not(:last-child) {
+                  margin-right: 0.5%;
+                }
+              }
+
+              .film-description {
+                color: white;
+                font-family: "Baloo";
+                padding-right: 22.5%;
+
+                @include MediaRespond("tel") {
+                  margin-bottom: 3.5%;
+                }
+              }
+
+              .films-swiper-buttons-box {
+                @include Flexing(center);
+                margin-top: 1.75%;
+
+                a {
+                  display: inline-block;
+                  font-family: "Baloo";
+                  border-radius: 5px;
+                  color: white;
+                }
+
+                .watch-btn {
+                  background-color: $this-red;
+                  padding: 10px 30px;
+                  transition: 0.2s;
+
+                  &:hover {
+                    background-color: $red-btn-hover;
+                  }
+                }
+
+                .watchlist-btn {
+                  border: 1px solid white;
+                  padding: 3px 20px;
+                  font-size: 1.2rem;
+                  margin-left: 2%;
+                  transition: 0.2s;
+
+                  &:hover {
+                    color: black;
+                    background-color: white;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .swiper-pagination {
+      span {
+        background-color: #b9b4b4;
+      }
+
+      span.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
+        background-color: $this-red;
+      }
+    }
+  }
+}
+
+#top-categories {
+  background-color: #1e2129;
+  padding: 10% 0;
+  .top-categories-container {
+    .top-categories-row {
+      .top-categories-left-side {
+        @include MediaRespond("tablet") {
+          text-align: center;
+        }
+
+        .top-categories-lil-heading {
+          color: $this-red;
+        }
+
+        .top-categories-big-heading {
+          color: white;
+          font-family: "RobotoBold";
+          font-size: 2.2rem;
+          padding-right: 30%;
+
+          @include MediaRespond("tablet") {
+            padding-right: 0;
+          }
+        }
+
+        .top-categories-description {
+          color: white;
+          font-family: "Baloo";
+          padding-right: 9.5%;
+          margin: 2.5% 0 4.5%;
+
+          @include MediaRespond("tablet") {
+            padding-right: 0;
+          }
+        }
+
+        .top-categories-btn {
+          display: inline-block;
+          color: $this-red;
+          border: 1px solid $this-red;
+          border-radius: 5px;
+          padding: 7.5px 12.5px;
+          margin-bottom: 4.5%;
+          transition: 0.3s;
+        }
+
+        .top-categories-btn:hover {
+          background-color: $this-red;
+          color: white;
+        }
+      }
+
+      .top-categories-right-side {
+        .top-categories-cards-row {
+          .top-categories-cards-col {
+            margin-bottom: 3.5%;
+            .img-div {
+              position: relative;
+              img {
+                width: 100%;
+                border-radius: 5px;
+              }
+
+              span {
+                position: absolute;
+                color: white;
+                font-family: "Baloo";
+                left: 5%;
+                bottom: 5%;
+                font-weight: 600;
+              }
+            }
+
+            @include MediaRespond("tel") {
+              margin-bottom: 2.5%;
+
+              .img-div {
+                position: static;
+
+                span {
+                  position: static;
+                }
+              }
+            }
+          }
+
+          .top-categories-cards-col:nth-child(even) {
+            position: relative;
+            top: 17.5px;
+
+            @include MediaRespond("tel") {
+              position: static;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#latest-movies {
+  padding: 3.5% 0;
+
+  @include MediaRespond("tel") {
+    padding: 10% 0 !important;
+  }
+
+  .latest-movies-container {
+    .latest-movies-row {
+      align-items: center;
+      .latest-movies-left-heading-side {
+        h2 {
+          font-family: "RobotoBold";
+
+          @include MediaRespond("tel") {
+            margin-bottom: 0;
+          }
+
+          @include MediaRespond("tablet") {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .latest-movies-right-view-all-side {
+        @include Flexing(center, flex-end);
+
+        a {
+          display: inline-block;
+          color: white;
+          background-color: $this-red;
+          border-radius: 5px;
+          padding: 4px 9px;
+          transition: 0.2s;
+
+          @include MediaRespond("tablet") {
+            padding: 10px 17.5px !important;
+          }
+
+          &:hover {
+            background-color: #c82333;
+          }
+        }
+      }
+
+      .latest-movies-carousel-side {
+        margin-top: 3.5%;
+
+        @include MediaRespond("tel") {
+          margin-top: 8.75%;
+        }
+
+        .latest-movies-carousel {
+          .item {
+            .card {
+              border-radius: 0;
+
+              .img-div {
+                position: relative;
+                width: 100%;
+
+                .latest-movies-img-box {
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  @include Flexing(null, space-between, column);
+
+                  .img-box-top {
+                    padding: 3.5% 4% 0;
+                    @include Flexing(center, space-between);
+
+                    .latest-movies-badge {
+                      background-color: #ffd230;
+                      padding: 1.5% 2.5%;
+                    }
+
+                    p {
+                      color: white;
+                      font-family: "Baloo";
+                      font-size: 0.8rem;
+                    }
+                  }
+
+                  .img-box-bottom {
+                    padding: 0 4% 3.5%;
+
+                    ul {
+                      @include Flexing(center);
+
+                      li {
+                        a {
+                          display: inline-block;
+                          color: white;
+                        }
+                      }
+
+                      li:not(:last-child) {
+                        margin-right: 3.5%;
+                      }
+                    }
+                  }
+                }
+
+                img {
+                  width: 100%;
+                  height: 300px;
+                  object-fit: cover;
+                  border-radius: 0;
+                  filter: brightness(0.5);
+                  transition: 0.3s;
+                }
+
+                &:hover {
+                  img {
+                    filter: brightness(1);
+                  }
+                }
+              }
+              .card-body {
+                background-color: #f9fbfd;
+
+                .card-body-about-side {
+                  @include Flexing(center, space-between);
+
+                  a {
+                    display: inline-block;
+                    font-weight: 600;
+                    color: #8f8f8f;
+                    transition: 0.2s;
+
+                    &:hover {
+                      color: $this-red;
+                    }
+                  }
+
+                  p {
+                    font-family: "Baloo";
+                    color: $this-red;
+                  }
+                }
+
+                .latest-movies-tags-ul {
+                  @include Flexing(center, space-evenly);
+
+                  li {
+                    a {
+                      display: inline-block;
+                      color: black;
+                      font-family: "Baloo";
+                      font-size: 0.9rem;
+                      font-weight: 600;
+                    }
+                  }
+
+                  @include MediaRespond("tel") {
+                    @include Flexing(center, flex-start);
+
+                    li:not(:last-child) {
+                      margin-right: 1.5%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .owl-dots {
+            margin-top: 2.5%;
+            .owl-dot.active {
+              span {
+                background: $this-red;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#latest-tv-show-start {
+  padding: 3.5% 0;
+  background-color: #1e2129;
+
+  @include MediaRespond("tel") {
+    padding: 10% 0 !important;
+  }
+
+  @include MediaRespond("tablet") {
+    padding: 10% 0 !important;
+  }
+
+  .latest-tv-show-start-container {
+    .latest-tv-show-start-row {
+      .latest-tv-show-top-left-side {
+        @include MediaRespond("tel") {
+          margin-bottom: 7.5%;
+        }
+
+        @include MediaRespond("tablet") {
+          text-align: center;
+          margin-bottom: 5%;
+        }
+
+        h6 {
+          color: $this-red;
+        }
+
+        h2 {
+          color: white;
+          font-family: "RobotoBold";
+          font-size: 2.2rem;
+        }
+
+        p {
+          color: white;
+          padding-right: 12.5%;
+          margin-bottom: 5%;
+
+          @include MediaRespond("tablet") {
+            margin-bottom: 2.5%;
+          }
+        }
+
+        .latest-tv-show-btn {
+          display: inline-block;
+          color: white;
+          background-color: $this-red;
+          border-radius: 5px;
+          padding: 4px 9px;
+          transition: 0.2s;
+        }
+
+        .latest-tv-show-btn:hover {
+          background-color: #c82333;
+        }
+      }
+
+      .latest-tv-show-top-right-side {
+        .latest-tv-show-top-right-side-row {
+          .latest-tv-show-top-right-side-col {
+            .card {
+              background-color: transparent;
+              border: none;
+              border-radius: 0;
+
+              .img-div {
+                position: relative;
+                width: 100%;
+
+                .latest-tv-show-img-box {
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  @include Flexing(null, space-between, column);
+
+                  .img-box-top {
+                    padding: 3.5% 4% 0;
+                    @include Flexing(center, space-between);
+
+                    .latest-tv-show-badge {
+                      background-color: #ffd230;
+                      padding: 1.5% 2.5%;
+                    }
+
+                    p {
+                      color: white;
+                      font-family: "Baloo";
+                      font-size: 0.8rem;
+                    }
+                  }
+
+                  .img-box-bottom {
+                    padding: 0 4% 3.5%;
+
+                    ul {
+                      @include Flexing(center);
+
+                      li {
+                        a {
+                          display: inline-block;
+                          color: white;
+                        }
+                      }
+
+                      li:not(:last-child) {
+                        margin-right: 3.5%;
+                      }
+                    }
+                  }
+                }
+
+                img {
+                  width: 100%;
+                  height: 300px;
+                  object-fit: cover;
+                  border-radius: 0;
+                  filter: brightness(0.5);
+                  transition: 0.3s;
+                }
+
+                &:hover {
+                  img {
+                    filter: brightness(1);
+                  }
+                }
+              }
+              .card-body {
+                padding-left: 0;
+                padding-right: 0;
+
+                .card-body-about-side {
+                  @include Flexing(center, space-between);
+
+                  .card-bottom-left {
+                    display: inline-block;
+                    font-weight: 600;
+                    color: white;
+                    font-size: 0.9rem;
+                    transition: 0.2s;
+
+                    &:hover {
+                      color: $this-red;
+                    }
+                  }
+
+                  .card-bottom-right {
+                    font-size: 0.9rem;
+                    color: #bcccda;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .latest-tv-show-bottom-col {
+        margin-top: 2.5%;
+
+        .card {
+          background-color: transparent;
+          border: none;
+          border-radius: 0;
+
+          .img-div {
+            position: relative;
+            width: 100%;
+
+            .latest-tv-show-img-box {
+              position: absolute;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              @include Flexing(null, space-between, column);
+
+              .img-box-top {
+                padding: 3.5% 4% 0;
+                @include Flexing(center, space-between);
+
+                .latest-tv-show-badge {
+                  background-color: #ffd230;
+                  padding: 1.5% 2.5%;
+                }
+
+                p {
+                  color: white;
+                  font-family: "Baloo";
+                  font-size: 0.8rem;
+                }
+              }
+
+              .img-box-bottom {
+                padding: 0 4% 3.5%;
+
+                ul {
+                  @include Flexing(center);
+
+                  li {
+                    a {
+                      display: inline-block;
+                      color: white;
+                    }
+                  }
+
+                  li:not(:last-child) {
+                    margin-right: 3.5%;
+                  }
+                }
+              }
+            }
+
+            img {
+              width: 100%;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 0;
+              filter: brightness(0.5);
+              transition: 0.3s;
+            }
+
+            &:hover {
+              img {
+                filter: brightness(1);
+              }
+            }
+          }
+          .card-body {
+            padding-left: 0;
+            padding-right: 0;
+
+            .card-body-about-side {
+              @include Flexing(center, space-between);
+
+              .card-bottom-left {
+                display: inline-block;
+                font-weight: 600;
+                color: white;
+                font-size: 0.9rem;
+                transition: 0.2s;
+
+                &:hover {
+                  color: $this-red;
+                }
+              }
+
+              .card-bottom-right {
+                font-size: 0.9rem;
+                color: #bcccda;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#trailer {
+  padding: 4% 0;
+  background-color: #e2e2e2;
+
+  @include MediaRespond("tel") {
+    padding: 10% 0;
+  }
+
+  .trailer-container {
+    .trailer-row {
+      align-items: center;
+
+      .trailer-left-side {
+        h2 {
+          font-family: "RobotoBold";
+          font-size: 2.4rem;
+
+          @include MediaRespond("tel") {
+            margin-bottom: 0;
+          }
+
+          @include MediaRespond("tablet") {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .trailer-right-side {
+        @include Flexing(center, flex-end);
+
+        a {
+          display: inline-block;
+          color: white;
+          background-color: $this-red;
+          border-radius: 5px;
+          padding: 4px 9px;
+          transition: 0.2s;
+
+          @include MediaRespond("tablet") {
+            padding: 10px 17.5px;
+          }
+
+          &:hover {
+            background-color: #c82333;
+          }
+
+          @include MediaRespond("tel") {
+            padding: 5px 15px;
+            text-align: center;
+
+            span {
+              display: block;
+            }
+          }
+        }
+      }
+
+      .trailer-bottom-cards-col {
+        margin-top: 3.5%;
+        .card {
+          background-color: transparent;
+          border: none;
+          border-radius: 0;
+
+          .img-div {
+            position: relative;
+            width: 100%;
+
+            .play-side {
+              position: absolute;
+              @include Flexing(center, center);
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+
+              a {
+                display: inline-block;
+                color: white;
+                font-size: 4rem;
+                transition: 0.3s;
+
+                &:hover {
+                  color: $this-red;
+                }
+              }
+            }
+
+            img {
+              width: 100%;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 10px;
+              transition: 0.3s;
+            }
+          }
+          .card-body {
+            padding-left: 0;
+            padding-right: 0;
+
+            .card-body-about {
+              display: inline-block;
+              font-weight: 600;
+              color: black;
+              font-size: 1.1rem;
+              transition: 0.2s;
+            }
+
+            .card-body-description {
+              color: #7b7b7b;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#recent-movies {
+  padding: 3.5% 0;
+
+  @include MediaRespond("tel") {
+    padding: 7.5% 0;
+  }
+
+  @include MediaRespond("tablet") {
+    padding: 7.5% 0;
+  }
+
+  .recent-movies-container {
+    .recent-movies-row {
+      align-items: center;
+
+      .recent-movies-left-side {
+        h2 {
+          font-family: "RobotoBold";
+          font-size: 2.4rem;
+
+          @include MediaRespond("tel") {
+            margin-bottom: 0;
+          }
+
+          @include MediaRespond("tablet") {
+            margin-bottom: 0;
+            font-size: 1.8rem;
+          }
+        }
+      }
+
+      .recent-movies-right-side {
+        @include Flexing(center, flex-end);
+
+        @include MediaRespond("tel") {
+          @include Flexing(null, null, column);
+        }
+
+        button {
+          border: none;
+          background-color: transparent;
+          color: #8f8f8f;
+          font-size: 0.9rem;
+          border-radius: 5px;
+          padding: 10px 20px;
+          transition: 0.2s;
+
+          &:hover {
+            color: $this-red;
+          }
+
+          &.active {
+            background-color: $this-red;
+            color: white;
+          }
+        }
+
+        button:not(:last-child) {
+          margin-right: 1%;
+        }
+      }
+
+      .recent-movies-cards-col {
+        margin-top: 3.5%;
+
+        @include MediaRespond("tel") {
+          margin-top: 10%;
+        }
+
+        .card {
+          background-color: transparent;
+          border: none;
+          border-radius: 0;
+
+          .img-div {
+            position: relative;
+            width: 100%;
+
+            .latest-tv-show-img-box {
+              position: absolute;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              @include Flexing(null, space-between, column);
+
+              .img-box-top {
+                padding: 3.5% 4% 0;
+                @include Flexing(center, space-between);
+
+                .latest-tv-show-badge {
+                  background-color: #ffd230;
+                  padding: 1.5% 2.5%;
+                }
+
+                p {
+                  color: white;
+                  font-family: "Baloo";
+                  font-size: 0.8rem;
+                }
+              }
+
+              .img-box-bottom {
+                padding: 0 4% 3.5%;
+
+                ul {
+                  @include Flexing(center);
+
+                  li {
+                    a {
+                      display: inline-block;
+                      color: white;
+                    }
+                  }
+
+                  li:not(:last-child) {
+                    margin-right: 3.5%;
+                  }
+                }
+              }
+            }
+
+            img {
+              width: 100%;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 0;
+              filter: brightness(0.5);
+              transition: 0.3s;
+            }
+
+            &:hover {
+              img {
+                filter: brightness(1);
+              }
+            }
+          }
+          .card-body {
+            padding-left: 0;
+            padding-right: 0;
+
+            .card-body-about-side {
+              @include Flexing(center, space-between);
+
+              .card-bottom-left {
+                display: inline-block;
+                font-weight: 600;
+                color: black;
+              }
+
+              .card-bottom-right {
+                font-size: 0.9rem;
+                color: #dadada;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#selected-movie {
+  background-position: top;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 5% 0;
+
+  @include MediaRespond("tel") {
+    padding: 10% 0;
+    background-position: 0;
+  }
+
+  @include MediaRespond("tablet") {
+    padding: 10% 0;
+    filter: brightness(0.8);
+  }
+
+  .selected-movie-container {
+    .selected-movie-row {
+      align-items: center;
+
+      .selected-movie-left-side {
+        @include MediaRespond("tablet") {
+          text-align: center;
+        }
+
+        h2 {
+          color: white;
+          font-family: "Baloo";
+          font-weight: 600;
+          font-size: 3.5rem;
+        }
+
+        .selected-movie-rating-box {
+          @include Flexing(center);
+          margin-bottom: 3.5%;
+
+          @include MediaRespond("tablet") {
+            @include Flexing(center, center);
+          }
+
+          li {
+            i {
+              display: inline-block;
+              color: $this-red;
+              font-size: 1.2rem;
+            }
+          }
+
+          li:not(:last-child) {
+            margin-right: 1.5%;
+          }
+        }
+
+        .film-types {
+          .film-type {
+            color: white;
+
+            strong {
+              margin-right: 2.5px;
+            }
+
+            i {
+              display: inline-block;
+              font-size: 1.2rem;
+            }
+          }
+
+          .film-type:not(:last-child) {
+            margin-right: 0.5%;
+          }
+        }
+
+        .film-description {
+          color: white;
+          font-family: "Baloo";
+          padding-right: 22.5%;
+          margin-top: 1.5%;
+
+          @include MediaRespond("tel") {
+            padding-right: 10.5%;
+          }
+
+          @include MediaRespond("tablet") {
+            padding-right: 0;
+          }
+        }
+
+        .selected-movie-buttons-box {
+          @include Flexing(center);
+          margin-top: 1.75%;
+
+          @include MediaRespond("tablet") {
+            @include Flexing(center, center);
+            margin-bottom: 5%;
+          }
+
+          a {
+            display: inline-block;
+            font-family: "Baloo";
+            border-radius: 5px;
+            color: white;
+          }
+
+          .watch-btn {
+            background-color: $this-red;
+            padding: 10px 30px;
+            transition: 0.2s;
+
+            &:hover {
+              background-color: $red-btn-hover;
+            }
+          }
+
+          .watchlist-btn {
+            border: 1px solid white;
+            padding: 3px 20px;
+            font-size: 1.2rem;
+            margin-left: 2%;
+            transition: 0.2s;
+
+            &:hover {
+              color: black;
+              background-color: white;
+            }
+          }
+        }
+      }
+
+      .selected-movie-right-side {
+        .img-div {
+          position: relative;
+
+          .selected-movie-play-btn {
+            display: inline-block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: transparent;
+            border: none;
+
+            i {
+              display: inline-block;
+              border-radius: 50%;
+              background-color: $this-red;
+              font-size: 2.4rem;
+              width: 75px;
+              height: 75px;
+              color: white;
+              text-align: center;
+              line-height: 75px;
+            }
+
+            p {
+              font-size: 1.1rem;
+              font-family: "Baloo";
+              color: white;
+            }
+          }
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

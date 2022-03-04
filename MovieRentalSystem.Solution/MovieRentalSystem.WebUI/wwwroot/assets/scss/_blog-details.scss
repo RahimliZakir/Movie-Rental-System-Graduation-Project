@@ -1,0 +1,259 @@
+#blog-description-starter {
+  background-image: url(../images/common/rows-red-seats-theater.jpg);
+  background-size: cover;
+  padding: 12.5% 0;
+
+  @include MediaRespond("tablet") {
+    padding: 25% 0 12.5%;
+  }
+
+  @include MediaRespond("tel") {
+    padding: 27.5% 0 12.5%;
+  }
+
+  .blog-description-starter-container {
+    .blog-description-starter-row {
+      .blog-description-starter-heading {
+        font-family: "RobotoSerif";
+        color: white;
+        text-align: center;
+        font-size: 3.5rem;
+
+        @include MediaRespond("tablet") {
+          font-size: 3.8rem;
+        }
+
+        @include MediaRespond("tel") {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}
+
+#blog-description {
+  padding: 5% 0;
+
+  @include MediaRespond("tel") {
+    padding: 12.5% 0;
+  }
+
+  .blog-description-container {
+    .blog-description-row {
+      justify-content: center;
+
+      .blog-description-col {
+        padding: 2.5%;
+        box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.75);
+        border-radius: 5px;
+
+        .blog-description-heading {
+          font-weight: 600;
+          margin-bottom: 3.5%;
+          text-align: center;
+        }
+
+        .blog-main-img-side {
+          background-image: url(../images/blog-details/8728.jpg);
+          background-size: cover;
+          background-position: center;
+          width: 100%;
+          height: 500px;
+
+          @include MediaRespond("tel") {
+            height: 250px;
+          }
+        }
+
+        .blog-description-content {
+          margin-top: 3.5%;
+          font-family: "Baloo";
+        }
+
+        .blog-description-second-heading {
+          font-weight: 600;
+          text-align: center;
+          margin-top: 5%;
+        }
+
+        .blog-description-swiper {
+          .swiper-slide {
+            img {
+              height: 325px;
+              object-fit: cover;
+              width: 100%;
+
+              @include MediaRespond("tel") {
+                height: 225px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#blog-description-comment {
+  padding: 2.5% 0;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+
+  .blog-description-comment-container {
+    .blog-description-comment-row {
+      .blog-description-comment-col {
+        .comment-heading {
+          color: black;
+          font-family: "Baloo";
+          font-weight: 600;
+        }
+
+        .comment-helper-text {
+          color: #7b7b7b;
+          font-family: "Baloo";
+          margin-bottom: 1%;
+        }
+
+        #blog-description-comment-form {
+          .star-rating-div {
+            margin-bottom: 1.5%;
+
+            i {
+              color: #f0932b;
+              cursor: pointer;
+            }
+          }
+
+          .form-group {
+            .movie-description-textarea {
+              border-radius: 0;
+            }
+
+            #movie-details-spoiler + label {
+              font-family: "Baloo";
+            }
+          }
+
+          .comment-btn-side {
+            button {
+              display: inline-block;
+              background-color: $this-red;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              padding: 7.5px 25px;
+              font-family: "Baloo";
+              transition: 0.3s;
+
+              &:hover {
+                background-color: $red-btn-hover;
+              }
+            }
+          }
+        }
+      }
+
+      .written-comments-col {
+        padding-left: 5%;
+        padding-right: 2.5%;
+
+        @include MediaRespond("tel") {
+          padding-left: 2.5%;
+          padding-right: 2.5%;
+        }
+
+        @include MediaRespond("tablet") {
+          padding-left: 2.5%;
+          padding-right: 2.5%;
+        }
+
+        .written-comment {
+          margin-top: 2.5%;
+
+          .written-comment-row {
+            @include MediaRespond("tel") {
+              --bs-gutter-x: 0;
+            }
+
+            .written-comment-profile-side {
+              .img-div {
+                width: 60%;
+
+                @include MediaRespond("tel") {
+                  width: 85%;
+                }
+
+                @include MediaRespond("tablet") {
+                  width: 100%;
+                }
+
+                img {
+                  width: 100%;
+                  border-radius: 50%;
+                }
+              }
+            }
+
+            .written-comment-content-side {
+              position: relative;
+              background-color: #343946;
+              border-radius: 4px;
+              padding: 1.5% 1%;
+
+              &::before {
+                content: "";
+                position: absolute;
+                right: 100%;
+                top: 10px;
+                width: 0;
+                height: 0;
+                border-top: 5px solid transparent;
+                border-right: 5px solid #343946;
+                border-bottom: 5px solid transparent;
+              }
+
+              .written-comment-content-heading,
+              .written-comment-content-content {
+                font-family: "Baloo";
+              }
+
+              .written-comment-content-heading {
+                color: #777777;
+              }
+
+              .written-comment-content-content {
+                color: white;
+              }
+
+              .written-comment-bottom-box {
+                margin-top: 1%;
+                @include Flexing(center, space-between);
+
+                .reply-btn,
+                .comment-date {
+                  color: #777777;
+                  font-size: 0.9rem;
+                }
+
+                .reply-btn {
+                  transition: 0.3s;
+
+                  &:hover {
+                    color: $this-red;
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .movie-details-replies {
+        .written-comment.reply {
+          padding-left: 7.5%;
+        }
+      }
+    }
+  }
+}

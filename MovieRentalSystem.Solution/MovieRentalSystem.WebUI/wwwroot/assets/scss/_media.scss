@@ -1,0 +1,11 @@
+@mixin MediaRespond($breakpoint) {
+  @if ($breakpoint == "tablet") {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if($breakpoint == "tel") {
+    @media (max-width: 576px) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,229 @@
+#shows-cards-animation {
+  background-image: radial-gradient(
+      circle at top center,
+      rgba(17, 17, 17, 0) 10%,
+      rgba(17, 17, 17, 0.8) 70%
+    ),
+    url("../images/common/inner-background.jpg");
+  background-repeat: repeat-y;
+  animation-name: MoveBackground;
+  animation-duration: 300s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  padding: 20% 0 12.5% 0;
+
+  @include MediaRespond("tel") {
+    padding: 55% 0 30% 0;
+  }
+
+  .shows-cards-animation-container {
+    .shows-cards-animation-row {
+      .shows-cards-main-heading {
+        font-family: "Baloo";
+        font-size: 3.2rem;
+        color: white;
+      }
+
+      .shows-cards-other-heading {
+        color: white;
+        font-size: 1.2rem;
+        font-family: "Baloo";
+        font-weight: 600;
+      }
+
+      .shows-cards-list {
+        @include Flexing(center);
+
+        @include MediaRespond("tel") {
+          flex-wrap: wrap;
+
+          .shows-cards-item {
+            margin-bottom: 2.5%;
+          }
+        }
+
+        .shows-cards-item {
+          .shows-cards-badge {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 1rem;
+            color: white;
+            background-color: $this-red;
+            font-weight: 400;
+            padding: 6px 12px;
+            font-family: "Baloo";
+          }
+        }
+
+        .shows-cards-item:not(:last-child) {
+          margin-right: 1.5%;
+        }
+      }
+    }
+  }
+}
+
+#latest-tv-show-start {
+  padding: 5% 0;
+  background-color: #1e2129;
+
+  @include MediaRespond("tel") {
+    padding: 12.5% 0 !important;
+  }
+
+  @include MediaRespond("tablet") {
+    padding: 12.5% 0 !important;
+  }
+
+  .latest-tv-show-start-container {
+    .latest-tv-show-start-row {
+      align-items: center;
+
+      .latest-tv-show-left-heading-side {
+        h2 {
+          font-family: "RobotoBold";
+          color: white;
+
+          @include MediaRespond("tablet") {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .latest-tv-show-right-view-all-side {
+        @include Flexing(center, flex-end);
+
+        a {
+          display: inline-block;
+          color: white;
+          background-color: $this-red;
+          border-radius: 5px;
+          padding: 4px 9px;
+          transition: 0.2s;
+
+          &:hover {
+            background-color: #c82333;
+          }
+        }
+      }
+
+      .latest-tv-show-bottom-col {
+        margin-top: 2.5%;
+
+        @include MediaRespond("tel") {
+          margin-top: 7.5%;
+        }
+
+        .card {
+          background-color: transparent;
+          border: none;
+          border-radius: 0;
+
+          .img-div {
+            position: relative;
+            width: 100%;
+
+            .latest-tv-show-img-box {
+              position: absolute;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              @include Flexing(null, space-between, column);
+
+              .img-box-top {
+                padding: 3.5% 4% 0;
+                @include Flexing(center, space-between);
+
+                .latest-tv-show-badge {
+                  background-color: #ffd230;
+                  padding: 1.5% 2.5%;
+                }
+
+                p {
+                  color: white;
+                  font-family: "Baloo";
+                  font-size: 0.8rem;
+                }
+              }
+
+              .img-box-bottom {
+                padding: 0 4% 3.5%;
+
+                ul {
+                  @include Flexing(center);
+
+                  li {
+                    a {
+                      display: inline-block;
+                      color: white;
+                    }
+                  }
+
+                  li:not(:last-child) {
+                    margin-right: 3.5%;
+                  }
+                }
+              }
+            }
+
+            img {
+              width: 100%;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 0;
+              filter: brightness(0.5);
+              transition: 0.3s;
+            }
+
+            &:hover {
+              img {
+                filter: brightness(1);
+              }
+            }
+          }
+          .card-body {
+            padding-left: 0;
+            padding-right: 0;
+
+            .card-body-about-side {
+              @include Flexing(center, space-between);
+
+              .card-bottom-left {
+                display: inline-block;
+                font-weight: 600;
+                color: white;
+                font-size: 0.9rem;
+                transition: 0.2s;
+
+                &:hover {
+                  color: $this-red;
+                }
+              }
+
+              .card-bottom-right {
+                font-size: 0.9rem;
+                color: #bcccda;
+              }
+            }
+
+            .shows-start-price {
+              font-family: "RobotoSerif";
+              color: #ffffff;
+              text-align: center;
+              margin-top: 1.5%;
+
+              @include MediaRespond("tablet") {
+                margin-top: 5%;
+              }
+
+              span {
+                color: $this-red;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

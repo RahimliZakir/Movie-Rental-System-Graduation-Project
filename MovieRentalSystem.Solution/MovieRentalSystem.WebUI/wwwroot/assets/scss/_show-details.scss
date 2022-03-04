@@ -1,0 +1,840 @@
+#show-fragment {
+  background-color: #303030;
+  padding: 12.5% 5% 5%;
+
+  @include MediaRespond("tel") {
+    padding: 20% 5% 5%;
+  }
+
+  @include MediaRespond("tablet") {
+    padding: 15% 5% 5%;
+  }
+
+  .show-fragment-container {
+    .show-fragment-row {
+      .show-fragment-col {
+        .show-image-div {
+          position: relative;
+
+          .go-back-btn {
+            position: absolute;
+            background-color: $this-red;
+            color: white;
+            padding: 1.5% 3%;
+
+            span {
+              font-size: 1.2rem;
+              font-family: "Baloo";
+            }
+          }
+
+          img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+
+            @include MediaRespond("tel") {
+              height: 300px;
+            }
+
+            @include MediaRespond("tablet") {
+              height: 400px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#show-description {
+  padding: 5% 0;
+
+  @include MediaRespond("tel") {
+    padding: 10% 0;
+  }
+
+  @include MediaRespond("tablet") {
+    padding: 10% 0;
+  }
+
+  .show-description-container {
+    .show-description-row {
+      .films-swiper-col {
+        .films-swiper-badge {
+          background-color: #ffd230;
+          padding: 0.5% 1%;
+        }
+
+        h2 {
+          color: black;
+          font-family: "RobotoBold";
+          font-size: 3.5rem;
+        }
+
+        .specifications {
+          @include Flexing(center);
+
+          .specification-item {
+            color: white;
+            font-family: "Baloo";
+            font-size: 1.1rem;
+          }
+
+          .specification-item:not(:last-child) {
+            margin-right: 2.5%;
+          }
+
+          .star-rating {
+            color: #7b7b7b;
+          }
+
+          .duration {
+            color: $this-red;
+            font-weight: 600;
+          }
+
+          .quality {
+            @include Flexing(center);
+            color: black;
+            font-weight: 600;
+
+            .is-hd {
+              display: inline-block;
+              color: white;
+              border-radius: 4px;
+              background-color: $this-red;
+              font-size: 0.9rem;
+              margin-left: 5%;
+              padding: 1.25% 7.5%;
+            }
+          }
+        }
+
+        .release-date {
+          margin-top: 0.5%;
+          color: #7b7b7b;
+          font-family: "Baloo";
+          margin-top: 1%;
+        }
+
+        .director {
+          font-family: "Baloo";
+          font-weight: 600;
+
+          span {
+            display: inline-block;
+            color: $this-red;
+            font-weight: 400;
+          }
+        }
+
+        .genres-ul {
+          margin-top: 0.5%;
+          @include Flexing(center);
+
+          .genres-item-title {
+            color: #7b7b7b;
+            font-family: "Baloo";
+          }
+
+          .genres-item {
+            a {
+              font-family: "Baloo";
+              display: inline-block;
+              color: black;
+              font-weight: 600;
+            }
+          }
+
+          .genres-item {
+            margin-left: 0.5%;
+          }
+        }
+
+        .casts-ul {
+          margin-top: 0.5%;
+          @include Flexing(center);
+
+          .casts-item-title {
+            color: #7b7b7b;
+            font-family: "Baloo";
+          }
+
+          .casts-item {
+            a {
+              font-family: "Baloo";
+              display: inline-block;
+              color: black;
+              font-weight: 600;
+            }
+          }
+
+          .casts-item {
+            margin-left: 0.5%;
+          }
+        }
+
+        .film-description {
+          font-family: "Baloo";
+          color: #7b7b7b;
+          padding-right: 42.5%;
+          margin-top: 0.5%;
+
+          @include MediaRespond("tel") {
+            padding: 0;
+          }
+
+          @include MediaRespond("tablet") {
+            padding: 0;
+          }
+        }
+
+        .film-types {
+          @include Flexing(center);
+
+          .film-type {
+            color: white;
+
+            strong {
+              margin-right: 2.5px;
+            }
+
+            i {
+              display: inline-block;
+              font-size: 1.2rem;
+            }
+          }
+
+          .film-type:not(:last-child) {
+            margin-right: 0.5%;
+          }
+        }
+
+        .films-swiper-buttons-box {
+          margin-top: 1.75%;
+          @include Flexing(flex-start, null, column);
+
+          a {
+            display: inline-block;
+            font-family: "Baloo";
+            border-radius: 5px;
+            color: white;
+          }
+
+          .watchlist-btn-box {
+            .watchlist-btn {
+              border: 1px solid #343a40;
+              padding: 6.5px 30px;
+              font-size: 1.2rem;
+              color: black;
+              margin-left: 0;
+              transition: 0.2s;
+
+              &:hover {
+                color: white;
+                background-color: #343a40;
+              }
+            }
+          }
+
+          .films-theatre-box {
+            width: 100%;
+            background-color: #303030;
+            margin-top: 2.5%;
+            padding: 2.5% 0;
+
+            @include MediaRespond("tel") {
+              height: 325px;
+              padding: 10% 0;
+              @include Flexing(center, null, column);
+            }
+
+            @include MediaRespond("tablet") {
+              height: 450px;
+              padding: 10% 0;
+              @include Flexing(center, null, column);
+            }
+
+            .theatre-heading {
+              color: white;
+              font-family: "RobotoSerif";
+              text-align: center;
+            }
+
+            .films-theatre-side {
+              position: relative;
+              padding: 12.5% 0;
+
+              @include MediaRespond("tel") {
+                position: static;
+                overflow: auto;
+              }
+
+              @include MediaRespond("tablet") {
+                position: static;
+                overflow: auto;
+              }
+
+              .theatre {
+                display: flex;
+                position: absolute;
+                top: 60%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                @include MediaRespond("tel") {
+                  position: static;
+                  flex-wrap: wrap;
+                  transform: translate(0, 0);
+                }
+
+                @include MediaRespond("tablet") {
+                  position: static;
+                  transform: translate(0, 0);
+                }
+              }
+
+              .cinema-seats {
+                display: flex;
+
+                .seat {
+                  cursor: pointer;
+
+                  &:hover:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    border-radius: 7px;
+                  }
+
+                  //   &.active {
+                  //   }
+
+                  &.active:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 7px;
+                  }
+                }
+              }
+
+              .left {
+                @include MediaRespond("tablet") {
+                  padding-left: 35px;
+                }
+
+                .cinema-row {
+                  transform: skew(-15deg);
+                  margin: 0 6px;
+                }
+
+                .seat {
+                  width: 35px;
+                  height: 50px;
+                  border-radius: 7px;
+                  background: linear-gradient(
+                    to top,
+                    #761818,
+                    #761818,
+                    #761818,
+                    #761818,
+                    #761818,
+                    #b54041,
+                    #f3686a
+                  );
+                  margin-bottom: 10px;
+                  transform: skew(20deg);
+                  margin-top: -32px;
+                  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+                  @include MediaRespond("tel") {
+                    width: 27.5px;
+                    height: 40px;
+                  }
+                }
+
+                .row-2 {
+                  transform: skew(-13deg);
+
+                  .seat {
+                    transform: skew(18deg);
+                  }
+                }
+
+                .row-3 {
+                  transform: skew(-12deg);
+
+                  .seat {
+                    transform: skew(16deg);
+                  }
+                }
+
+                .row-4 {
+                  transform: skew(-11deg);
+
+                  .seat {
+                    transform: skew(15deg);
+                  }
+                }
+
+                .row-5 {
+                  transform: skew(-10deg);
+
+                  .seat {
+                    transform: skew(12deg);
+                  }
+                }
+
+                .row-6 {
+                  transform: skew(-9deg);
+
+                  .seat {
+                    transform: skew(10deg);
+                  }
+                }
+
+                .row-7 {
+                  transform: skew(-7deg);
+
+                  .seat {
+                    transform: skew(8deg);
+                  }
+                }
+              }
+
+              // Left Seats
+              .right {
+                margin-left: 70px;
+
+                @include MediaRespond("tel") {
+                  margin-left: 0;
+                  padding-left: 100px;
+                }
+
+                @include MediaRespond("tablet") {
+                  margin-left: 0;
+                  padding-left: 50px;
+                  padding-right: 35px;
+                }
+
+                .cinema-row {
+                  transform: skew(7deg);
+                  margin: 0 6px;
+                }
+
+                .seat {
+                  width: 35px;
+                  height: 50px;
+                  border-radius: 7px;
+                  background: linear-gradient(
+                    to top,
+                    #761818,
+                    #761818,
+                    #761818,
+                    #761818,
+                    #761818,
+                    #b54041,
+                    #f3686a
+                  );
+                  margin-bottom: 10px;
+                  transform: skew(-8deg);
+                  margin-top: -32px;
+                  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+                  @include MediaRespond("tel") {
+                    width: 27.5px;
+                    height: 40px;
+                  }
+                }
+
+                .row-2 {
+                  transform: skew(9deg);
+
+                  .seat {
+                    transform: skew(-10deg);
+                  }
+                }
+
+                .row-3 {
+                  transform: skew(10deg);
+
+                  .seat {
+                    transform: skew(-12deg);
+                  }
+                }
+
+                .row-4 {
+                  transform: skew(11deg);
+
+                  .seat {
+                    transform: skew(-15deg);
+                  }
+                }
+
+                .row-5 {
+                  transform: skew(12deg);
+
+                  .seat {
+                    transform: skew(-16deg);
+                  }
+                }
+
+                .row-6 {
+                  transform: skew(13deg);
+
+                  .seat {
+                    transform: skew(-18deg);
+                  }
+                }
+
+                .row-7 {
+                  transform: skew(15deg);
+
+                  .seat {
+                    transform: skew(-20deg);
+                  }
+                }
+              }
+            }
+
+            .add-to-basket-side {
+              @include Flexing(center, flex-end);
+              padding-right: 5%;
+
+              .add-to-basket-btn {
+                display: inline-block;
+                background-color: #ffd32a;
+                border-radius: 4px;
+                padding: 12.5px 27.5px;
+                border: none;
+                font-size: 0.9rem;
+                font-weight: 600;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#show-description-comment {
+  padding: 2.5% 0;
+  border-top: 1px solid #ededed;
+
+  .show-description-comment-container {
+    .show-description-comment-row {
+      .show-description-comment-col {
+        .comment-heading {
+          color: black;
+          font-family: "Baloo";
+          font-weight: 600;
+        }
+
+        .comment-helper-text {
+          color: #7b7b7b;
+          font-family: "Baloo";
+          margin-bottom: 1%;
+        }
+
+        #movie-description-comment-form {
+          .star-rating-div {
+            margin-bottom: 1.5%;
+
+            i {
+              color: #f0932b;
+              cursor: pointer;
+            }
+          }
+
+          .form-group {
+            .movie-description-textarea {
+              border-radius: 0;
+            }
+
+            #movie-details-spoiler + label {
+              font-family: "Baloo";
+            }
+          }
+
+          .comment-btn-side {
+            button {
+              display: inline-block;
+              background-color: $this-red;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              padding: 7.5px 25px;
+              font-family: "Baloo";
+              transition: 0.3s;
+
+              &:hover {
+                background-color: $red-btn-hover;
+              }
+            }
+          }
+        }
+      }
+
+      .written-comments-col {
+        padding-left: 5%;
+        padding-right: 2.5%;
+
+        @include MediaRespond("tel") {
+          padding-left: 2.5%;
+          padding-right: 2.5%;
+        }
+
+        @include MediaRespond("tablet") {
+          padding-left: 2.5%;
+          padding-right: 2.5%;
+        }
+
+        .written-comment {
+          margin-top: 2.5%;
+
+          .written-comment-row {
+            @include MediaRespond("tel") {
+              --bs-gutter-x: 0;
+            }
+
+            .written-comment-profile-side {
+              .img-div {
+                width: 60%;
+
+                @include MediaRespond("tel") {
+                  width: 85%;
+                }
+
+                @include MediaRespond("tablet") {
+                  width: 100%;
+                }
+
+                img {
+                  width: 100%;
+                  border-radius: 50%;
+                }
+              }
+            }
+
+            .written-comment-content-side {
+              position: relative;
+              background-color: #343946;
+              border-radius: 4px;
+              padding: 1.5% 1%;
+
+              &::before {
+                content: "";
+                position: absolute;
+                right: 100%;
+                top: 10px;
+                width: 0;
+                height: 0;
+                border-top: 5px solid transparent;
+                border-right: 5px solid #343946;
+                border-bottom: 5px solid transparent;
+              }
+
+              .written-comment-content-heading,
+              .written-comment-content-content {
+                font-family: "Baloo";
+              }
+
+              .written-comment-content-heading {
+                color: #777777;
+              }
+
+              .written-comment-content-content {
+                color: white;
+              }
+
+              .written-comment-bottom-box {
+                margin-top: 1%;
+                @include Flexing(center, space-between);
+
+                .reply-btn,
+                .comment-date {
+                  color: #777777;
+                  font-size: 0.9rem;
+                }
+
+                .reply-btn {
+                  transition: 0.3s;
+
+                  &:hover {
+                    color: $this-red;
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .movie-details-replies {
+        .written-comment.reply {
+          padding-left: 7.5%;
+        }
+      }
+    }
+  }
+}
+
+#show-like-these {
+  padding: 5% 0;
+  background-color: #1e2129;
+
+  @include MediaRespond("tel") {
+    padding: 15% 0;
+  }
+
+  @include MediaRespond("tablet") {
+    padding: 10% 0;
+  }
+
+  .show-like-these-container {
+    .show-like-these-row {
+      align-items: center;
+
+      .latest-tv-show-left-heading-side {
+        h2 {
+          font-family: "RobotoBold";
+          color: white;
+
+          @include MediaRespond("tel") {
+            margin: 0;
+          }
+
+          @include MediaRespond("tablet") {
+            margin: 0;
+          }
+        }
+      }
+
+      .latest-tv-show-right-view-all-side {
+        @include Flexing(center, flex-end);
+
+        a {
+          display: inline-block;
+          color: white;
+          background-color: $this-red;
+          border-radius: 5px;
+          padding: 4px 9px;
+          transition: 0.2s;
+
+          &:hover {
+            background-color: #c82333;
+          }
+        }
+      }
+
+      .latest-tv-show-bottom-col {
+        margin-top: 2.5%;
+
+        .card {
+          background-color: transparent;
+          border: none;
+          border-radius: 0;
+
+          .img-div {
+            position: relative;
+            width: 100%;
+
+            .latest-tv-show-img-box {
+              position: absolute;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              @include Flexing(null, space-between, column);
+
+              .img-box-top {
+                padding: 3.5% 4% 0;
+                @include Flexing(center, space-between);
+
+                .latest-tv-show-badge {
+                  background-color: #ffd230;
+                  padding: 1.5% 2.5%;
+                }
+
+                p {
+                  color: white;
+                  font-family: "Baloo";
+                  font-size: 0.8rem;
+                }
+              }
+
+              .img-box-bottom {
+                padding: 0 4% 3.5%;
+
+                ul {
+                  @include Flexing(center);
+
+                  li {
+                    a {
+                      display: inline-block;
+                      color: white;
+                    }
+                  }
+
+                  li:not(:last-child) {
+                    margin-right: 3.5%;
+                  }
+                }
+              }
+            }
+
+            img {
+              width: 100%;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 0;
+              filter: brightness(0.5);
+              transition: 0.3s;
+            }
+
+            &:hover {
+              img {
+                filter: brightness(1);
+              }
+            }
+          }
+          .card-body {
+            padding-left: 0;
+            padding-right: 0;
+
+            .card-body-about-side {
+              @include Flexing(center, space-between);
+
+              .card-bottom-left {
+                display: inline-block;
+                font-weight: 600;
+                color: white;
+                font-size: 0.9rem;
+                transition: 0.2s;
+
+                &:hover {
+                  color: $this-red;
+                }
+              }
+
+              .card-bottom-right {
+                font-size: 0.9rem;
+                color: #bcccda;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+$this-red: #e41a1a;
+$red-btn-hover: #d93535;
+$border-color: #dee2e6;
+
+.label-required {
+  position: relative;
+
+  &::after {
+    content: "*";
+    position: absolute;
+  }
+}
+
+@keyframes MoveBackground {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 -3000px;
+  }
+}

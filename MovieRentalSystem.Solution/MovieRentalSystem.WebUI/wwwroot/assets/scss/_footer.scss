@@ -1,0 +1,192 @@
+footer {
+  #shortcut-paths {
+    padding: 5% 0;
+    border-bottom: 1px solid $border-color;
+
+    @include MediaRespond("tel") {
+      padding: 15% 0 !important;
+    }
+
+    .shortcut-paths-container {
+      .shortcut-paths-row {
+        .connect-side {
+          .connect-logo {
+            display: inline-block;
+            color: black;
+            font-family: "Baloo";
+            font-size: 1.6rem;
+            font-weight: 600;
+
+            span {
+              color: $this-red;
+            }
+          }
+
+          .connect-logo:hover {
+            color: $this-red;
+          }
+
+          .connect-description {
+            color: #8f8f8f;
+            font-family: "Baloo";
+            padding-right: 7.5%;
+            margin-bottom: 8.5%;
+
+            @include MediaRespond("tel") {
+              padding-right: 10.5%;
+              margin-bottom: 5%;
+            }
+          }
+
+          .connect-apps-box {
+            @include Flexing;
+
+            li {
+              a {
+                display: inline-block;
+                color: #8f8f8f;
+                font-size: 1.1rem;
+
+                &:hover {
+                  color: $this-red;
+                }
+              }
+            }
+
+            li:not(:first-child) {
+              margin-left: 4%;
+            }
+          }
+        }
+
+        .movies-side {
+          @include MediaRespond("tel") {
+            margin-top: 1.5%;
+          }
+
+          .movies-heading {
+            font-family: "Baloo";
+            font-size: 1.8rem;
+          }
+
+          .movies-side-box {
+            .movies-side-box-row {
+              .movies-side-box-left-side,
+              .movies-side-box-right-side {
+                .movie-item {
+                  a {
+                    display: inline-block;
+                    font-family: "Baloo";
+                    color: #8f8f8f;
+
+                    &:hover {
+                      color: $this-red;
+                    }
+                  }
+                }
+
+                .movie-item:not(:last-child) {
+                  margin-bottom: 7.5%;
+
+                  @include MediaRespond("tel") {
+                    margin-top: 1%;
+                    margin-bottom: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .tv-shows-side {
+          @include MediaRespond("tel") {
+            margin-top: 1.5%;
+          }
+
+          .tv-shows-heading {
+            font-family: "Baloo";
+            font-size: 1.8rem;
+          }
+
+          .tv-shows-side-box {
+            .tv-shows-side-box-row {
+              .tv-shows-side-box-left-side,
+              .tv-shows-side-box-right-side {
+                .tv-shows-item {
+                  a {
+                    display: inline-block;
+                    font-family: "Baloo";
+                    color: #8f8f8f;
+
+                    &:hover {
+                      color: $this-red;
+                    }
+                  }
+                }
+
+                .tv-shows-item:not(:last-child) {
+                  margin-bottom: 7.5%;
+
+                  @include MediaRespond("tel") {
+                    margin-top: 1%;
+                    margin-bottom: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .my-account-side {
+          @include MediaRespond("tel") {
+            margin-top: 1.5%;
+          }
+
+          .my-account-heading {
+            font-family: "Baloo";
+            font-size: 1.8rem;
+          }
+
+          .my-account-side-box {
+            .my-account-side-box-row {
+              .my-account-side-box-left-side,
+              .my-account-side-box-right-side {
+                .my-account-item {
+                  a {
+                    display: inline-block;
+                    font-family: "Baloo";
+                    color: #8f8f8f;
+
+                    &:hover {
+                      color: $this-red;
+                    }
+                  }
+                }
+
+                .my-account-item:not(:last-child) {
+                  margin-bottom: 7.5%;
+
+                  @include MediaRespond("tel") {
+                    margin-top: 1%;
+                    margin-bottom: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #copyright {
+    padding: 1.5% 0;
+
+    .copyright-container {
+      .copyright-content {
+        color: #8f8f8f;
+        font-family: "Baloo";
+      }
+    }
+  }
+}

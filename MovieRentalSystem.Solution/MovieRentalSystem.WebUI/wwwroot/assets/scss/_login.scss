@@ -1,0 +1,93 @@
+#login {
+  padding: 7.5% 0;
+
+  .login-container {
+    .login-row {
+      justify-content: center;
+
+      @include MediaRespond("tel") {
+        height: 100vh;
+        align-items: center;
+      }
+
+      @include MediaRespond("tablet") {
+        height: 100vh;
+        align-items: center;
+      }
+
+      .login-col-row {
+        .login-left-side {
+          background-color: #f7f9fe;
+          @include Flexing(flex-end);
+
+          .img-div {
+            width: 100%;
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+
+        .login-right-side {
+          box-shadow: 3px 3px 16px 2px rgba(0, 0, 0, 0.04);
+          padding: 7.5% 5%;
+
+          .login-side-heading {
+            font-family: "Baloo";
+            font-weight: 600;
+            font-size: 2rem;
+          }
+
+          .login-side-description {
+            font-family: "Baloo";
+            font-size: 1.1rem;
+            margin-bottom: 4%;
+          }
+
+          #login-side-form {
+            .form-group {
+              margin-bottom: 4%;
+
+              label {
+                display: inline-block;
+                font-family: "Baloo";
+              }
+
+              #email-address-input,
+              #password-input {
+                display: inline-block;
+                border-radius: 0;
+                border: 2px solid #eeeeee;
+              }
+            }
+
+            .login-side-btn-div {
+              margin-bottom: 4%;
+
+              .login-side-btn {
+                display: inline-block;
+                background-color: $this-red;
+                font-family: "Baloo";
+                border: none;
+                color: white;
+                border-radius: 4px;
+                padding: 10px 30px;
+              }
+            }
+
+            .link-to-register {
+              display: inline-block;
+              color: #8f8f8f;
+              font-family: "Baloo";
+
+              &:hover {
+                color: $this-red;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

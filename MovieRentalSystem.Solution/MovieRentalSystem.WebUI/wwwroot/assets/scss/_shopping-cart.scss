@@ -1,0 +1,374 @@
+#shopping-cart-banner {
+  background-image: url(../images/common/rows-red-seats-theater.jpg);
+  background-size: cover;
+  padding: 12.5% 0;
+
+  @include MediaRespond("tablet") {
+    padding: 25% 0 12.5%;
+  }
+
+  @include MediaRespond("tel") {
+    padding: 27.75% 0 12.5%;
+  }
+
+  .shopping-cart-banner-container {
+    .shopping-cart-banner-row {
+      .shopping-cart-banner-heading {
+        font-family: "RobotoSerif";
+        color: white;
+        text-align: center;
+        font-size: 3.5rem;
+
+        @include MediaRespond("tablet") {
+          font-size: 3.8rem;
+        }
+
+        @include MediaRespond("tel") {
+          font-size: 2.2rem;
+        }
+      }
+    }
+  }
+}
+
+#shopping-cart {
+  padding: 5% 0;
+  border-bottom: 1px solid #e2e2e2;
+
+  @include MediaRespond("tel") {
+    padding: 10% 0;
+  }
+
+  .shopping-cart-container {
+    .shopping-cart-row {
+      .shopping-cart-col {
+        .shopping-cart-empty-side-row {
+          align-items: center;
+          padding: 3.5% 2.5%;
+          border-radius: 4px;
+          box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+
+          @include MediaRespond("tel") {
+            padding: 7.5% 2.5%;
+          }
+
+          .shopping-empty-left-side {
+            @include Flexing(center);
+
+            @include MediaRespond("tel") {
+              margin-bottom: 7.5%;
+            }
+
+            .empty-basket-desc {
+              font-weight: 600;
+              font-family: "Baloo";
+              font-size: 1.4rem;
+              margin-left: 1.5%;
+            }
+
+            .basket-span {
+              display: inline-block;
+              width: 75px;
+              height: 75px;
+              font-size: 2.2rem;
+              line-height: 75px;
+              text-align: center;
+              border-radius: 50%;
+              color: $this-red;
+              background: linear-gradient(
+                90deg,
+                rgba(252, 92, 101, 1) 0%,
+                rgba(252, 92, 101, 0.35384576193758754) 0%
+              );
+
+              @include MediaRespond("tel") {
+                width: 125px;
+                height: 100px;
+                line-height: 100px;
+              }
+            }
+          }
+
+          .shopping-empty-right-side {
+            text-align: right;
+
+            @include MediaRespond("tel") {
+              text-align: center;
+            }
+
+            .empty-basket-redirect-btn {
+              background-color: $this-red;
+              color: #fff;
+              border-radius: 6px;
+              font-weight: 600;
+              padding: 14.5px 23.5px;
+              text-align: center;
+              transition: all 0.2s ease;
+            }
+          }
+        }
+
+        .shopping-cart-filter-tools-side {
+          margin-top: 3.5%;
+          @include Flexing(center, center);
+
+          .shopping-cart-filter-movies-btn {
+            margin-right: 0.5%;
+          }
+
+          .shopping-cart-filter-movies-btn,
+          .shopping-cart-filter-shows-btn {
+            display: inline-block;
+            background-color: white;
+            border-radius: 5px;
+            color: $this-red;
+            border: 2px solid #ededed;
+            padding: 8.5px 14.5px;
+
+            &.selected {
+              border-color: $this-red;
+            }
+          }
+        }
+
+        .movie-checkout-box-row {
+          display: none;
+          margin-top: 3.5%;
+
+          .checkout-items-col {
+            .movie-checkout-item {
+              @include Flexing(center, space-between);
+              border-top: 1px solid #f2f2f2;
+              padding: 1.5% 0;
+
+              @include MediaRespond("tel") {
+                flex-direction: column;
+              }
+
+              .img-div {
+                width: 25%;
+
+                @include MediaRespond("tel") {
+                  width: 100%;
+                }
+
+                img {
+                  width: 100%;
+                  height: 250px;
+                  object-fit: cover;
+                }
+              }
+
+              .name-and-price-side {
+                @include MediaRespond("tel") {
+                  text-align: center;
+                }
+
+                .name-price-heading {
+                  font-size: 1.4rem;
+                  font-weight: 600;
+                }
+
+                .name-price-price {
+                  color: $this-red;
+                  font-family: "Baloo";
+                  font-size: 1.2rem;
+                  font-weight: 600;
+                }
+              }
+
+              @include MediaRespond("tel") {
+                .select-for-days {
+                  margin: 2.5% 0;
+                }
+              }
+
+              .final-price {
+                @include MediaRespond("tel") {
+                  text-align: center;
+                }
+
+                .name-price-price {
+                  color: $this-red;
+                  font-family: "Baloo";
+                  font-size: 1.2rem;
+                  font-weight: 600;
+                }
+              }
+
+              .times-side {
+                .times-side-btn {
+                  display: inline-block;
+                  font-size: 1.8rem;
+                  font-weight: 600;
+                  border: none;
+                  background-color: transparent;
+                }
+              }
+            }
+          }
+
+          .total-price-col {
+            .cart_total {
+              background: #f3f2ee;
+              padding: 35px 40px 40px;
+
+              h6 {
+                color: #111;
+                text-transform: uppercase;
+                font-weight: 600;
+              }
+
+              ul {
+                margin: 3.5% 0;
+
+                span {
+                  color: $this-red;
+                  font-weight: 600;
+                  font-size: 1.2rem;
+                  font-family: "Baloo";
+                }
+              }
+
+              .primary-btn {
+                display: inline-block;
+                font-size: 14px;
+                font-weight: 700;
+                text-transform: uppercase;
+                padding: 15px 30px;
+                color: #fff;
+                background: #000;
+                letter-spacing: 4px;
+              }
+            }
+          }
+        }
+
+        .shows-checkout-box-row {
+          display: none;
+          margin-top: 3.5%;
+
+          .checkout-items-col {
+            .movie-checkout-item {
+              @include Flexing(center, space-between);
+              border-top: 1px solid #f2f2f2;
+              padding: 1.5% 0;
+
+              @include MediaRespond("tel") {
+                flex-direction: column;
+              }
+
+              .img-div {
+                width: 25%;
+
+                @include MediaRespond("tel") {
+                  width: 100%;
+                }
+
+                img {
+                  width: 100%;
+                  height: 250px;
+                  object-fit: cover;
+                }
+              }
+
+              .name-and-price-side {
+                @include MediaRespond("tel") {
+                  text-align: center;
+                }
+
+                .name-price-heading {
+                  font-size: 1.4rem;
+                  font-weight: 600;
+
+                  @include MediaRespond("tablet") {
+                    margin-bottom: 0;
+                  }
+                }
+              }
+
+              .seats-for-show {
+                .seats-for-show-heading {
+                  font-weight: 600;
+                  font-family: "RobotoSerif";
+
+                  @include MediaRespond("tablet") {
+                    margin-bottom: 0;
+                  }
+                }
+              }
+
+              @include MediaRespond("tel") {
+                .seats-for-show {
+                  margin: 2.5% 0;
+                }
+              }
+
+              .final-price {
+                @include MediaRespond("tel") {
+                  text-align: center;
+                }
+
+                .name-price-price {
+                  color: $this-red;
+                  font-family: "Baloo";
+                  font-size: 1.2rem;
+                  font-weight: 600;
+                }
+              }
+
+              .times-side {
+                .times-side-btn {
+                  display: inline-block;
+                  font-size: 1.8rem;
+                  font-weight: 600;
+                  border: none;
+                  background-color: transparent;
+                }
+              }
+            }
+          }
+
+          .total-price-col {
+            .cart_total {
+              background: #f3f2ee;
+              padding: 35px 40px 40px;
+
+              h6 {
+                color: #111;
+                text-transform: uppercase;
+                font-weight: 600;
+              }
+
+              ul {
+                margin: 3.5% 0;
+
+                span {
+                  color: $this-red;
+                  font-weight: 600;
+                  font-size: 1.2rem;
+                  font-family: "Baloo";
+                }
+              }
+
+              .primary-btn {
+                display: inline-block;
+                font-size: 14px;
+                font-weight: 700;
+                text-transform: uppercase;
+                padding: 15px 30px;
+                color: #fff;
+                background: #000;
+                letter-spacing: 4px;
+              }
+            }
+          }
+        }
+
+        .visible {
+          display: flex;
+        }
+      }
+    }
+  }
+}

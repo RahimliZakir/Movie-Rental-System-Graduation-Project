@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Entities\" />
-    <Folder Include="AppCode\" />
     <Folder Include="wwwroot\admin-assets\" />
   </ItemGroup>
 

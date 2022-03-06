@@ -13,6 +13,14 @@
     {
       "library": "toastr.js@2.1.4",
       "destination": "wwwroot/libs/toastr.js/"
+    },
+    {
+      "library": "jquery-treegrid@0.2.0",
+      "destination": "wwwroot/libs/jquery-treegrid/"
+    },
+    {
+      "library": "limonte-sweetalert2@11.4.4",
+      "destination": "wwwroot/libs/limonte-sweetalert2/"
     }
   ]
 }

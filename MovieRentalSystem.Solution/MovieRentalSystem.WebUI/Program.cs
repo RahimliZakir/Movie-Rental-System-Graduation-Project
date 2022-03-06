@@ -6,6 +6,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 IConfiguration conf = builder.Configuration;
 
 IServiceCollection services = builder.Services;
+services.AddRouting(cfg =>
+{
+    cfg.LowercaseUrls = true;
+});
+
 services.AddControllersWithViews();
 
 services.AddDbContext<MovieDbContext>(cfg =>

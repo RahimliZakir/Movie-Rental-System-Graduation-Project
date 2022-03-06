@@ -1,0 +1,637 @@
+﻿@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<!-- movie fragment start -->
+<section id="movie-fragment">
+    <div class="container movie-fragment-container">
+        <div class="row movie-fragment-row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 movie-fragment-col">
+                <div class="movie-iframe-div">
+                    <a asp-action="Index" asp-controller="Movie" class="go-back-btn">
+                        <i class="fa-solid fa-left-long"></i> <span>BACK</span>
+                    </a>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/eOrNdBpGMv8"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- movie fragment end -->
+<!-- movie description start -->
+<section id="movie-description">
+    <div class="container movie-description-container">
+        <div class="row movie-description-row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 films-swiper-col">
+                <span class="badge films-swiper-badge text-dark">Premium</span>
+                <h2>Avenger: Endgame</h2>
+                <div class="specifications">
+                    <p class="specification-item star-rating">9.4/10</p>
+                    <p class="specification-item duration">196 Min</p>
+                    <p class="specification-item quality">
+                        Quality <span class="is-hd">HD</span>
+                    </p>
+                </div>
+                <p class="release-date">Release Date: 10 March 2020</p>
+                <p class="director">Director: <span>Joss Whedon</span></p>
+                <ul class="genres-ul">
+                    <li class="genres-item-title">Genre:</li>
+                    <li class="genres-item"><a href="#">Actions,</a></li>
+                    <li class="genres-item"><a href="#">Thriller,</a></li>
+                    <li class="genres-item"><a href="#">Comedy</a></li>
+                </ul>
+                <ul class="casts-ul">
+                    <li class="casts-item-title">Casts:</li>
+                    <li class="casts-item"><a href="#">Robert Downey Jr.,</a></li>
+                    <li class="casts-item"><a href="#">Chris Evans,</a></li>
+                    <li class="casts-item"><a href="#">Mark Ruffalo</a></li>
+                </ul>
+                <p class="film-description">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text
+                    ever since the 1500s, when an unknown printer took a galley of
+                    type and scrambled it to make a type specimen book
+                </p>
+                <ul class="film-types">
+                    <li class="film-type">
+                        <i class="bi bi-badge-hd-fill"></i>
+                    </li>
+                    <li class="film-type"><strong>Rated:</strong>8.5</li>
+                    <li class="film-type">
+                        <strong>Genre:</strong>Horror, Comedy, Action, Sci-fi.
+                    </li>
+                </ul>
+                <div class="films-swiper-buttons-box">
+                    <a href="#" class="watch-btn">Add To Basket</a>
+                    <a href="#" class="watchlist-btn">+ Add To Watchlist</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- movie description end -->
+<!-- movie description comment start -->
+<section id="movie-description-comment">
+    <div class="container movie-description-comment-container">
+        <div class="row movie-description-comment-row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 movie-description-comment-col">
+                <h2 class="comment-heading">20 Comments</h2>
+                <p class="comment-helper-text">Write comments</p>
+                <form method="post" id="movie-description-comment-form">
+                    <div class="star-rating-div">
+                        <i class="far fa-star" data-star-rating="1"></i>
+                        <i class="far fa-star" data-star-rating="2"></i>
+                        <i class="far fa-star" data-star-rating="3"></i>
+                        <i class="far fa-star" data-star-rating="4"></i>
+                        <i class="far fa-star" data-star-rating="5"></i>
+                    </div>
+                    <div class="form-group mb-3">
+                        <textarea cols="30" rows="4" class="movie-description-textarea form-control"
+                                  placeholder="Comment"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="checkbox" class="form-check-input" id="movie-details-spoiler" />
+                        <label for="movie-details-spoiler">Comment contains spoilers?</label>
+                    </div>
+                    <div class="comment-btn-side">
+                        <button type="submit">Submit Comment</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 written-comments-col">
+                <div class="written-comment">
+                    <div class="row written-comment-row">
+                        <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                            <div class="img-div">
+                                <img src="assets/images/movie-details/people-1.jpg" alt="Profile Photo" />
+                            </div>
+                        </div>
+                        <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                            <h5 class="written-comment-content-heading">Emmy Gosling</h5>
+                            <p class="written-comment-content-content">
+                                Sed porttitor lectus nibh. Nulla quis lorem ut libero
+                                malesuada feugiat. Vivamus suscipit tortor eget felis
+                                porttitor volutpat. Nulla porttitor accumsan tincidunt.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            </p>
+                            <div class="written-comment-bottom-box">
+                                <a href="#" class="reply-btn">Reply</a>
+                                <p class="comment-date">January 29, 2019</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-details-replies">
+                        <div class="written-comment reply">
+                            <div class="row written-comment-row">
+                                <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                                    <div class="img-div">
+                                        <img src="assets/images/movie-details/people-2.jpg" alt="Profile Photo" />
+                                    </div>
+                                </div>
+                                <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                                    <h5 class="written-comment-content-heading">Emmy Gosling</h5>
+                                    <p class="written-comment-content-content">
+                                        Sed porttitor lectus nibh. Nulla quis lorem ut libero
+                                        malesuada feugiat. Vivamus suscipit tortor eget felis
+                                        porttitor volutpat. Nulla porttitor accumsan tincidunt.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </p>
+                                    <div class="written-comment-bottom-box">
+                                        <a href="#" class="reply-btn">Reply</a>
+                                        <p class="comment-date">January 29, 2019</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="written-comment">
+                        <div class="row written-comment-row">
+                            <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                                <div class="img-div">
+                                    <img src="assets/images/movie-details/people-3.jpg" alt="Profile Photo" />
+                                </div>
+                            </div>
+                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                                <h5 class="written-comment-content-heading">Emmy Gosling</h5>
+                                <p class="written-comment-content-content">
+                                    Sed porttitor lectus nibh. Nulla quis lorem ut libero
+                                    malesuada feugiat. Vivamus suscipit tortor eget felis
+                                    porttitor volutpat. Nulla porttitor accumsan tincidunt.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                </p>
+                                <div class="written-comment-bottom-box">
+                                    <a href="#" class="reply-btn">Reply</a>
+                                    <p class="comment-date">January 29, 2019</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- movie description comment end -->
+<!-- more like these movies start -->
+<section id="more-like-these">
+    <div class="container more-like-these-container">
+        <div class="row more-like-these-row">
+            <div class="col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 latest-movies-left-heading-side">
+                <h2>More Like This</h2>
+            </div>
+            <div class="col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 latest-movies-right-view-all-side">
+                <a href="#">View All</a>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/banner-1.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>8.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Man Of Steel</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/banner-2.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>7.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Deadpool</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/banner-3.png" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Avengers</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/banner-4.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Batman</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/banner-5.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Extraction</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/transform.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Transformer</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/turtle.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Ninja Turtle</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/ranger.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Power Ranger</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/prey.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Birds Of Prey</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/pirates.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Pirates</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/godzilla.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">GodZilla</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                <div class="card">
+                    <div class="img-div">
+                        <img src="assets/images/movies/baby-driver.jpg" class="card-img-top" alt="Latest Movies Img" />
+                        <div class="latest-movies-img-box">
+                            <div class="img-box-top">
+                                <span class="badge latest-movies-badge text-dark">Premium</span>
+                                <p>9.4/10</p>
+                            </div>
+                            <div class="img-box-bottom">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-play"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-about-side">
+                            <a href="movie-details.html">Baby Driver</a>
+                            <p>196 Min</p>
+                        </div>
+                        <ul class="latest-movies-tags-ul">
+                            <li><a href="#">Actions,</a></li>
+                            <li><a href="#">Thriller,</a></li>
+                            <li><a href="#">Comedy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- more like these movies end -->
+@section js{
+<script src="~/assets/js/movie-details.js"></script>
+}

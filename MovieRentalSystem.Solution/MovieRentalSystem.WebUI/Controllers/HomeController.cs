@@ -6,6 +6,25 @@ namespace MovieRentalSystem.WebUI.Controllers
     {
         public IActionResult Index()
         {
+
+            return View();
+        }
+
+        public IActionResult ContactUs()
+        {
+
+            return View();
+        }
+
+        public IActionResult ComingSoon()
+        {
+
+            return View();
+        }
+
+        public IActionResult FAQ()
+        {
+
             return View();
         }
     }

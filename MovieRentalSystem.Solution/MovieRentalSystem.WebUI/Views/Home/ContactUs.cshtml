@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<!-- faq cards animation start -->
+<section id="contactus-cards-animation">
+    <div class="container contactus-cards-animation-container">
+        <div class="row contactus-cards-animation-row">
+            <h2>Contact Us</h2>
+            <p>Have any query contact us</p>
+        </div>
+    </div>
+</section>
+<!-- faq cards animation end -->
+<!-- contact side start -->
+<section id="contact-side">
+    <div class="container contact-side-container">
+        <div class="row contact-side-row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 contact-side-left-part">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.428490145605!2d49.85175681451219!3d40.37719496596853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d079efb5163%3A0xc20aa51a5f0b5e01!2sCode%20Academy!5e0!3m2!1saz!2s!4v1645018755931!5m2!1saz!2s"
+                        width="600"
+                        height="450"
+                        style="border: 0"
+                        allowfullscreen=""
+                        loading="lazy"></iframe>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 contact-side-right-part">
+                <h2 class="contact-side-heading">Get in Touch</h2>
+                <p class="contact-side-description">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                </p>
+                <form id="contact-side-form" class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 firstname-input-col">
+                        <label for="firstname-input" class="label-required">Firstname</label>
+                        <input type="text"
+                               class="form-control"
+                               id="firstname-input"
+                               autocomplete="off"
+                               placeholder="Please enter your firstname" />
+                        <p class="error-text">Firstname is required.</p>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 lastname-input-col">
+                        <label for="lastname-input" class="label-required">Lastname</label>
+                        <input type="text"
+                               class="form-control"
+                               id="lastname-input"
+                               autocomplete="off"
+                               placeholder="Please enter your lastname" />
+                        <p class="error-text">Lastname is required.</p>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 email-input-col">
+                        <label for="email-input" class="label-required">Email</label>
+                        <input type="email"
+                               class="form-control"
+                               id="email-input"
+                               autocomplete="off"
+                               placeholder="Please enter your email" />
+                        <p class="error-text">Valid email is required.</p>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 need-select-col">
+                        <label for="need-select" class="label-required">Please specify your need</label>
+                        <select class="form-control" id="need-select">
+                            <option value="" selected></option>
+                            <option value="Request quotation">Request quotation</option>
+                            <option value="Request order status">
+                                Request order status
+                            </option>
+                            <option value="Request copy of an invoice">
+                                Request copy of an invoice
+                            </option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <p class="error-text">Please specify your need.</p>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 message-textarea-col">
+                        <label for="message-textarea" class="label-required">Message</label>
+                        <textarea id="message-textarea"
+                                  class="form-control"
+                                  cols="30"
+                                  rows="3"
+                                  autocomplete="off"
+                                  placeholder="Message for me"></textarea>
+                        <p class="error-text">Please, leave us a message.</p>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12 button-col">
+                        <button type="submit" disabled class="disabled">
+                            Send message
+                        </button>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12 warn-col">
+                        <p><strong>*</strong> These fields are required.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contact side end -->
+@section js{
+<script src="~/assets/js/contactus.js"></script>
+}

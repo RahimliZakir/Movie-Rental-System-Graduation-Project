@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="~/assets/sources/css/swiper-bundle.min.css" />
     <link rel="stylesheet" href="~/assets/sources/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="~/assets/sources/css/magnific-popup.min.css" />
+    @await RenderSectionAsync("css", required: false)
     <link rel="stylesheet"
           href="~/assets/sources/css/owl.theme.default.min.css" />
     <link rel="stylesheet" href="~/assets/css/style.min.css" />
-    @await RenderSectionAsync("css", required: false)
     <link rel="shortcut icon"
           href="~/assets/icons/favicon.ico"
           type="image/x-icon" />
@@ -30,22 +30,22 @@
                     </div>
                     <div class="col-xl-10 col-lg-10 right-nav">
                         <ul class="nav-links">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="movies.html">Movies</a></li>
-                            <li><a href="shows.html">Shows</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="comingsoon.html">Coming Soon</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="contactus.html">Contact Us</a></li>
-                            <li class="nav-login-li"><a href="login.html">Login</a></li>
+                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                            <li><a asp-action="Index" asp-controller="Movie">Movies</a></li>
+                            <li><a asp-action="Index" asp-controller="Show">Shows</a></li>
+                            <li><a asp-action="Index" asp-controller="Blog">Blog</a></li>
+                            <li><a asp-action="ComingSoon" asp-controller="Home">Coming Soon</a></li>
+                            <li><a asp-action="FAQ" asp-controller="Home">FAQ</a></li>
+                            <li><a asp-action="ContactUs" asp-controller="Home">Contact Us</a></li>
+                            <li class="nav-login-li"><a asp-action="SignIn" asp-controller="Account">Login</a></li>
                             <li class="cart-shopping-li">
-                                <a href="shopping-cart.html">
+                                <a asp-action="Index" asp-controller="ShoppingCart">
                                     <i class="fa-solid fa-cart-shopping"></i>
                                     <span class="card-budget">0</span>
                                 </a>
                             </li>
                             <li class="wishlist-li">
-                                <a href="wishlist.html">
+                                <a asp-action="Index" asp-controller="Wishlist">
                                     <i class="fa-solid fa-heart"></i>
                                     <span class="wishlist">0</span>
                                 </a>
@@ -59,19 +59,19 @@
                     </div>
                     <div class="col-12 col-sm-12 collapsed-nav-items">
                         <ul class="collapsed-nav-links">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="movies.html">Movies</a></li>
-                            <li><a href="shows.html">Shows</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="comingsoon.html">Coming Soon</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="contactus.html">Contact Us</a></li>
-                            <li class="nav-login-li"><a href="login.html">Login</a></li>
+                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                            <li><a asp-action="Index" asp-controller="Movie">Movies</a></li>
+                            <li><a asp-action="Index" asp-controller="Show">Shows</a></li>
+                            <li><a asp-action="Index" asp-controller="Blog">Blog</a></li>
+                            <li><a asp-action="ComingSoon" asp-controller="Home">Coming Soon</a></li>
+                            <li><a asp-action="FAQ" asp-controller="Home">FAQ</a></li>
+                            <li><a asp-action="ContactUs" asp-controller="Home">Contact Us</a></li>
+                            <li class="nav-login-li"><a asp-action="SignIn" asp-controller="Account">Login</a></li>
                             <li class="cart-shopping-li">
-                                <a href="shopping-cart.html"> Shopping Cart </a>
+                                <a asp-action="Index" asp-controller="ShoppingCart">Shopping Cart</a>
                             </li>
                             <li class="wishlist-li">
-                                <a href="wishlist.html"> Wishlist </a>
+                                <a asp-action="Index" asp-controller="Wishlist">Wishlist</a>
                             </li>
                         </ul>
                     </div>

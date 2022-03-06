@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+@section css{
+<link rel="stylesheet" href="~/assets/sources/css/select2.min.css" />
+}
+
+<!-- shopping cart banner start -->
+<section id="shopping-cart-banner">
+    <div class="container shopping-cart-banner-container">
+        <div class="row shopping-cart-banner-row">
+            <h1 class="shopping-cart-banner-heading">Shopping Cart Side</h1>
+        </div>
+    </div>
+</section>
+<!-- shopping cart banner end -->
+<!-- shopping cart start -->
+<section id="shopping-cart">
+    <div class="container shopping-cart-container">
+        <div class="row shopping-cart-row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 shopping-cart-col">
+                <div class="row shopping-cart-empty-side-row">
+                    <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 shopping-empty-left-side">
+                        <span class="basket-span"><i class="bi bi-cart3"></i></span>
+                        <p class="empty-basket-desc">
+                            There are no products in your cart.
+                        </p>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-4 col-sm-12 shopping-empty-right-side">
+                        <a href="movies.html" class="empty-basket-redirect-btn">Back To Movies Tab</a>
+                    </div>
+                </div>
+
+                <div class="shopping-cart-filter-tools-side">
+                    <button class="shopping-cart-filter-movies-btn selected">
+                        <i class="bi bi-film"></i> Movies
+                    </button>
+                    <button class="shopping-cart-filter-shows-btn">
+                        <i class="bi bi-camera-reels"></i> Shows
+                    </button>
+                </div>
+
+                <div class="row movie-checkout-box-row visible">
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 checkout-items-col">
+                        <div class="movie-checkout-item">
+                            <div class="img-div">
+                                <img src="assets/images/movies/ranger.jpg"
+                                     alt="Movie Checkout Image" />
+                            </div>
+                            <div class="name-and-price-side">
+                                <h5 class="name-price-heading">Power Rangers</h5>
+                                <p class="name-price-price">$ 15.00</p>
+                            </div>
+                            <div class="select-for-days">
+                                <select class="select-for-days-select">
+                                    <option value="">---Choose---</option>
+                                    <option value="OneDay">For 1 Day</option>
+                                    <option value="ThreeDays">For 3 Day</option>
+                                    <option value="SevenDays">For 7 Day</option>
+                                </select>
+                            </div>
+                            <div class="final-price">
+                                <p class="name-price-price">$ 15.00</p>
+                            </div>
+                            <div class="times-side">
+                                <button class="times-side-btn">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 total-price-col">
+                        <div class="cart_total">
+                            <h6>Cart total</h6>
+                            <ul>
+                                <li>Total: <span>$134.50</span></li>
+                            </ul>
+                            <a style="cursor: pointer; color: white" class="primary-btn">Proceed to checkout</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row shows-checkout-box-row">
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 checkout-items-col">
+                        <div class="movie-checkout-item">
+                            <div class="img-div">
+                                <img src="assets/images/shows/breaking-bad.jpg"
+                                     alt="Shows Checkout Image" />
+                            </div>
+                            <div class="name-and-price-side">
+                                <h5 class="name-price-heading">Breaking Bad</h5>
+                            </div>
+                            <div class="seats-for-show">
+                                <h5 class="seats-for-show-heading">
+                                    2 Seats have selected.
+                                </h5>
+                            </div>
+                            <div class="final-price">
+                                <p class="name-price-price">$ 15.00</p>
+                            </div>
+                            <div class="times-side">
+                                <button class="times-side-btn">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 total-price-col">
+                        <div class="cart_total">
+                            <h6>Cart total</h6>
+                            <ul>
+                                <li>Total: <span>$23.99</span></li>
+                            </ul>
+                            <a style="cursor: pointer; color: white" class="primary-btn">Proceed to checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- shopping cart end -->
+@section js{
+<script src="~/assets/sources/js/select2.min.js"></script>
+<script src="~/assets/js/shopping-cart.js"></script>
+}
+

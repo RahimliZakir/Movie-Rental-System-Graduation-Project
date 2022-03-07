@@ -1,7 +1,7 @@
 ﻿@model FaqViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "FAQ Edit";
 }
 
 @section css{
@@ -57,7 +57,7 @@
                 toastr.error(response.message, "Xəta!");
             },
             error: function(response) {
-                console.log(response);
+                console.log(response.message);
             }
           });
         });

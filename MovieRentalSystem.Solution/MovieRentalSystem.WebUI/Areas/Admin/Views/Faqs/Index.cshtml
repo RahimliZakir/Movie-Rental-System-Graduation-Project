@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Faq>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "FAQ Index";
 }
 
 @section css{
@@ -56,8 +56,7 @@
                         }
                     </tbody>
                 </table>
-
-                @Html.AntiForgeryToken()
+                @*@Html.AntiForgeryToken()*@
             }
         </div>
     </div>
@@ -83,11 +82,17 @@
           $.ajax({
               url:`@Url.Action("Delete")/${id}`,
               type:"POST",
-              success: function(){
-                  $(e.currentTarget).closest('tr').remove();
+              success: function(response){
+                  if(!response.error){
+                    $(e.currentTarget).closest('tr').remove();
+                    console.log(response.message);
+                    return;
+                }
+
+                toastr.error(response.message, "Xəta!");
               },
               error: function(response){
-                  alert(response);
+                  console.log(response.message);
               }
           });
         Swal.fire(

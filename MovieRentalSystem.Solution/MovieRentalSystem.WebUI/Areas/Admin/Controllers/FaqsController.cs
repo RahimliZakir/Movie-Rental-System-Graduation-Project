@@ -17,12 +17,10 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class FaqsController : Controller
     {
-        readonly MovieDbContext _context;
         readonly IMediator mediator;
 
-        public FaqsController(MovieDbContext context, IMediator mediator)
+        public FaqsController(IMediator mediator)
         {
-            _context = context;
             this.mediator = mediator;
         }
 
@@ -56,12 +54,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         {
             CommandJsonResponse response = await mediator.Send(request);
 
-            if (!response.Error)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(request);
+            return Json(response);
         }
 
         public async Task<IActionResult> Edit(FaqSingleQuery query)
@@ -78,20 +71,15 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Question,Answer,Id")] FaqEditCommand request)
+        public async Task<IActionResult> Edit([Bind("Question,Answer,Id")] FaqEditCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
-            if (!response.Error)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(request);
+            return Json(response);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(FaqRemoveCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);

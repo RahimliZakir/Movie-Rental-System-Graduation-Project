@@ -30,7 +30,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
                 if (!ctx.IsValid())
                 {
                     response.Error = true;
-                    response.Message = "Məlumatın düzgün göndərilməyib!";
+                    response.Message = "Məlumat düzgün göndərilməyib!";
                 }
 
                 if (ctx.IsValid())
@@ -41,7 +41,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;
-                    response.Message = "Məlumatın uğurla əlavə olundu!";
+                    response.Message = "Məlumat uğurla əlavə olundu!";
                 }
 
                 return response;

@@ -25,6 +25,10 @@
     {
       "library": "autosize.js@5.0.1",
       "destination": "wwwroot/libs/autosize.js/"
+    },
+    {
+      "library": "AlertifyJS@1.13.1",
+      "destination": "wwwroot/libs/AlertifyJS/"
     }
   ]
 }

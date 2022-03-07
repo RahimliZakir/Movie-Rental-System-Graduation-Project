@@ -26,7 +26,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
                 if (request.Id == null)
                 {
                     response.Error = true;
-                    response.Message = "Məlumat tamlığı qorunmayıb!";
+                    response.Message = "Məlumatın tamlığı qorunmayıb!";
 
                     goto end;
                 }

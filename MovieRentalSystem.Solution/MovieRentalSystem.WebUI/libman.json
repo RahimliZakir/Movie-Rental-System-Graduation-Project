@@ -21,6 +21,10 @@
     {
       "library": "limonte-sweetalert2@11.4.4",
       "destination": "wwwroot/libs/limonte-sweetalert2/"
+    },
+    {
+      "library": "autosize.js@5.0.1",
+      "destination": "wwwroot/libs/autosize.js/"
     }
   ]
 }

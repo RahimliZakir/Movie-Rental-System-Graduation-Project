@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppCode\Modules\GenresModule\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\admin-assets\" />
   </ItemGroup>

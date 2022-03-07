@@ -35,21 +35,13 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
 
                 if (ctx.IsValid())
                 {
-                    try
-                    {
-                        Faq faq = mapper.Map<Faq>(request);
+                    Faq faq = mapper.Map<Faq>(request);
 
-                        await db.Faqs.AddAsync(faq, cancellationToken);
-                        await db.SaveChangesAsync(cancellationToken);
+                    await db.Faqs.AddAsync(faq, cancellationToken);
+                    await db.SaveChangesAsync(cancellationToken);
 
-                        response.Error = false;
-                        response.Message = "Məlumatın uğurla əlavə olundu!";
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw;
-                    }
+                    response.Error = false;
+                    response.Message = "Məlumatın uğurla əlavə olundu!";
                 }
 
                 return response;

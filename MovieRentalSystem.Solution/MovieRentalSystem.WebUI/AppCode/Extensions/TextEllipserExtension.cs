@@ -7,10 +7,10 @@
             if (string.IsNullOrWhiteSpace(value))
                 return value;
 
-            if (value.Length == maxLength)
+            if (value.Length <= maxLength)
                 return value;
 
-            return value.Substring(0, maxLength);
+            return $"{value.Substring(0, maxLength)}...";
         }
     }
 }

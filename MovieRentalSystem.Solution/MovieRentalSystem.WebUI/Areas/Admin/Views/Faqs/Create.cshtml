@@ -47,7 +47,6 @@
             processData: false,
             success: function(response) {
                 if(!response.error){
-                    console.log(response.message);
                     toastr.success(response.message, "Uğurlu!");
                     setTimeout(() => {
                       window.location.assign('@Url.Action("Index")');

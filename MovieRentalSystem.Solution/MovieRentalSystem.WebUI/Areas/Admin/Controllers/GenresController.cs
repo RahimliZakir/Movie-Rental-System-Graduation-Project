@@ -18,11 +18,11 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             this.mediator = mediator;
         }
 
-        public async Task<IActionResult> Index(GenrePagedQuery query)
+        public async Task<IActionResult> Index()
         {
-            query.Response = await mediator.Send(query);
+            IEnumerable<Genre> genres = await mediator.Send(new GenreGetAllActiveQuery());
 
-            return View(query);
+            return View(genres);
         }
 
         public async Task<IActionResult> Details(GenreSingleQuery query)
@@ -39,7 +39,10 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create()
         {
-            ViewBag.Parents = new SelectList(await mediator.Send(new GenreGetAllActiveQuery()), "Id", "Name");
+            IEnumerable<Genre> genres = await mediator.Send(new GenreGetAllActiveQuery());
+            genres = genres.Where(g => g.ParentId == null).ToList();
+
+            ViewBag.Parents = new SelectList(genres, "Id", "Name");
 
             return View();
         }
@@ -57,7 +60,9 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         {
             GenreViewModel genre = await mediator.Send(query);
 
-            ViewBag.Parents = new SelectList(await mediator.Send(new GenreGetAllActiveQuery()), "Id", "Name", genre.ParentId);
+            IEnumerable<Genre> genres = await mediator.Send(new GenreGetAllActiveQuery());
+            genres = genres.Where(g => g.ParentId == null).ToList();
+            ViewBag.Parents = new SelectList(genres, "Id", "Name", genre.ParentId);
 
             if (genre == null)
             {

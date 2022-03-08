@@ -1,4 +1,4 @@
-﻿@model GenrePagedQuery
+﻿@model IEnumerable<Genre>
 
 @{
     ViewData["Title"] = "Genre Index";
@@ -22,7 +22,7 @@
     </div>
     <div class="card-block table-border-style">
         <div class="table-responsive">
-            @if (Model.Response.Items.Count() == 0)
+            @if (Model.Count() == 0)
             {
                 <div class="alert alert-warning" role="alert">
                     Hələ ki, məlumat yoxdur!
@@ -30,31 +30,6 @@
             }
             else
             {
-                @*<div class="search-side">
-                    <form id="detailedSearch" class="panel-body pt-4 pb-0">
-                    <div class="row-fluid">
-                    <div class="form-row justify-content-center">
-                    <div class="form-group col-4">
-                    <label class="control-label" asp-for="Question">
-                    Sual
-                    </label>
-                    <input class="form-control" asp-for="Question">
-                    </div>
-                    <div class="form-group col-4">
-                    <label class="control-label" asp-for="Answer">
-                    Cavab
-                    </label>
-                    <input class="form-control" asp-for="Answer">
-                    </div>
-                    <div class="form-group col-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-x btn-success">
-                    <i class="fas fa-search mr-2"></i>
-                    </button>
-                    </div>
-                    </div>
-                    </div>
-                    </form>
-                    </div>*@
                 <table class="table">
                     <thead>
                         <tr>
@@ -65,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Response.Items.Where(c => c.ParentId == null))
+                        @foreach (var item in Model.Where(c => c.ParentId == null))
                         {
                             <tr class="treegrid-@item.Id">
                                 <td>@item.Id</td>
@@ -74,7 +49,7 @@
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary"><i class="far fa-eye"></i></a>
-                                    <a style="cursor: pointer; color: white;" class="btn btn-danger color-btn-del" data-del-id="@item.Id"><i class="far fa-trash-alt"></i></a>
+                                    <a style="cursor: pointer; color: white;" class="btn btn-danger btn-del" data-del-id="@item.Id"><i class="far fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                             @foreach (var child in item.FillGenres())
@@ -86,7 +61,7 @@
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@child.Id" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                                         <a asp-action="Details" asp-route-id="@child.Id" class="btn btn-primary"><i class="far fa-eye"></i></a>
-                                        <a style="cursor: pointer; color: white;" class="btn btn-danger color-btn-del" data-del-id="@child.Id"><i class="far fa-trash-alt"></i></a>
+                                        <a style="cursor: pointer; color: white;" class="btn btn-danger btn-del" data-del-id="@child.Id"><i class="far fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             }
@@ -95,9 +70,6 @@
                 </table>
                 @Html.AntiForgeryToken()
             }
-            <div class="pagination-div">
-                @Model.Response.GetPagenation(Url, "Index", "Admin")
-            </div>
         </div>
     </div>
 </div>
@@ -108,6 +80,12 @@
 <script>
     $(document).ready(function(){
         $('table').treegrid();
+         $('table tr').removeClass('treegrid-expanded').addClass('treegrid-collapsed')
+            .find('.treegrid-expander.treegrid-expander-expanded')
+            .removeClass('treegrid-expander-expanded')
+            .addClass('treegrid-expander-collapsed');
+
+        $('table tr[class*=treegrid-parent]').css('display', 'none');
 
        let btnDel = $('.btn-del');
         $(btnDel).on('click', (e)=>{

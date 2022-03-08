@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Faq>
+
+@{
     ViewData["Title"] = "FAQ";
 }
 
@@ -20,133 +22,23 @@
                     Tez-tez soruşulan suallar.
                 </h2>
                 <div class="accordion accordion-border accordion-boxed accordion-plus">
-                    <div class="card faq-card">
-                        <div class="card-header">
-                            <a class="acc-heading"
-                               style="
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                      ">
-                                YouVideo Nedir? <i class="bi bi-plus-lg"></i>
-                            </a>
-                        </div>
-                        <div class="faq-accordion-body" style="display: none">
-                            <div class="card-body">
-                                <p>
-                                    YouVideo istediğiniz zaman, istediğiniz yerden,
-                                    birbirinden farklı dizi, film ve canlı yayını reklamsız
-                                    izlemenizi sağlayan, Doğan Holding çatısı altında
-                                    kurulmuş bir dijital televizyondur. İnternet bağlantısı
-                                    ile bilgisayar, tablet, mobil cihazlar ya da akıllı
-                                    televizyonlar (Smart TV)* üzerinden her ay güncellenen
-                                    yerli/yabancı film ve dizilere, canlı TV yayınına, spor,
-                                    yaşam içeriklerine ve en önemlisi sadece YouVideo'de
-                                    bulabileceğiniz YouVideo üyelerine özel yerli yapımlara
-                                    kolayca ulaşabilirsiniz.
-                                </p>
+                    @foreach (var item in Model)
+                    {
+                        <div class="card faq-card">
+                            <div class="card-header">
+                                <a class="acc-heading" style="cursor: pointer;display: flex;align-items: center;justify-content: space-between;">
+                                    @item.Question <i class="bi bi-plus-lg"></i>
+                                </a>
+                            </div>
+                            <div class="faq-accordion-body" style="display: none">
+                                <div class="card-body">
+                                    <p>
+                                        @item.Answer
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card faq-card">
-                        <div class="card-header">
-                            <a class="acc-heading"
-                               style="
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                      ">
-                                YouVideo’yi nasıl satın alabilirim?
-                                <i class="bi bi-plus-lg"></i>
-                            </a>
-                        </div>
-                        <div class="faq-accordion-body" style="display: none">
-                            <div class="card-body">
-                                <p>
-                                    YouVideo aboneliğinizi kredi/banka kartı bilgilerinizi
-                                    sisteme girerek başlatabilirsiniz. Apple ürünlerinde
-                                    (iPhone, iPad, AppleTV) uygulama içi satın alma (in-app
-                                    purchase) seçeneği bulunmaktadır.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card faq-card">
-                        <div class="card-header">
-                            <a class="acc-heading"
-                               style="
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                      ">
-                                YouVideo aboneliğine neler dahildir?
-                                <i class="bi bi-plus-lg"></i>
-                            </a>
-                        </div>
-                        <div class="faq-accordion-body" style="display: none">
-                            <div class="card-body">
-                                <p>
-                                    YouVideo, üyelerine istedikleri zaman, istedikleri
-                                    yerden zengin bir içeriğe ulaşabilme özgürlüğü sunar.
-                                    Bilgisayar, cep telefonu ve tablet gibi mobil cihazlar
-                                    (iOS ve Android), akıllı TV (Smart TV), Apple TV ve
-                                    Android Box cihazları üzerinden sürekli güncellenen
-                                    içerikleri reklamsız sınırsız dilediğiniz kadar
-                                    izlemenizi sağlar.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card faq-card">
-                        <div class="card-header">
-                            <a class="acc-heading"
-                               style="
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                      ">
-                                YouVideo aboneliğimi nasıl iptal ederim?
-                                <i class="bi bi-plus-lg"></i>
-                            </a>
-                        </div>
-                        <div class="faq-accordion-body" style="display: none">
-                            <div class="card-body">
-                                <p>
-                                    Tek tuşla. YouVideo'de taahhüt yoktur. Dilediğiniz an,
-                                    hesabım menüsü altından aboneliğinizi
-                                    sonlandırabilirsiniz. İptal etmeniz durumunda herhangi
-                                    bir cayma bedeli ödemezsiniz. Ödemesini yaptığınız
-                                    dönemin sonunda aboneliğiniz durdurulur.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card faq-card">
-                        <div class="card-header">
-                            <a class="acc-heading"
-                               style="
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                      ">
-                                YouVideo ile nasıl iletişime geçebilirim?
-                                <i class="bi bi-plus-lg"></i>
-                            </a>
-                        </div>
-                        <div class="faq-accordion-body" style="display: none">
-                            <div class="card-body">
-                                <p>
-                                    +994 70 891 13 00 iletişim numarasından veya
-                                    destek@YouVideo.com adresinden bizlere ulaşabilirsiniz.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

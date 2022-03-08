@@ -1,0 +1,101 @@
+﻿@model AppInfo
+
+@{
+    ViewData["Title"] = "AppInfo Create";
+}
+
+@section css{
+<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+}
+
+<form method="post" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label asp-for="Map" class="label-required">Xəritə (iframe): </label>
+        <textarea asp-for="Map" class="form-control"></textarea>
+        <span asp-validation-for="Map" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="HeaderContent" class="label-required">Yuxarı Kontent: </label>
+        <input asp-for="HeaderContent" class="form-control" />
+        <span asp-validation-for="HeaderContent" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FooterContent" class="label-required">Aşağı Kontent: </label>
+        <input asp-for="FooterContent" class="form-control" />
+        <span asp-validation-for="FooterContent" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="label-required">Ətraflı: </label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FacebookLink" class="label-required">Facebook Linki: </label>
+        <input asp-for="FacebookLink" class="form-control" />
+        <span asp-validation-for="FacebookLink" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TwitterLink" class="label-required">Twitter Linki: </label>
+        <input asp-for="TwitterLink" class="form-control" />
+        <span asp-validation-for="TwitterLink" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LinkedinLink" class="label-required">Linkedin Linki: </label>
+        <input asp-for="LinkedinLink" class="form-control" />
+        <span asp-validation-for="LinkedinLink" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TelegramLink" class="label-required">Telegram Linki: </label>
+        <input asp-for="TelegramLink" class="form-control" />
+        <span asp-validation-for="TelegramLink" style="color: red;"></span>
+    </div>
+    <a asp-action="Index" class="btn btn-danger">Geriyə</a>
+    <button class="btn btn-info" type="submit">Əlavə et</button>
+</form>
+
+@section js{
+<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/libs/autosize.js/autosize.min.js"></script>
+<script src="~/libs/toastr.js/toastr.min.js"></script>
+<script src="~/libs/toastr.js/toastr.customize.min.js"></script>
+<script>
+    $(document).ready(function(){
+        autosize($('textarea'));
+
+        $('form').on('submit', (e) => {
+          e.preventDefault();
+
+          if(!$(e.currentTarget).valid()){
+              return;
+          }
+
+          let formData = new FormData(e.currentTarget);
+
+          $.ajax({
+            url: '@Url.Action("Create")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                console.log(response.message);
+                if(!response.error){
+                    toastr.success(response.message, "Uğurlu!");
+                    setTimeout(() => {
+                      window.location.assign('@Url.Action("Index")');
+                    }, 2000);
+                    return;
+                }
+
+                toastr.error(response.message, "Xəta!");
+            },
+            error: function(response){
+                console.log(response.message);
+            }
+          });
+        }).validate();
+    });
+</script>
+}

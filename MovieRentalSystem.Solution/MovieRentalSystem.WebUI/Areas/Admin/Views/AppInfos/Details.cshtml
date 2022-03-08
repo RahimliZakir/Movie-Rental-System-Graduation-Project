@@ -1,0 +1,64 @@
+﻿@model AppInfoViewModel
+
+@{
+    ViewData["Title"] = "AppInfo Details";
+}
+
+@section css{
+<style>
+    .form-paragraph {
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+</style>
+}
+
+<div class="form-group">
+    <label asp-for="Id"></label>
+    <p class="form-paragraph">@Model.Id</p>
+</div>
+<div class="form-group">
+    <label asp-for="Map">Xətirə (iframe):</label>
+    <p class="form-paragraph" style="overflow: auto;">@Model.Map</p>
+</div>
+<div class="form-group">
+    <label asp-for="HeaderContent">Yuxarı Kontent:</label>
+    <p class="form-paragraph">@Html.Raw(Model.HeaderContent)</p>
+</div>
+<div class="form-group">
+    <label asp-for="FooterContent">Aşağı Kontent:</label>
+    <p class="form-paragraph">@Html.Raw(Model.FooterContent)</p>
+</div>
+<div class="form-group">
+    <label asp-for="Description">Ətraflı:</label>
+    <p class="form-paragraph">@Model.Description</p>
+</div>
+<div class="form-group">
+    <label asp-for="FacebookLink">Facebook Linki:</label>
+    <p class="form-paragraph">@Model.FacebookLink</p>
+</div>
+<div class="form-group">
+    <label asp-for="TwitterLink">Twitter Linki:</label>
+    <p class="form-paragraph">@Model.TwitterLink</p>
+</div>
+<div class="form-group">
+    <label asp-for="LinkedinLink">Linkedin Linki:</label>
+    <p class="form-paragraph">@Model.LinkedinLink</p>
+</div>
+<div class="form-group">
+    <label asp-for="TelegramLink">Telegram Linki:</label>
+    <p class="form-paragraph">@Model.TelegramLink</p>
+</div>
+<div class="form-group">
+    <label asp-for="CreatedDate">Əlavə olunma zamanı:</label>
+    <p class="form-paragraph">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</p>
+</div>
+<a asp-action="Index" class="btn btn-danger">Geriyə</a>

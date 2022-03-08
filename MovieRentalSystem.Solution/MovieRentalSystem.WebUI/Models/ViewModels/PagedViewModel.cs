@@ -26,7 +26,7 @@ namespace MovieRentalSystem.WebUI.Models.ViewModels
         {
             this.PageSize = pageSize;
 
-            query = query.Where(checkParentId).AsQueryable();
+            query = query.Where(CheckParentId).AsQueryable();
 
             this.TotalCount = query.Count();
 
@@ -40,7 +40,7 @@ namespace MovieRentalSystem.WebUI.Models.ViewModels
             this.CurrentIndex = pageIndex;
         }
 
-        private bool checkParentId(T arg)
+        private bool CheckParentId(T arg)
         {
             var prop = typeof(T).GetProperty("ParentId");
 

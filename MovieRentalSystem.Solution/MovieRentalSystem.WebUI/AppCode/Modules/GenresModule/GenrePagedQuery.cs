@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities;
 using MovieRentalSystem.WebUI.Models.ViewModels;
 
-namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
+namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
 {
-    public class FaqPagedQuery : IRequest<PagedViewModel<Faq>>
+    public class GenrePagedQuery : IRequest<PagedViewModel<Genre>>
     {
         int pageIndex, pageSize;
 
@@ -50,43 +51,33 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
             }
         }
 
-        public FaqPagedQuery() { }
-
-        public FaqPagedQuery(int pageIndex = 1, int pageSize = 10)
+        public GenrePagedQuery(int pageIndex = 1, int pageSize = 10)
         {
             this.PageIndex = pageIndex;
             this.pageSize = pageSize;
         }
         #endregion
 
-        public PagedViewModel<Faq> Response { get; set; }
-        public string Question { get; set; }
-        public string Answer { get; set; }
+        public PagedViewModel<Genre> Response { get; set; }
 
-        public class FaqPagedQueryHandler : IRequestHandler<FaqPagedQuery, PagedViewModel<Faq>>
+        public class GenrePagedQueryHandler : IRequestHandler<GenrePagedQuery, PagedViewModel<Genre>>
         {
             readonly MovieDbContext db;
 
-            public FaqPagedQueryHandler(MovieDbContext db)
+            public GenrePagedQueryHandler(MovieDbContext db)
             {
                 this.db = db;
             }
 
-            async public Task<PagedViewModel<Faq>> Handle(FaqPagedQuery request, CancellationToken cancellationToken)
+            async public Task<PagedViewModel<Genre>> Handle(GenrePagedQuery request, CancellationToken cancellationToken)
             {
-                IQueryable<Faq> query = db.Faqs.Where(f => f.DeletedDate == null).AsQueryable();
-
-                request.Question = request.Question?.Trim();
-                if (!string.IsNullOrWhiteSpace(request.Question))
-                    query = query.Where(q => q.Question.Contains(request.Question));
-
-                request.Answer = request.Answer?.Trim();
-                if (!string.IsNullOrWhiteSpace(request.Answer))
-                    query = query.Where(q => q.Answer.Contains(request.Answer));
+                IQueryable<Genre> query = db.Genres
+                                            .Include(g => g.Children)
+                                            .Where(f => f.DeletedDate == null).AsQueryable();
 
                 query = query.OrderBy(q => q.Id);
 
-                PagedViewModel<Faq> viewModel = new(query, request.PageIndex, request.PageSize);
+                PagedViewModel<Genre> viewModel = new(query, request.PageIndex, request.PageSize);
 
                 return viewModel;
             }

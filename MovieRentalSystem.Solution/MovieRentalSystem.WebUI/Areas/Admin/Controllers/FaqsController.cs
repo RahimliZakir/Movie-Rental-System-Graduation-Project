@@ -24,11 +24,11 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             this.mediator = mediator;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(FaqPagedQuery query)
         {
-            IEnumerable<Faq> faqs = await mediator.Send(new FaqGetAllActiveQuery());
+            query.Response = await mediator.Send(query);
 
-            return View(faqs);
+            return View(query);
         }
 
         public async Task<IActionResult> Details(FaqSingleQuery query)
@@ -79,7 +79,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(FaqRemoveCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);

@@ -22,7 +22,7 @@ namespace MovieRentalSystem.WebUI.Controllers
             return View();
         }
 
-        public IActionResult FAQ()
+        public IActionResult Faq()
         {
 
             return View();

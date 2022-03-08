@@ -45585,4 +45585,28 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
                 color: #fff;
             }
 
+.pagination-div {
+    display: flex;
+    justify-content: center;
+}
+
+    .pagination-div > ul {
+        display: flex;
+        list-style-type: none;
+    }
+
+    .pagination-div li.disabled > a, .pagination-div li.active > a {
+        color: grey !important;
+        cursor: default;
+    }
+
+    .pagination-div a {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 5px 7.5px;
+        color: #EB8153 !important;
+    }
+
+
 /*# sourceMappingURL=style.css.map */

@@ -12,9 +12,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
 
         public int? ParentId { get; set; }
 
-        public Genre Parent { get; set; }
+        public Genre? Parent { get; set; }
 
-        public ICollection<Genre> Children { get; set; }
+        public ICollection<Genre>? Children { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
     }

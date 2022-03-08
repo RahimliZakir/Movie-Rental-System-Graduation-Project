@@ -18,11 +18,11 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             this.mediator = mediator;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(GenrePagedQuery query)
         {
-            IEnumerable<Genre> genres = await mediator.Send(new GenreGetAllActiveQuery());
+            query.Response = await mediator.Send(query);
 
-            return View(genres);
+            return View(query);
         }
 
         public async Task<IActionResult> Details(GenreSingleQuery query)

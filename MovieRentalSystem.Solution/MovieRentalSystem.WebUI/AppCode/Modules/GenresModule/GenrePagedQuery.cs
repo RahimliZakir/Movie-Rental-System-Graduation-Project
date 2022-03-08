@@ -51,6 +51,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
             }
         }
 
+        public GenrePagedQuery() { }
+
         public GenrePagedQuery(int pageIndex = 1, int pageSize = 10)
         {
             this.PageIndex = pageIndex;

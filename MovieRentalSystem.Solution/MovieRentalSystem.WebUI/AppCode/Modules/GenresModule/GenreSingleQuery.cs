@@ -28,7 +28,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
                     return null;
                 }
 
-                Genre genre = await db.Genres.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Genre genre = await db.Genres
+                                      .Include(g => g.Parent)
+                                      .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 GenreViewModel viewModel = mapper.Map<GenreViewModel>(genre);
 

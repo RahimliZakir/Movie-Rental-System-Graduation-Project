@@ -1,41 +1,78 @@
-﻿@model Genre
+﻿@model GenreViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Genre Edit";
 }
 
-<h1>Edit</h1>
+@section css{
+<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+<link rel="stylesheet" href="~/libs/select2/css/select2.min.css" />
+}
 
-<h4>Genre</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParentId" class="control-label"></label>
-                <select asp-for="ParentId" class="form-control" asp-items="ViewBag.ParentId"></select>
-                <span asp-validation-for="ParentId" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="DeletedDate" class="control-label"></label>
-                <input asp-for="DeletedDate" class="form-control" />
-                <span asp-validation-for="DeletedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form method="post" asp-action="Edit">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="label-required">Janr: </label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" style="color: red;"></span>
     </div>
-</div>
+    <div class="form-group">
+        <label asp-for="ParentId" class="label-required">Valideyn Budaq: </label>
+        <select asp-for="ParentId" class="form-control select2" asp-items="@ViewBag.Parents">
+            <option value="">--Seçin---</option>
+        </select>
+        <span asp-validation-for="ParentId" style="color: red;"></span>
+    </div>
+    <input type="hidden" asp-for="Id" />
+    <a asp-action="Index" class="btn btn-danger">Geriyə</a>
+    <button class="btn btn-info" type="submit">Yenilə</button>
+</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section js{
+<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/libs/autosize.js/autosize.min.js"></script>
+<script src="~/libs/toastr.js/toastr.min.js"></script>
+<script src="~/libs/toastr.js/toastr.customize.min.js"></script>
+<script src="~/libs/select2/js/select2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.select2').select2();
 
+        autosize($('textarea'));
+
+        $('form').on('submit', (e) => {
+          e.preventDefault();
+
+          if(!$(e.currentTarget).valid()){
+              return;
+          }
+
+          let formData = new FormData(e.currentTarget);
+
+          $.ajax({
+            url: '@Url.Action("Edit")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                console.log(response.message);
+                if(!response.error){
+                    toastr.success(response.message, "Uğurlu!");
+                    setTimeout(() => {
+                      window.location.assign('@Url.Action("Index")');
+                    }, 2000);
+                    return;
+                }
+
+                toastr.error(response.message, "Xəta!");
+            },
+            error: function(response){
+                console.log(response.message);
+            }
+          });
+        }).validate();
+    });
+</script>
+}

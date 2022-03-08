@@ -1,6 +1,7 @@
 ﻿#nullable disable
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.GenresModule;
 using MovieRentalSystem.WebUI.Models.Entities;
@@ -26,18 +27,20 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(GenreSingleQuery query)
         {
-            GenreViewModel Genre = await mediator.Send(query);
+            GenreViewModel genre = await mediator.Send(query);
 
-            if (Genre == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(Genre);
+            return View(genre);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Parents = new SelectList(await mediator.Send(new GenreGetAllActiveQuery()), "Id", "Name");
+
             return View();
         }
 
@@ -52,14 +55,16 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(GenreSingleQuery query)
         {
-            GenreViewModel Genre = await mediator.Send(query);
+            GenreViewModel genre = await mediator.Send(query);
 
-            if (Genre == null)
+            ViewBag.Parents = new SelectList(await mediator.Send(new GenreGetAllActiveQuery()), "Id", "Name", genre.ParentId);
+
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(Genre);
+            return View(genre);
         }
 
         [HttpPost]

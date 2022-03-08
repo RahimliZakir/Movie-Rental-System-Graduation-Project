@@ -37,6 +37,10 @@
         $('form').on('submit', (e) => {
           e.preventDefault();
 
+          if(!$(e.currentTarget).valid()){
+              return;
+          }
+
           let formData = new FormData(e.currentTarget);
 
           $.ajax({
@@ -61,7 +65,7 @@
                 console.log(response.message);
             }
           });
-        });
+        }).validate();
     });
 </script>
 }

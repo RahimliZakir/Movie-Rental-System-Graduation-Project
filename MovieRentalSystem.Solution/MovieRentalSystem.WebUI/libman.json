@@ -29,6 +29,10 @@
     {
       "library": "AlertifyJS@1.13.1",
       "destination": "wwwroot/libs/AlertifyJS/"
+    },
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/libs/select2/"
     }
   ]
 }

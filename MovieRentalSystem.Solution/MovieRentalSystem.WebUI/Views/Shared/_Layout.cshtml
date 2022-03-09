@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject MovieDbContext db
+
+@{
+    var appInfo = db.AppInfos.Where(a => a.DeletedDate == null).FirstOrDefault();
+}
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -26,7 +32,7 @@
             <div class="container nav-container">
                 <div class="row nav-row">
                     <div class="col-6 col-xl-2 col-lg-2 col-md-6 col-sm-6 left-nav">
-                        <a href="index.html"> You <span>video.</span> </a>
+                        <a href="index.html"> @Html.Raw(appInfo.HeaderContent) </a>
                     </div>
                     <div class="col-xl-10 col-lg-10 right-nav">
                         <ul class="nav-links">
@@ -93,23 +99,22 @@
             <div class="container shortcut-paths-container">
                 <div class="row shortcut-paths-row">
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 connect-side">
-                        <a class="connect-logo" href="#"> You <span>video.</span> </a>
+                        <a class="connect-logo" href="#"> @Html.Raw(appInfo.FooterContent) </a>
                         <p class="connect-description">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's
+                            @appInfo.Description
                         </p>
                         <ul class="connect-apps-box">
                             <li>
-                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="@appInfo.FacebookLink" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="@appInfo.TwitterLink" target="_blank"><i class="fa-brands fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="@appInfo.LinkedinLink" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                                <a href="@appInfo.TelegramLink" target="_blank"><i class="fa-brands fa-telegram"></i></a>
                             </li>
                         </ul>
                     </div>

@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MovieRentalSystem.WebUI.AppCode.ModelBinders;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using Newtonsoft.Json;
 
@@ -14,8 +15,11 @@ services.AddRouting(cfg =>
     cfg.LowercaseUrls = true;
 });
 
-services.AddControllersWithViews()
-        .AddNewtonsoftJson(cfg => cfg.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore); ;
+services.AddControllersWithViews(cfg =>
+{
+    cfg.ModelBinderProviders.Insert(0, new BooleanBinderProvider());
+})
+.AddNewtonsoftJson(cfg => cfg.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore); ;
 
 services.AddDbContext<MovieDbContext>(cfg =>
 {

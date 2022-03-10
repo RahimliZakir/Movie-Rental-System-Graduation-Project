@@ -15,7 +15,14 @@
     <link rel="stylesheet" href="~/assets/sources/css/icons.bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/sources/css/swiper-bundle.min.css" />
     <link rel="stylesheet" href="~/assets/sources/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
     <link rel="stylesheet" href="~/assets/sources/css/magnific-popup.min.css" />
+    <style>
+        #subscription {
+            box-shadow: none;
+            border-radius: 0;
+        }
+    </style>
     @await RenderSectionAsync("css", required: false)
     <link rel="stylesheet"
           href="~/assets/sources/css/owl.theme.default.min.css" />
@@ -117,6 +124,12 @@
                                 <a href="@appInfo.TelegramLink" target="_blank"><i class="fa-brands fa-telegram"></i></a>
                             </li>
                         </ul>
+                        <div class="subscription-side mt-4">
+                            <form id="subscription-form">
+                                <label for="subscription">Yenililərdən xəbər almaq üçün qoşulun</label>
+                                <input id="subscription" name="email" class="form-control" placeholder="Emailinizi daxil edin..." />
+                            </form>
+                        </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 movies-side">
                         <h4 class="movies-heading">Movies</h4>
@@ -198,7 +211,43 @@
     <script src="~/assets/sources/js/owl.carousel.min.js"></script>
     <script src="~/assets/sources/js/magnific-popup.min.js"></script>
     <script src="~/assets/sources/js/mixitup.min.js"></script>
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
+    <script src="~/libs/toastr.js/toastr.customize.min.js"></script>
     <script src="~/assets/js/header.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#subscription-form').submit(function (e) {
+            e.preventDefault();
+            let input = $(e.currentTarget).find('input');
+            if ($(input).val().length <= 0) {
+                $(input).addClass('is-invalid');
+                $(input).css('border', '1px solid red');
+                return;
+            }
+            else {
+                $(input).removeClass('is-invalid');
+                $(input).css('border', '1px solid #ced4da');
+                let serialized = $(e.currentTarget).serialize();
+                $.ajax({
+                    url: '@Url.Action("Subscribe", "Home")',
+                    type: "POST",
+                    data: serialized,
+                    success: function (successMsg) {
+                        if (successMsg.error == false) {
+                            toastr.success(successMsg.message);
+                            e.currentTarget.reset();
+                            return;
+                        }
+                        toastr.error(successMsg.message);
+                    },
+                    error: function (errorMsg) {
+                        console.log(errorMsg);
+                    }
+                });
+            }
+        });
+        });
+    </script>
     @await RenderSectionAsync("js", required: false)
 </body>
 </html>

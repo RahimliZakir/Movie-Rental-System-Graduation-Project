@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities;
 using MovieRentalSystem.WebUI.Models.ViewModels;
@@ -60,7 +61,11 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule
         #endregion
 
         public PagedViewModel<ContactMessage> Response { get; set; }
-        public string Text { get; set; }
+        public string Name { get; set; }
+        public string Lastname { get; set; }
+        public string EmailAddress { get; set; }
+        public string Content { get; set; }
+        public string Answer { get; set; }
 
         public class ContactMessagePagedQueryHandler : IRequestHandler<ContactMessagePagedQuery, PagedViewModel<ContactMessage>>
         {
@@ -73,13 +78,32 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule
 
             async public Task<PagedViewModel<ContactMessage>> Handle(ContactMessagePagedQuery request, CancellationToken cancellationToken)
             {
-                IQueryable<ContactMessage> query = db.ContactMessages.Where(f => f.DeletedDate == null).AsQueryable();
+                IQueryable<ContactMessage> query = db.ContactMessages
+                                                     .Include(c => c.ContactMessageType)
+                                                     .Where(f => f.DeletedDate == null)
+                                                     .AsQueryable();
 
-                //request.Text = request.Text?.Trim();
-                //if (!string.IsNullOrWhiteSpace(request.Text))
-                //    query = query.Where(q => q.Text.Contains(request.Text));
+                request.Name = request.Name?.Trim();
+                if (!string.IsNullOrWhiteSpace(request.Name))
+                    query = query.Where(q => q.Name.Contains(request.Name));
 
-                //query = query.OrderBy(q => q.Id);
+                request.Lastname = request.Lastname?.Trim();
+                if (!string.IsNullOrWhiteSpace(request.Lastname))
+                    query = query.Where(q => q.Lastname.Contains(request.Lastname));
+
+                request.EmailAddress = request.EmailAddress?.Trim();
+                if (!string.IsNullOrWhiteSpace(request.EmailAddress))
+                    query = query.Where(q => q.EmailAddress.Contains(request.EmailAddress));
+
+                request.Content = request.Content?.Trim();
+                if (!string.IsNullOrWhiteSpace(request.Content))
+                    query = query.Where(q => q.Content.Contains(request.Content));
+
+                request.Answer = request.Answer?.Trim();
+                if (!string.IsNullOrWhiteSpace(request.Answer))
+                    query = query.Where(q => q.Answer.Contains(request.Answer));
+
+                query = query.OrderBy(q => q.Id);
 
                 PagedViewModel<ContactMessage> viewModel = new(query, request.PageIndex, request.PageSize);
 

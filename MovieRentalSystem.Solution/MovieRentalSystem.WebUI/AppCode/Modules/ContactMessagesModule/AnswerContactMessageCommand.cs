@@ -48,7 +48,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule
 
                 if (ctx.IsValid())
                 {
-                    bool sentResponse = conf.SendMail(conf["FactoryCredentials:Email"], conf.GetValue<string>("FactoryCredentials:Psswrd"), request.EmailAddress, "Cavab - Ryan Team", $"<h3>Sizin sual</h3> <p>- {request.Message}</p> <h3>Bizim cavab</h3> <p>- {request.AnswerMessage}</p>", true);
+                    bool sentResponse = conf.SendMail(conf["FactoryCredentials:Email"], conf.GetValue<string>("FactoryCredentials:Password"), request.EmailAddress, "Cavab - Movie Rental Team", $"<h3>Sizin sual</h3> <p>- {request.Content}</p> <h3>Bizim cavab</h3> <p>- {request.Answer}</p>", true);
 
                     if (sentResponse == false)
                     {

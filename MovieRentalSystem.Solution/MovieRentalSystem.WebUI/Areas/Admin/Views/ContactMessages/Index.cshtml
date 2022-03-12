@@ -1,83 +1,182 @@
-﻿@model IEnumerable<MovieRentalSystem.WebUI.Models.Entities.ContactMessage>
+﻿@model ContactMessagePagedQuery
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Contact Message Index";
 }
 
-<h1>Index</h1>
+@section css{
+<link rel="stylesheet" href="~/libs/limonte-sweetalert2/sweetalert2.min.css" />
+<style>
+    table {
+        width: max-content !important;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lastname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailAddres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactMessageType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Answer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnswerDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeletedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lastname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailAddres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactMessageType.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Answer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnswerDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeletedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    #detailedSearch {
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+    }
+</style>
 }
-    </tbody>
-</table>
+
+<div class="card">
+    <div class="card-header row align-items-center justify-content-between">
+        <div class="table-infos">
+            <h5>İsmarıclar</h5>
+        </div>
+        <div class="brand-plus-btn">
+            <a asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-block table-border-style">
+        <div class="table-responsive">
+            @if (Model.Response.Items.Count() == 0)
+            {
+                <div class="alert alert-warning" role="alert">
+                    Hələ ki, məlumat yoxdur!
+                </div>
+            }
+            else
+            {
+                <div class="search-side">
+                    <form id="detailedSearch" class="panel-body pt-4 pb-0">
+                        <div class="row-fluid">
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-4">
+                                    <label class="control-label" asp-for="Name">
+                                        Ad
+                                    </label>
+                                    <input class="form-control" asp-for="Name">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label class="control-label" asp-for="Lastname">
+                                        Soyad
+                                    </label>
+                                    <input class="form-control" asp-for="Lastname">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label class="control-label" asp-for="EmailAddress">
+                                        Email
+                                    </label>
+                                    <input class="form-control" asp-for="EmailAddress">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label class="control-label" asp-for="Content">
+                                        Müraciət
+                                    </label>
+                                    <input class="form-control" asp-for="Content">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label class="control-label" asp-for="Answer">
+                                        Cavab
+                                    </label>
+                                    <input class="form-control" asp-for="Answer">
+                                </div>
+                                <div class="form-group col-2 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-x btn-success">
+                                        <i class="fas fa-search mr-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id: </th>
+                            <th>Ad: </th>
+                            <th>Ad: </th>
+                            <th>Soyad: </th>
+                            <th>Email: </th>
+                            <th>Tipi: </th>
+                            <th>Müraciət: </th>
+                            <th>Cavab: </th>
+                            <th>Cavablanma tarixi: </th>
+                            <th>Əlavə olunma tarixi: </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Response.Items)
+                        {
+                            <tr>
+                                <th scope="row">@item.Id</th>
+                                <td>@item.Name</td>
+                                <td>@item.Lastname</td>
+                                <td>@item.EmailAddress</td>
+                                <td>@item.ContactMessageType.Text</td>
+                                <td>@item.Content</td>
+                                <td title="@item.Answer">@item.Answer?.EllipseText(20)</td>
+                                <td>@item.AnswerDate?.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                                <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                                <td style="float: right;">
+                                    <a asp-action="Answer" class="btn btn-success" asp-route-id="@item.Id"><i class="fa-solid fa-reply"></i></a>
+                                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="far fa-eye"></i></a>
+                                    <a style="cursor: pointer; color: white;" class="btn btn-danger btn-del" data-del-id="@item.Id"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @Html.AntiForgeryToken()
+            }
+            <div class="pagination-div">
+                @Model.Response.GetPagenation(Url, "Index", "Admin")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js{
+<script src="~/libs/limonte-sweetalert2/sweetalert2.min.js"></script>
+<script>
+    $(document).ready(function(){
+       let btnDel = $('.btn-del');
+        $(btnDel).on('click', (e)=>{
+            let id = $(e.currentTarget).data('del-id');
+                Swal.fire({
+      title: 'Əminsinizmi?',
+      text: "Bu əməliyyat geri qaytarılmayacaq!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Bəli, silinsin!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          let token = $('input[name="__RequestVerificationToken"]').val();
+
+          $.ajax({
+              url:`@Url.Action("Delete")/${id}`,
+              type:"POST",
+              data: {
+                __RequestVerificationToken: token
+              },
+              success: function(response){
+                  $(e.currentTarget).closest('tr').remove();
+                  if(!response.error){
+                    setTimeout(()=>{
+                      window.location.reload();
+                    }, 1500);
+                    return;
+                }
+
+                toastr.error(response.message, "Xəta!");
+              },
+              error: function(response){
+                  console.log(response.message);
+              }
+          });
+        Swal.fire(
+          'Silindi!',
+          'Sizin seçdiyiniz məlumat uğurla silindi.',
+          'success'
+        )
+      }
+    })
+        });
+    });
+</script>
+}

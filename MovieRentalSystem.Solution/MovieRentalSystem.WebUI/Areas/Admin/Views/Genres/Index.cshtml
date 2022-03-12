@@ -109,6 +109,7 @@
                 __RequestVerificationToken: token
               },
               success: function(response){
+                  $(e.currentTarget).closest('tr').remove();
                   if(!response.error){
                     setTimeout(()=>{
                       window.location.reload();

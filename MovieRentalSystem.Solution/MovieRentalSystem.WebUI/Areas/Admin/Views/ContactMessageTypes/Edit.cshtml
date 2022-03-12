@@ -1,29 +1,20 @@
-﻿@model GenreViewModel
+﻿@model ContactMessageTypeViewModel
 
 @{
-    ViewData["Title"] = "Genre Edit";
+    ViewData["Title"] = "FAQ Edit";
 }
 
 @section css{
 <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
-<link rel="stylesheet" href="~/libs/select2/css/select2.min.css" />
 }
 
 <form method="post" asp-action="Edit">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div class="form-group">
-        <label asp-for="Name" class="label-required">Janr: </label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" style="color: red;"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ParentId" class="label-required">Valideyn Budaq: </label>
-        <select asp-for="ParentId" class="form-control select2" asp-items="@ViewBag.Parents">
-            <option value="">--Seçin---</option>
-        </select>
-        <span asp-validation-for="ParentId" style="color: red;"></span>
-    </div>
     <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Text" class="label-required">Məzmun: </label>
+        <input asp-for="Text" class="form-control" />
+        <span asp-validation-for="Text" style="color: red;"></span>
+    </div>
     <a asp-action="Index" class="btn btn-danger">Geriyə</a>
     <button class="btn btn-info" type="submit">Yenilə</button>
 </form>
@@ -34,14 +25,9 @@
 <script src="~/libs/autosize.js/autosize.min.js"></script>
 <script src="~/libs/toastr.js/toastr.min.js"></script>
 <script src="~/libs/toastr.js/toastr.customize.min.js"></script>
-<script src="~/libs/select2/js/select2.min.js"></script>
 <script>
     $(document).ready(function(){
-        $('.select2').select2();
-
-        autosize($('textarea'));
-
-        $('form').on('submit', (e) => {
+       $('form').on('submit', (e) => {
           e.preventDefault();
 
           if(!$(e.currentTarget).valid()){
@@ -56,7 +42,7 @@
             data: formData,
             contentType: false,
             processData: false,
-            success: function(response){
+            success: function(response) {
                 if(!response.error){
                     toastr.success(response.message, "Uğurlu!");
                     setTimeout(() => {
@@ -67,7 +53,7 @@
 
                 toastr.error(response.message, "Xəta!");
             },
-            error: function(response){
+            error: function(response) {
                 console.log(response.message);
             }
           });

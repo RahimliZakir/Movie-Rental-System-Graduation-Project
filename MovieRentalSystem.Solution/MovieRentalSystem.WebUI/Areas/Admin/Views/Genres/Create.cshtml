@@ -56,7 +56,6 @@
             contentType: false,
             processData: false,
             success: function(response){
-                console.log(response.message);
                 if(!response.error){
                     toastr.success(response.message, "Uğurlu!");
                     setTimeout(() => {

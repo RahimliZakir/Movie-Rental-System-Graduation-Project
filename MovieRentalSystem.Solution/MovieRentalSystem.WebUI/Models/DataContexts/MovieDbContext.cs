@@ -15,6 +15,8 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<Faq> Faqs { get; set; }
         public DbSet<AppInfo> AppInfos { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<ContactMessageType> ContactMessageTypes { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -35,6 +37,16 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
             builder.Entity<Subscription>()
                    .Property(g => g.CreatedDate)
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
+
+            builder.Entity<ContactMessageType>()
+                   .Property(g => g.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
+
+            builder.Entity<ContactMessage>()
+                   .Property(g => g.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
         }
+
+        public DbSet<MovieRentalSystem.WebUI.Models.Entities.ContactMessageType> ContactMessageType { get; set; }
     }
 }

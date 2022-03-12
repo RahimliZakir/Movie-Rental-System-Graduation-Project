@@ -1,8 +1,13 @@
-﻿@inject MovieDbContext db
+﻿@model ContactMessage
+@inject MovieDbContext db
 
 @{
     ViewData["Title"] = "Contact Us";
     var appInfo = db.AppInfos.Where(a => a.DeletedDate == null).FirstOrDefault();
+}
+
+@section css{
+<link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
 }
 
 <!-- faq cards animation start -->
@@ -30,53 +35,49 @@
                 </p>
                 <form id="contact-side-form" class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 firstname-input-col">
-                        <label for="firstname-input" class="label-required">Firstname</label>
+                        <label asp-for="Name" class="label-required">Firstname</label>
                         <input type="text"
                                class="form-control"
                                id="firstname-input"
+                               asp-for="Name"
                                autocomplete="off"
                                placeholder="Please enter your firstname" />
                         <p class="error-text">Firstname is required.</p>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 lastname-input-col">
-                        <label for="lastname-input" class="label-required">Lastname</label>
+                        <label asp-for="Lastname" class="label-required">Lastname</label>
                         <input type="text"
                                class="form-control"
                                id="lastname-input"
+                               asp-for="Lastname"
                                autocomplete="off"
                                placeholder="Please enter your lastname" />
                         <p class="error-text">Lastname is required.</p>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 email-input-col">
-                        <label for="email-input" class="label-required">Email</label>
+                        <label asp-for="EmailAddress" class="label-required">Email</label>
                         <input type="email"
                                class="form-control"
                                id="email-input"
+                               asp-for="EmailAddress"
                                autocomplete="off"
                                placeholder="Please enter your email" />
                         <p class="error-text">Valid email is required.</p>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 need-select-col">
-                        <label for="need-select" class="label-required">Please specify your need</label>
-                        <select class="form-control" id="need-select">
+                        <label asp-for="ContactMessageTypeId" class="label-required">Please specify your need</label>
+                        <select class="form-control" id="need-select" asp-for="ContactMessageTypeId" asp-items="ViewBag.Types">
                             <option value="" selected></option>
-                            <option value="Request quotation">Request quotation</option>
-                            <option value="Request order status">
-                                Request order status
-                            </option>
-                            <option value="Request copy of an invoice">
-                                Request copy of an invoice
-                            </option>
-                            <option value="Other">Other</option>
                         </select>
                         <p class="error-text">Please specify your need.</p>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 message-textarea-col">
-                        <label for="message-textarea" class="label-required">Message</label>
+                        <label asp-for="Content" class="label-required">Message</label>
                         <textarea id="message-textarea"
                                   class="form-control"
                                   cols="30"
                                   rows="3"
+                                  asp-for="Content"
                                   autocomplete="off"
                                   placeholder="Message for me"></textarea>
                         <p class="error-text">Please, leave us a message.</p>
@@ -97,4 +98,40 @@
 <!-- contact side end -->
 @section js{
 <script src="~/assets/js/contactus.js"></script>
+<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/libs/AlertifyJS/alertify.min.js"></script>
+<script>
+    $(document).ready(function(){
+         $('#contact-side-form').on('submit', (e) => {
+              e.preventDefault();
+
+              if(!$(e.currentTarget).valid()){
+                  return;
+              }
+
+              let formData = new FormData(e.currentTarget);
+
+              $.ajax({
+                url: '@Url.Action("ContactUs")',
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    if(!response.error){
+                        alertify.success(response.message, "Uğurlu!");
+                        e.currentTarget.reset();
+                        return;
+                    }
+
+                    alertify.error(response.message, "Xəta!");
+                },
+                error: function(response){
+                    console.log(response.message);
+                }
+              });
+            }).validate();
+    });
+</script>
 }

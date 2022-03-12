@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
+using MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule;
+using MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.SubscriptionsModule;
 using MovieRentalSystem.WebUI.Models.Entities;
@@ -24,10 +27,19 @@ namespace MovieRentalSystem.WebUI.Controllers
             return View();
         }
 
-        public IActionResult ContactUs()
+        public async Task<IActionResult> ContactUs()
         {
+            ViewBag.Types = new SelectList(await mediator.Send(new ContactMessageTypeGetAllActiveQuery()), "Id", "Text");
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ContactUs(ContactMessageCreateCommand request)
+        {
+            CommandJsonResponse response = await mediator.Send(request);
+
+            return Json(response);
         }
 
         public IActionResult ComingSoon()

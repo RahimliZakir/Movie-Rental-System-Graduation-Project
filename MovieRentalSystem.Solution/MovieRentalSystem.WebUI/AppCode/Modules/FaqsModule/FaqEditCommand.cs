@@ -52,7 +52,6 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
 
                 if (ctx.IsValid())
                 {
-                    request.CreatedDate = entity.CreatedDate;
                     Faq faq = mapper.Map(request, entity);
 
                     await db.SaveChangesAsync(cancellationToken);

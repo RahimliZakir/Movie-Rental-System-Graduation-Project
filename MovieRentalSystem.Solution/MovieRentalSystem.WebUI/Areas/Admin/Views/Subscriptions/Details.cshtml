@@ -1,7 +1,7 @@
-﻿@model GenreViewModel
+﻿@model SubscriptionViewModel
 
 @{
-    ViewData["Title"] = "Genre Details";
+    ViewData["Title"] = "Subscription Details";
 }
 
 @section css{
@@ -26,18 +26,22 @@
     <p class="form-paragraph">@Model.Id</p>
 </div>
 <div class="form-group">
-    <label asp-for="Name">Janr:</label>
-    <p class="form-paragraph">@Model.Name</p>
+    <label asp-for="Email">Email:</label>
+    <p class="form-paragraph">@Model.Email</p>
 </div>
-@if (Model.Parent != null)
+<div class="form-group">
+    <label asp-for="IsConfirmed">Təsdiq statusu:</label>
+    <p class="form-paragraph">@(Model.IsConfirmed ? "Bəli" : "Xeyr")</p>
+</div>
+@if (Model.ConfirmationDate != null)
 {
     <div class="form-group">
-        <label asp-for="Parent.Name">Valideyn Budaq:</label>
-        <p class="form-paragraph">@Model.Parent.Name</p>
+        <label asp-for="ConfirmationDate">Təsdiq tarixi:</label>
+        <p class="form-paragraph">@Model.ConfirmationDate?.ToString("dd.MM.yyyy HH:mm:ss")</p>
     </div>
 }
 <div class="form-group">
-    <label asp-for="CreatedDate">Əlavə olunma tarixi:</label>
+    <label asp-for="CreatedDate">Abunəlik tarixi:</label>
     <p class="form-paragraph">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</p>
 </div>
 <a asp-action="Index" class="btn btn-danger">Geriyə</a>

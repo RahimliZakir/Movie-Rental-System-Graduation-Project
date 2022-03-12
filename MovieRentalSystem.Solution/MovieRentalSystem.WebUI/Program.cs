@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.AppCode.ModelBinders;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using Newtonsoft.Json;
+using System.Reflection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using MovieRentalSystem.WebUI.AppCode.Modules.AppInfosModule;
 using MovieRentalSystem.WebUI.Models.Entities;
 
-namespace MovieRentalSystem.WebUI.AppCode.Modules.AppInfosModule
+namespace MovieRentalSystem.WebUI.AppCode.AutoMapper.Profiles
 {
     public class AppInfoProfile : Profile
     {

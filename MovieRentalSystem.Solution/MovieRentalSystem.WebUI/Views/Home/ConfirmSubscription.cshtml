@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Confirm Subscription | YouVideo</title>
+    <link rel="stylesheet" href="~/assets/sources/css/bootstrap.min.css" />
+    <style>
+        .back-home-btn {
+            border-radius: 0;
+            box-shadow: none;
+        }
+    </style>
+    <link rel="shortcut icon"
+          href="~/assets/icons/favicon.ico"
+          type="image/x-icon" />
+</head>
+<body>
+    <div class="root">
+        <div class="container">
+            <div class="row vh-100 align-items-center justify-content-center">
+                <div class="col-md-8">
+                    @if (ViewBag.ResponseSuccess != null)
+                    {
+                        <div class="alert alert-success text-center" role="alert">
+                            @ViewBag.ResponseSuccess
+                        </div>
+                    }
+                    else if (ViewBag.ResponseError != null)
+                    {
+                        <div class="alert alert-danger text-center" role="alert">
+                            @ViewBag.ResponseError
+                        </div>
+                    }
+                    <a class="btn btn-primary back-home-btn" asp-action="Index">Əsas səhifəyə keç</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

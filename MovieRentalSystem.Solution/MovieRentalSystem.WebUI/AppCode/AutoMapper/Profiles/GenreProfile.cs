@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using MovieRentalSystem.WebUI.AppCode.Modules.GenresModule;
 using MovieRentalSystem.WebUI.Models.Entities;
 
-namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
+namespace MovieRentalSystem.WebUI.AppCode.AutoMapper.Profiles
 {
     public class GenreProfile : Profile
     {

@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities;
 
-namespace MovieRentalSystem.WebUI.AppCode.Modules.SubscripitionsModule
+namespace MovieRentalSystem.WebUI.AppCode.Modules.SubscriptionsModule
 {
-    public class SubscriptionSingleQuery : IRequest<Subscription>
+    public class SubscriptionSingleQuery : IRequest<SubscriptionViewModel>
     {
         public int? Id { get; set; }
 
@@ -18,16 +19,18 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.SubscripitionsModule
 
         public SubscriptionSingleQuery() { }
 
-        public class SubscriptionSingleQueryHandler : IRequestHandler<SubscriptionSingleQuery, Subscription>
+        public class SubscriptionSingleQueryHandler : IRequestHandler<SubscriptionSingleQuery, SubscriptionViewModel>
         {
             readonly MovieDbContext db;
+            readonly IMapper mapper;
 
-            public SubscriptionSingleQueryHandler(MovieDbContext db)
+            public SubscriptionSingleQueryHandler(MovieDbContext db, IMapper mapper)
             {
                 this.db = db;
+                this.mapper = mapper;
             }
 
-            async public Task<Subscription> Handle(SubscriptionSingleQuery request, CancellationToken cancellationToken)
+            async public Task<SubscriptionViewModel> Handle(SubscriptionSingleQuery request, CancellationToken cancellationToken)
             {
                 Subscription subscription = null;
 
@@ -45,7 +48,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.SubscripitionsModule
                 subscription = await db.Subscriptions.FirstOrDefaultAsync(s => s.Id == request.Id);
 
             end:
-                return subscription;
+                SubscriptionViewModel viewModel = mapper.Map<SubscriptionViewModel>(subscription);
+                return viewModel;
             }
         }
     }

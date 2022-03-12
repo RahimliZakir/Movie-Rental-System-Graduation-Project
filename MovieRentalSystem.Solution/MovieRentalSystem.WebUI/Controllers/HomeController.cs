@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MovieRentalSystem.WebUI.AppCode.Extensions;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule;
-using MovieRentalSystem.WebUI.AppCode.Modules.SubscripitionsModule;
+using MovieRentalSystem.WebUI.AppCode.Modules.SubscriptionsModule;
 using MovieRentalSystem.WebUI.Models.Entities;
 
 namespace MovieRentalSystem.WebUI.Controllers
@@ -50,6 +49,19 @@ namespace MovieRentalSystem.WebUI.Controllers
             CommandJsonResponse response = await mediator.Send(request);
 
             return Json(response);
+        }
+
+        [HttpGet("subscribe-route")]
+        async public Task<IActionResult> ConfirmSubscription(ConfirmSubscriptionCommand request)
+        {
+            CommandJsonResponse response = await mediator.Send(request);
+
+            if (response.Error)
+                ViewBag.ResponseError = response.Message;
+            else
+                ViewBag.ResponseSuccess = response.Message;
+
+            return View();
         }
     }
 }

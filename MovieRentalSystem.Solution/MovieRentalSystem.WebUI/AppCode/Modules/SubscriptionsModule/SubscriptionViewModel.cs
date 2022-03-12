@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieRentalSystem.WebUI.AppCode.Modules.SubscripitionsModule
+namespace MovieRentalSystem.WebUI.AppCode.Modules.SubscriptionsModule
 {
     public class SubscriptionViewModel
     {

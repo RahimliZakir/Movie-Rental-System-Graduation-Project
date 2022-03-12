@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule;
 using MovieRentalSystem.WebUI.Models.Entities;
 
-namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
+namespace MovieRentalSystem.WebUI.AppCode.AutoMapper.Profiles
 {
     public class FaqProfile : Profile
     {

@@ -15,6 +15,10 @@
         padding-left: 2.5%;
         padding-right: 2.5%;
     }
+
+    .check-answered-message-side label {
+        user-select: none;
+    }
 </style>
 }
 
@@ -30,7 +34,7 @@
         </div>
     </div>
     <div class="card-block table-border-style">
-        <div class="table-responsive">
+        <div class="table-resp">
             @if (Model.Response.Items.Count() == 0)
             {
                 <div class="alert alert-warning" role="alert">
@@ -82,44 +86,54 @@
                         </div>
                     </form>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id: </th>
-                            <th>Ad: </th>
-                            <th>Ad: </th>
-                            <th>Soyad: </th>
-                            <th>Email: </th>
-                            <th>Tipi: </th>
-                            <th>Müraciət: </th>
-                            <th>Cavab: </th>
-                            <th>Cavablanma tarixi: </th>
-                            <th>Əlavə olunma tarixi: </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Response.Items)
-                        {
+                <div class="check-answered-message-side ml-2">
+                    <form>
+                        <label asp-for="Checked"><b>Yalnız cavablanan ismarıclar</b></label>
+                        <input asp-for="Checked" type="checkbox" />
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <th scope="row">@item.Id</th>
-                                <td>@item.Name</td>
-                                <td>@item.Lastname</td>
-                                <td>@item.EmailAddress</td>
-                                <td>@item.ContactMessageType.Text</td>
-                                <td>@item.Content</td>
-                                <td title="@item.Answer">@item.Answer?.EllipseText(20)</td>
-                                <td>@item.AnswerDate?.ToString("dd.MM.yyyy HH:mm:ss")</td>
-                                <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
-                                <td style="float: right;">
-                                    <a asp-action="Answer" class="btn btn-success" asp-route-id="@item.Id"><i class="fa-solid fa-reply"></i></a>
-                                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="far fa-eye"></i></a>
-                                    <a style="cursor: pointer; color: white;" class="btn btn-danger btn-del" data-del-id="@item.Id"><i class="far fa-trash-alt"></i></a>
-                                </td>
+                                <th>Id: </th>
+                                <th>Ad: </th>
+                                <th>Soyad: </th>
+                                <th>Email: </th>
+                                <th>Tipi: </th>
+                                <th>Müraciət: </th>
+                                <th>Cavab: </th>
+                                <th>Cavablanma tarixi: </th>
+                                <th>Əlavə olunma tarixi: </th>
+                                <th></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Response.Items)
+                            {
+                                <tr>
+                                    <th scope="row">@item.Id</th>
+                                    <td>@item.Name</td>
+                                    <td>@item.Lastname</td>
+                                    <td>@item.EmailAddress</td>
+                                    <td>@item.ContactMessageType.Text</td>
+                                    <td>@item.Content</td>
+                                    <td title="@item.Answer">@item.Answer?.EllipseText(20)</td>
+                                    <td>@item.AnswerDate?.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                                    <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                                    <td style="float: right;">
+                                        @if (string.IsNullOrWhiteSpace(item.Answer) && item.AnswerDate == null)
+                                        {
+                                            <a asp-action="Answer" class="btn btn-success" asp-route-id="@item.Id"><i class="fa-solid fa-reply"></i></a>
+                                        }
+                                        <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="far fa-eye"></i></a>
+                                        <a style="cursor: pointer; color: white;" class="btn btn-danger btn-del" data-del-id="@item.Id"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
                 @Html.AntiForgeryToken()
             }
             <div class="pagination-div">
@@ -133,6 +147,12 @@
 <script src="~/libs/limonte-sweetalert2/sweetalert2.min.js"></script>
 <script>
     $(document).ready(function(){
+      let answerCheckbox = $('.check-answered-message-side input');
+      $(answerCheckbox).change((e) => {
+         $(e.currentTarget).closest('form').submit();
+      });
+
+
        let btnDel = $('.btn-del');
         $(btnDel).on('click', (e)=>{
             let id = $(e.currentTarget).data('del-id');

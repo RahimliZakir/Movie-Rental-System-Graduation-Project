@@ -67,6 +67,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule
         public string Content { get; set; }
         public string Answer { get; set; }
 
+        public bool Checked { get; set; }
+
         public class ContactMessagePagedQueryHandler : IRequestHandler<ContactMessagePagedQuery, PagedViewModel<ContactMessage>>
         {
             readonly MovieDbContext db;
@@ -102,6 +104,11 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule
                 request.Answer = request.Answer?.Trim();
                 if (!string.IsNullOrWhiteSpace(request.Answer))
                     query = query.Where(q => q.Answer.Contains(request.Answer));
+
+                if (request.Checked)
+                {
+                    query = query.Where(q => !string.IsNullOrWhiteSpace(q.Answer) && q.AnswerDate != null);
+                }
 
                 query = query.OrderBy(q => q.Id);
 

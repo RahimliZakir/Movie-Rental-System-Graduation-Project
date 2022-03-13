@@ -10,28 +10,38 @@
 
 <div class="row justify-content-center mb-5">
     <div class="col-md-8">
-        <form>
-            <input type="hidden" asp-for="Id" />
-            <label asp-for="Name">Ad: </label>
-            <input asp-for="Name" class="form-control mb-3" readonly />
-            <label asp-for="Lastname">Soyad: </label>
-            <input asp-for="Lastname" class="form-control mb-3" readonly />
-            <label asp-for="EmailAddress">Email: </label>
-            <input asp-for="EmailAddress" class="form-control mb-3" readonly />
-            <label asp-for="ContactMessageType">Tipi: </label>
-            <input asp-for="ContactMessageType" class="form-control mb-3" readonly />
-            <label asp-for="Content">Müraciət: </label>
-            <textarea asp-for="Content" class="form-control mb-3" readonly></textarea>
-
-            <div class="form-group mt-3">
-                <label asp-for="Answer">Cavab: </label>
-                <textarea asp-for="Answer" class="form-control"></textarea>
-                <span style="color: red;" asp-validation-for="Answer"></span>
+        @if (!string.IsNullOrWhiteSpace(Model.Answer))
+        {
+            <div class="alert alert-warning text-center" role="alert">
+                Bu ismarıc artıq cavablandırılıb!
             </div>
+            <a class="btn btn-danger" asp-action="Index">Geriyə</a>
+        }
+        else
+        {
+            <form>
+                <input type="hidden" asp-for="Id" />
+                <label asp-for="Name">Ad: </label>
+                <input asp-for="Name" class="form-control mb-3" readonly />
+                <label asp-for="Lastname">Soyad: </label>
+                <input asp-for="Lastname" class="form-control mb-3" readonly />
+                <label asp-for="EmailAddress">Email: </label>
+                <input asp-for="EmailAddress" class="form-control mb-3" readonly />
+                <label asp-for="ContactMessageType">Tipi: </label>
+                <input asp-for="ContactMessageType" class="form-control mb-3" readonly />
+                <label asp-for="Content">Müraciət: </label>
+                <textarea asp-for="Content" class="form-control mb-3" readonly></textarea>
 
-            <a asp-action="Index" asp-controller="Contacts" class="btn btn-danger mt-3">Geriyə</a>
-            <button type="submit" class="btn btn-primary mt-3">Cavabla</button>
-        </form>
+                <div class="form-group mt-3">
+                    <label asp-for="Answer">Cavab: </label>
+                    <textarea asp-for="Answer" class="form-control"></textarea>
+                    <span style="color: red;" asp-validation-for="Answer"></span>
+                </div>
+
+                <a asp-action="Index" class="btn btn-danger mt-3">Geriyə</a>
+                <button type="submit" class="btn btn-primary mt-3">Cavabla</button>
+            </form>
+        }
     </div>
 </div>
 

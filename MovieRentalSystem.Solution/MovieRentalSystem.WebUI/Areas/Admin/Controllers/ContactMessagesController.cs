@@ -37,7 +37,6 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             return View(message);
         }
 
-
         async public Task<IActionResult> Answer(ContactMessageSingleQuery query)
         {
             ContactMessageViewModel notAnsweredMessage = await mediator.Send(query);
@@ -49,7 +48,8 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
                 Lastname = notAnsweredMessage.Lastname,
                 EmailAddress = notAnsweredMessage.EmailAddress,
                 ContactMessageType = notAnsweredMessage.ContactMessageType.Text,
-                Content = notAnsweredMessage.Content
+                Content = notAnsweredMessage.Content,
+                Answer = notAnsweredMessage.Answer
             };
 
             return View(formModel);

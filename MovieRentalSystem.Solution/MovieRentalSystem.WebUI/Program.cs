@@ -1,8 +1,11 @@
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MovieRentalSystem.WebUI.AppCode.Initializers;
 using MovieRentalSystem.WebUI.AppCode.ModelBinders;
 using MovieRentalSystem.WebUI.Models.DataContexts;
+using MovieRentalSystem.WebUI.Models.Entities.Membership;
 using Newtonsoft.Json;
 using System.Reflection;
 
@@ -32,6 +35,14 @@ services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
 services.AddAutoMapper(typeof(Program));
 
+services.AddIdentity<AppUser, AppRole>()
+        .AddEntityFrameworkStores<MovieDbContext>()
+        .AddDefaultTokenProviders();
+
+services.AddScoped<RoleManager<AppRole>>()
+        .AddScoped<UserManager<AppUser>>()
+        .AddScoped<SignInManager<AppUser>>();
+
 WebApplication app = builder.Build();
 IWebHostEnvironment env = builder.Environment;
 if (env.IsDevelopment())
@@ -40,6 +51,8 @@ if (env.IsDevelopment())
 }
 
 app.UseStaticFiles();
+
+app.InjectData().Wait();
 
 app.UseRouting();
 

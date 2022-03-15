@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieRentalSystem.WebUI.AppCode.Extensions;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.AccountModule;
+using MovieRentalSystem.WebUI.Models.FormModels;
 
 namespace MovieRentalSystem.WebUI.Controllers
 {
@@ -64,6 +65,53 @@ namespace MovieRentalSystem.WebUI.Controllers
 
             if (!response.Error)
                 return Redirect(response.Message);
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        async public Task<IActionResult> ForgotPassword(ForgotPasswordCommand request)
+        {
+            bool result = await mediator.Send(request);
+
+            if (result)
+                return RedirectToAction(nameof(ResetPassword));
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            ResetPasswordFormModel formModel = new()
+            {
+                Token = token,
+                Email = email
+            };
+
+            if (token == null || email == null)
+            {
+                ModelState.AddModelError("", "Xəta!");
+            }
+
+            return View(formModel);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        async public Task<IActionResult> ResetPassword(ResetPasswordCommand request)
+        {
+            bool result = await mediator.Send(request);
+
+            if (result)
+                return Redirect(@"\signin.html");
 
             return View();
         }

@@ -9,5 +9,7 @@ namespace MovieRentalSystem.WebUI.Models.FormModels
 
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public string Password { get; set; } = null!;
+
+        public bool RememberMe { get; set; }
     }
 }

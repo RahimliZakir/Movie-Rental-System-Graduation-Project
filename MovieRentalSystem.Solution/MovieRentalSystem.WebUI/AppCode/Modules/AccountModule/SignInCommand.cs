@@ -43,7 +43,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
 
                 if (userResult != null)
                 {
-                    SignInResult signInResult = await signInManager.PasswordSignInAsync(userResult, request.Password, false, false);
+                    SignInResult signInResult = await signInManager.PasswordSignInAsync(userResult, request.Password, request.RememberMe, false);
 
                     if (signInResult.Succeeded)
                     {

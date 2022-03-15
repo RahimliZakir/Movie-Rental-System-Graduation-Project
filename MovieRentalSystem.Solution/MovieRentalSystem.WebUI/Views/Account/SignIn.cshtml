@@ -12,6 +12,17 @@
     <title>Login | YouVideo</title>
     <link rel="stylesheet" href="~/assets/sources/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/css/style.min.css" />
+    <style>
+        .link-to-forgot-password {
+            display: inline-block;
+            color: #8f8f8f;
+            font-family: "Baloo";
+        }
+
+            .link-to-forgot-password:hover {
+                color: #e41a1a;
+            }
+    </style>
     <link rel="shortcut icon"
           href="~/assets/icons/favicon.ico"
           type="image/x-icon" />
@@ -54,12 +65,14 @@
                                     <span class="text-danger" asp-validation-for="Password"></span>
                                 </div>
                                 <div class="form-group remeber-me-form-group">
-                                    <input type="checkbox" id="remeber-me-checkbox" />
-                                    <label for="remeber-me-checkbox">Remember me</label>
+                                    <input type="checkbox" asp-for="RememberMe" id="remeber-me-checkbox" />
+                                    <label asp-for="RememberMe">Remember me</label>
                                 </div>
                                 <div class="login-side-btn-div">
                                     <button type="submit" class="login-side-btn">Login</button>
                                 </div>
+                                <a asp-action="ForgotPassword" class="link-to-forgot-password">Forgot password?</a>
+                                <br />
                                 <a asp-action="Register" class="link-to-register">Not a user? Sign up</a>
                             </form>
                         </div>

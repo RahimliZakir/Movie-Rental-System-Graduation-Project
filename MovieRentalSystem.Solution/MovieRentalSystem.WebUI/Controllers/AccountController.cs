@@ -70,21 +70,24 @@ namespace MovieRentalSystem.WebUI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult ForgotPassword()
+        public IActionResult AccessDenied()
         {
             return View();
         }
 
         [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
         [HttpPost]
+        [AllowAnonymous]
         async public Task<IActionResult> ForgotPassword(ForgotPasswordCommand request)
         {
-            bool result = await mediator.Send(request);
+            CommandJsonResponse response = await mediator.Send(request);
 
-            if (result)
-                return RedirectToAction(nameof(ResetPassword));
-
-            return View();
+            return Json(response);
         }
 
         [AllowAnonymous]
@@ -108,12 +111,9 @@ namespace MovieRentalSystem.WebUI.Controllers
         [AllowAnonymous]
         async public Task<IActionResult> ResetPassword(ResetPasswordCommand request)
         {
-            bool result = await mediator.Send(request);
+            CommandJsonResponse response = await mediator.Send(request);
 
-            if (result)
-                return Redirect(@"\signin.html");
-
-            return View();
+            return Json(response);
         }
     }
 }

@@ -2,14 +2,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Extensions;
+using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.Models.Entities.Membership;
 using MovieRentalSystem.WebUI.Models.FormModels;
 
 namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
 {
-    public class ResetPasswordCommand : ResetPasswordFormModel, IRequest<bool>
+    public class ResetPasswordCommand : ResetPasswordFormModel, IRequest<CommandJsonResponse>
     {
-        public class ResetPasswordHandler : IRequestHandler<ResetPasswordCommand, bool>
+        public class ResetPasswordHandler : IRequestHandler<ResetPasswordCommand, CommandJsonResponse>
         {
             readonly IActionContextAccessor ctx;
             readonly UserManager<AppUser> userManager;
@@ -20,8 +21,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                 this.userManager = userManager;
             }
 
-            async public Task<bool> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
+            async public Task<CommandJsonResponse> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
             {
+                CommandJsonResponse response = new();
+
                 AppUser user = await userManager.FindByEmailAsync(request.Email);
 
                 if (user != null)
@@ -30,7 +33,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
 
                     if (resetStatus.Succeeded)
                     {
-                        return true;
+                        response.Error = false;
+                        response.Message = "Şifrə uğurla yeniləndi!";
+                        goto end;
                     }
                     else
                     {
@@ -38,10 +43,15 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                         {
                             ctx.AddModelError("", item.Description);
                         }
+
+                        response.Error = true;
+                        response.Message = "Şifrə yenilənən zaman xəta baş verdi!";
+                        goto end;
                     }
                 }
 
-                return false;
+            end:
+                return response;
             }
         }
     }

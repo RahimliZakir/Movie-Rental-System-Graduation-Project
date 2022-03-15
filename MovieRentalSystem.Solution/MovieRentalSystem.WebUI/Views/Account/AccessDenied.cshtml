@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Access Denied | YouVideo</title>
+    <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="shortcut icon"
+          href="~/assets/icons/favicon.ico"
+          type="image/x-icon" />
+</head>
+<body>
+    <div class="root">
+        <div class="container">
+            <div class="row vh-100 justify-content-center align-content-center">
+                <div class="col-md-8">
+                    <div class="alert alert-danger" role="alert">
+                        Sizin bu hissəni görməyə icazəniz (səlahiyyətiniz) yoxdur!
+                    </div>
+                    <a class="btn btn-info" asp-action="Index" asp-controller="Home">Ana səhifəyə qayıt</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

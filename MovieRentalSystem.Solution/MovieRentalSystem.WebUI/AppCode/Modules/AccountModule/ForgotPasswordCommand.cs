@@ -11,9 +11,9 @@ using MovieRentalSystem.WebUI.Models.FormModels;
 
 namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
 {
-    public class ForgotPasswordCommand : ForgotPasswordFormModel, IRequest<bool>
+    public class ForgotPasswordCommand : ForgotPasswordFormModel, IRequest<CommandJsonResponse>
     {
-        public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordCommand, bool>
+        public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordCommand, CommandJsonResponse>
         {
             readonly IActionContextAccessor ctx;
             readonly UserManager<AppUser> userManager;
@@ -28,8 +28,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                 this.factory = factory;
             }
 
-            async public Task<bool> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
+            async public Task<CommandJsonResponse> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
             {
+                CommandJsonResponse response = new();
+
                 if (ctx.IsValid())
                 {
                     AppUser user = await userManager.FindByEmailAsync(request.Email);
@@ -53,10 +55,19 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
 
                     bool status = conf.SendMail(fromMail, pwd, request.Email, subject, body, true, cc);
 
-                    return status;
+                    if (status)
+                    {
+                        response.Error = false;
+                        response.Message = "Şifrə yeniləmə linki mailinizə göndərildi!";
+                    }
+                    else
+                    {
+                        response.Error = true;
+                        response.Message = "Xəta baş verdi bir neçə dəqiqədən sonra yenidən yoxlayın!";
+                    }
                 }
 
-                return false;
+                return response;
             }
         }
     }

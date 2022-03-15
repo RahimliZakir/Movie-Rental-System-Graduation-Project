@@ -33,6 +33,10 @@
     {
       "library": "select2@4.0.13",
       "destination": "wwwroot/libs/select2/"
+    },
+    {
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/libs/jquery/"
     }
   ]
 }

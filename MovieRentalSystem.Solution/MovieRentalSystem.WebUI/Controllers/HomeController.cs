@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
@@ -10,6 +11,7 @@ using MovieRentalSystem.WebUI.Models.Entities;
 
 namespace MovieRentalSystem.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         readonly IMediator mediator;

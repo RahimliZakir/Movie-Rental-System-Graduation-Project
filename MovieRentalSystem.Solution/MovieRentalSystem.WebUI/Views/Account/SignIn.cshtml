@@ -1,4 +1,6 @@
-﻿@{
+﻿@model SignInFormModel
+
+@{
     Layout = null;
 }
 
@@ -32,27 +34,31 @@
                             <p class="login-side-description">
                                 Welcome back! Log in to your account.
                             </p>
-                            <form id="login-side-form">
+                            <form id="login-side-form" method="post">
+                                <h5 class="text-center text-danger" style="font-weight: 600;">@TempData["Status"]</h5>
                                 <div class="form-group email-address-form-group">
-                                    <label for="email-address-input">Email address</label>
+                                    <label asp-for="Username">Email address or username</label>
                                     <input id="email-address-input"
-                                           type="text"
+                                           asp-for="Username"
                                            class="form-control"
                                            placeholder="Enter email" />
+                                    <span class="text-danger" asp-validation-for="Username"></span>
                                 </div>
                                 <div class="form-group password-form-group">
-                                    <label for="password-input">Password</label>
+                                    <label asp-for="Password">Password</label>
                                     <input id="password-input"
+                                           asp-for="Password"
                                            type="password"
                                            class="form-control"
                                            placeholder="Password" />
+                                    <span class="text-danger" asp-validation-for="Password"></span>
                                 </div>
                                 <div class="form-group remeber-me-form-group">
                                     <input type="checkbox" id="remeber-me-checkbox" />
                                     <label for="remeber-me-checkbox">Remember me</label>
                                 </div>
                                 <div class="login-side-btn-div">
-                                    <button class="login-side-btn">Login</button>
+                                    <button type="submit" class="login-side-btn">Login</button>
                                 </div>
                                 <a asp-action="Register" class="link-to-register">Not a user? Sign up</a>
                             </form>
@@ -63,5 +69,17 @@
         </div>
     </section>
     <!-- login end -->
+
+    <script src="~/libs/jquery/jquery.min.js"></script>
+    <script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <environment include="Development">
+        <script>
+            $(function(){
+               $('#email-address-input').val('rahimlizakir');
+               $('#password-input').val('zakir007');
+            });
+        </script>
+    </environment>
 </body>
 </html>

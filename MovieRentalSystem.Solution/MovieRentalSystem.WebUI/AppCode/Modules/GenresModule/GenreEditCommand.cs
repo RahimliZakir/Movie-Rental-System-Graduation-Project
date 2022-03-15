@@ -52,6 +52,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
 
                 if (ctx.IsValid())
                 {
+                    request.CreatedByUserId = entity.CreatedByUserId;
                     Genre genre = mapper.Map(request, entity);
 
                     await db.SaveChangesAsync(cancellationToken);

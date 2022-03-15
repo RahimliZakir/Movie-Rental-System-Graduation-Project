@@ -1,4 +1,5 @@
 ﻿using MovieRentalSystem.WebUI.Models.Entities;
+using MovieRentalSystem.WebUI.Models.Entities.Membership;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
@@ -11,6 +12,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
         public string Text { get; set; } = null!;
 
         public ICollection<ContactMessage>? ContactMessages { get; set; }
+
+        public int? CreatedByUserId { get; set; }
+
+        public AppUser? CreatedByUser { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
     }

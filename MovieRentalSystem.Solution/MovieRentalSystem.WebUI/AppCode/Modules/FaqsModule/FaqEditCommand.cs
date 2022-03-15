@@ -52,9 +52,18 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
 
                 if (ctx.IsValid())
                 {
-                    Faq faq = mapper.Map(request, entity);
+                    try
+                    {
+                        request.CreatedByUserId = entity.CreatedByUserId;
+                        Faq faq = mapper.Map(request, entity);
 
-                    await db.SaveChangesAsync(cancellationToken);
+                        await db.SaveChangesAsync(cancellationToken);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
 
                     response.Error = false;
                     response.Message = "Məlumat uğurla yeniləndi!";

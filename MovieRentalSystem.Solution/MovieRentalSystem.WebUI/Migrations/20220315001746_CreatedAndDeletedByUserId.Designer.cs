@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 
@@ -11,9 +12,10 @@ using MovieRentalSystem.WebUI.Models.DataContexts;
 namespace MovieRentalSystem.WebUI.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    partial class MovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220315001746_CreatedAndDeletedByUserId")]
+    partial class CreatedAndDeletedByUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace MovieRentalSystem.WebUI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CreatedByUserId")
+                    b.Property<int?>("CreatedByUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -106,6 +108,9 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CreatedByUserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
@@ -133,6 +138,8 @@ namespace MovieRentalSystem.WebUI.Migrations
 
                     b.HasIndex("ContactMessageTypeId");
 
+                    b.HasIndex("CreatedByUserId");
+
                     b.HasIndex("DeletedByUserId");
 
                     b.ToTable("ContactMessages");
@@ -146,7 +153,7 @@ namespace MovieRentalSystem.WebUI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CreatedByUserId")
+                    b.Property<int?>("CreatedByUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -185,7 +192,7 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CreatedByUserId")
+                    b.Property<int?>("CreatedByUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -220,7 +227,7 @@ namespace MovieRentalSystem.WebUI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CreatedByUserId")
+                    b.Property<int?>("CreatedByUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -464,6 +471,9 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.Property<DateTime?>("ConfirmationDate")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("CreatedByUserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
@@ -484,6 +494,8 @@ namespace MovieRentalSystem.WebUI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedByUserId");
+
                     b.HasIndex("DeletedByUserId");
 
                     b.ToTable("Subscriptions");
@@ -493,9 +505,7 @@ namespace MovieRentalSystem.WebUI.Migrations
                 {
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatedByUserId");
 
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
                         .WithMany()
@@ -514,11 +524,17 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
+
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedByUserId");
 
                     b.Navigation("ContactMessageType");
+
+                    b.Navigation("CreatedByUser");
 
                     b.Navigation("DeletedByUser");
                 });
@@ -527,9 +543,7 @@ namespace MovieRentalSystem.WebUI.Migrations
                 {
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatedByUserId");
 
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
                         .WithMany()
@@ -544,9 +558,7 @@ namespace MovieRentalSystem.WebUI.Migrations
                 {
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatedByUserId");
 
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
                         .WithMany()
@@ -561,9 +573,7 @@ namespace MovieRentalSystem.WebUI.Migrations
                 {
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatedByUserId");
 
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
                         .WithMany()
@@ -633,9 +643,15 @@ namespace MovieRentalSystem.WebUI.Migrations
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Subscription", b =>
                 {
+                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
+
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedByUserId");
+
+                    b.Navigation("CreatedByUser");
 
                     b.Navigation("DeletedByUser");
                 });

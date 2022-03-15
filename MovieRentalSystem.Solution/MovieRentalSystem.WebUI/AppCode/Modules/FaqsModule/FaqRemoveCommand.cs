@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MovieRentalSystem.WebUI.AppCode.Extensions;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities;
@@ -13,10 +15,12 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
         public class FaqRemoveCommandHandler : IRequestHandler<FaqRemoveCommand, CommandJsonResponse>
         {
             readonly MovieDbContext db;
+            readonly IActionContextAccessor ctx;
 
-            public FaqRemoveCommandHandler(MovieDbContext db)
+            public FaqRemoveCommandHandler(MovieDbContext db, IActionContextAccessor ctx)
             {
                 this.db = db;
+                this.ctx = ctx;
             }
 
             async public Task<CommandJsonResponse> Handle(FaqRemoveCommand request, CancellationToken cancellationToken)
@@ -42,6 +46,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
                 }
 
                 faq.DeletedDate = DateTime.UtcNow.AddHours(4);
+                faq.DeletedByUserId = ctx.GetUserId();
                 await db.SaveChangesAsync(cancellationToken);
 
                 response.Error = false;

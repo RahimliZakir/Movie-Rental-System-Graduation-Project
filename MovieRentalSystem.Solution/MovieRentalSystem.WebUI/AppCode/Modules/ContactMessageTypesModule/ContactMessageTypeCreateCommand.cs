@@ -36,6 +36,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
                 if (ctx.IsValid())
                 {
                     ContactMessageType type = mapper.Map<ContactMessageType>(request);
+                    type.CreatedByUserId = ctx.GetUserId();
 
                     await db.ContactMessageType.AddAsync(type, cancellationToken);
                     await db.SaveChangesAsync(cancellationToken);

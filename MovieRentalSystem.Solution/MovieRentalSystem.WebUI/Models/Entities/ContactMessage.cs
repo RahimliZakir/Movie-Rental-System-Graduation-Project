@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieRentalSystem.WebUI.Models.Entities
 {
-    public class ContactMessage : BaseEntity
+    public class ContactMessage : HistoryWatch
     {
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public string Name { get; set; } = null!;

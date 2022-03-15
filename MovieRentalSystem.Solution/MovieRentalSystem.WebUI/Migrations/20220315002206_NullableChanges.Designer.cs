@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 
@@ -11,9 +12,10 @@ using MovieRentalSystem.WebUI.Models.DataContexts;
 namespace MovieRentalSystem.WebUI.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    partial class MovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220315002206_NullableChanges")]
+    partial class NullableChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,6 +108,9 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
@@ -132,6 +137,8 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContactMessageTypeId");
+
+                    b.HasIndex("CreatedByUserId");
 
                     b.HasIndex("DeletedByUserId");
 
@@ -469,9 +476,6 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
 
-                    b.Property<int?>("DeletedByUserId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
@@ -483,8 +487,6 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeletedByUserId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -514,11 +516,19 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedByUserId");
 
                     b.Navigation("ContactMessageType");
+
+                    b.Navigation("CreatedByUser");
 
                     b.Navigation("DeletedByUser");
                 });
@@ -629,15 +639,6 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Subscription", b =>
-                {
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId");
-
-                    b.Navigation("DeletedByUser");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.ContactMessageType", b =>

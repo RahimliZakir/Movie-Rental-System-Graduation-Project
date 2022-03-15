@@ -52,6 +52,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AppInfosModule
 
                 if (ctx.IsValid())
                 {
+                    request.CreatedByUserId = entity.CreatedByUserId;
                     AppInfo appInfo = mapper.Map(request, entity);
 
                     await db.SaveChangesAsync(cancellationToken);

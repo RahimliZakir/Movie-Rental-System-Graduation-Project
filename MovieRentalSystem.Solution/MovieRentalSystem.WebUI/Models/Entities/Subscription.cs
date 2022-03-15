@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieRentalSystem.WebUI.Models.Entities
 {
-    public class Subscription : BaseEntity
+    public class Subscription : HistoryWatch
     {
         [Required(ErrorMessage = "Xahiş olunur mail-inizi daxil edin!")]
         public string? Email { get; set; }

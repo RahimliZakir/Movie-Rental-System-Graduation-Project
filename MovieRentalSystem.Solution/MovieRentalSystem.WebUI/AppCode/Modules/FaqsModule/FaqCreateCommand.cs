@@ -36,6 +36,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
                 if (ctx.IsValid())
                 {
                     Faq faq = mapper.Map<Faq>(request);
+                    faq.CreatedByUserId = ctx.GetUserId();
 
                     await db.Faqs.AddAsync(faq, cancellationToken);
                     await db.SaveChangesAsync(cancellationToken);

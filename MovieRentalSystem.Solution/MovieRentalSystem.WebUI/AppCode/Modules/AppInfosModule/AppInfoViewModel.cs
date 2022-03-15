@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MovieRentalSystem.WebUI.Models.Entities.Membership;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieRentalSystem.WebUI.AppCode.Modules.AppInfosModule
 {
@@ -29,6 +30,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AppInfosModule
 
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public string TelegramLink { get; set; } = null!;
+
+        public int? CreatedByUserId { get; set; }
+
+        public AppUser? CreatedByUser { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
     }

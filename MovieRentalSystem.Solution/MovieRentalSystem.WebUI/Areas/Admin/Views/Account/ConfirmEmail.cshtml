@@ -1,4 +1,4 @@
-﻿@model ForgotPasswordFormModel
+﻿@model ConfirmEmailFormModel
 
 @{
     Layout = null;
@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Forgot Password | YouVideo</title>
+    <title>Confirm Email | YouVideo</title>
     <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
     <link rel="shortcut icon"
@@ -19,18 +19,19 @@
 <body>
     <div class="root">
         <div class="container">
-            <div class="row vh-100 align-items-center">
-                <div class="offset-2 col-md-8">
-                    <form method="post" asp-action="ForgotPassword" asp-controller="Account">
-                        <h2 class="text-center">Şifrə yeniləmə pəncərəsi</h2>
+            <div class="row vh-100 align-items-center justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="text-center">Email təsdiqləmə pəncərəsi</h2>
+                    <h5 class="text-center"><span class="text-danger">Qeyd: </span>Daxil etdiyiniz email üzrə sizin mailə keçid linki göndəriləcək.</h5>
+                    <h5 style="color: red; text-align: center;">@TempData["ConfirmEmailError"]</h5>
+                    <form method="post" asp-action="ConfirmEmail">
                         <div class="form-group">
-                            <label asp-for="Email">Emailinizi daxil edin: </label>
-                            <input class="form-control" type="email" asp-for="Email" />
+                            <label asp-for="Email">Email: </label>
+                            <input type="email" id="email" asp-for="Email" class="form-control" />
                             <span class="text-danger" asp-validation-for="Email"></span>
                         </div>
-
-                        <button class="mt-2 btn btn-success">Göndər</button>
-                        <a class="mt-2 btn btn-danger" asp-action="Index" asp-controller="Home">Geriyə</a>
+                        <button type="submit" class="btn btn-success mt-2">Göndər</button>
+                        <a asp-action="Index" asp-controller="PersonalSide" class="btn btn-danger mt-2">Geriyə</a>
                     </form>
                 </div>
             </div>
@@ -43,7 +44,7 @@
     <script src="~/libs/toastr.js/toastr.min.js"></script>
     <script src="~/libs/toastr.js/toastr.customize.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(function(){
             $('form').submit((e) => {
                 e.preventDefault();
 
@@ -54,7 +55,7 @@
                 }
 
                 $.ajax({
-                    url: '@Url.Action("ForgotPassword")',
+                    url: '@Url.Action("ConfirmEmail")',
                     type: "POST",
                     data: formData,
                     success: function(response){

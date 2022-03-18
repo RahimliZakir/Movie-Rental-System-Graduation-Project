@@ -1,0 +1,31 @@
+﻿@model CommandJsonResponse
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Set Email Confirmed</title>
+    <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="root">
+        <div class="container">
+            <div class="row vh-100 align-items-center justify-content-center">
+                <div class="col-md-6">
+                    <div class="alert @(Model.Error ? "alert-success" : "alert-danger") text-center" role="alert">
+                        @Model.Message
+                    </div>
+
+                    <div class="text-center"><a asp-action="Index" asp-controller="PersonalSide" class="btn btn-success">Şəxsi kabinetə keçid</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

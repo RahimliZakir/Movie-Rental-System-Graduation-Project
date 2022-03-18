@@ -66,14 +66,14 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                     {
                         ctx.AddModelError("SignError", "İstifadəçi adı və ya şifrə səhvdir.");
                         response.Error = true;
-                        response.Message = "İstifadəçi adı və ya şifrə səhvdir.";
+                        response.Temp = "İstifadəçi adı və ya şifrə səhvdir.";
                     }
                 }
                 else
                 {
                     ctx.AddModelError("SignError", "İstifadəçi adı və ya şifrə səhvdir.");
                     response.Error = true;
-                    response.Message = "İstifadəçi adı və ya şifrə səhvdir.";
+                    response.Temp = "İstifadəçi adı və ya şifrə səhvdir.";
                 }
 
             stopGenerate:

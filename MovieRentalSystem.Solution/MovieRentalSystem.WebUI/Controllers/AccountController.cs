@@ -37,7 +37,7 @@ namespace MovieRentalSystem.WebUI.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(nameof(Index), "Faqs", routeValues: new
+                    return RedirectToAction(nameof(Index), "PersonalSide", routeValues: new
                     {
                         area = "Admin"
                     });
@@ -45,7 +45,7 @@ namespace MovieRentalSystem.WebUI.Controllers
             }
             else
             {
-                TempData["Status"] = response.Message;
+                TempData["Status"] = response.Temp;
             }
 
             return View();

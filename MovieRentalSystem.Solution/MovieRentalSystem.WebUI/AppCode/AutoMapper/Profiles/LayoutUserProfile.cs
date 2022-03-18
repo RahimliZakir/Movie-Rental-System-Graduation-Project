@@ -9,7 +9,7 @@ namespace MovieRentalSystem.WebUI.AppCode.AutoMapper.Profiles
     {
         public LayoutUserProfile()
         {
-            CreateMap<AppUserRole, LayoutUserDto>()
+            CreateMap<AppUser, LayoutUserDto>()
                      .ForMember(src => src.ShowName, dest => dest.MapFrom(new LayoutUserResolver()));
         }
     }

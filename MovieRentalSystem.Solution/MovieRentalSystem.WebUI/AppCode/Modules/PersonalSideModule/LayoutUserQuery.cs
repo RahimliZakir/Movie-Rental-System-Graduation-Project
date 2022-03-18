@@ -28,12 +28,12 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.PersonalSideModule
             {
                 int userId = ctx.GetUserId();
 
-                AppUserRole currentUserRole = await db.UserRoles
-                                              .Include(u => u.User)
-                                              .Include(u => u.Role)
-                                              .FirstOrDefaultAsync(u => u.UserId == userId);
+                AppUser currentUser = await db.Users
+                                              .Include(u => u.UserRoles)
+                                              .ThenInclude(u => u.Role)
+                                              .FirstOrDefaultAsync(u => u.Id == userId);
 
-                LayoutUserDto userDto = mapper.Map<LayoutUserDto>(currentUserRole);
+                LayoutUserDto userDto = mapper.Map<LayoutUserDto>(currentUser);
 
                 return userDto;
             }

@@ -4,21 +4,21 @@ using MovieRentalSystem.WebUI.Models.Entities.Membership;
 
 namespace MovieRentalSystem.WebUI.AppCode.AutoMapper.Resolvers
 {
-    public class LayoutUserResolver : IValueResolver<AppUserRole, LayoutUserDto, string>
+    public class LayoutUserResolver : IValueResolver<AppUser, LayoutUserDto, string>
     {
-        public string Resolve(AppUserRole src, LayoutUserDto dest, string destMember, ResolutionContext context)
+        public string Resolve(AppUser src, LayoutUserDto dest, string destMember, ResolutionContext context)
         {
-            dest.ImagePath = !string.IsNullOrWhiteSpace(src.User.ImagePath) ? $"/uploads/personalside/{src.User.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg";
+            dest.ImagePath = !string.IsNullOrWhiteSpace(src.ImagePath) ? $"/uploads/personalside/{src.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg";
 
-            dest.Email = src.User.Email;
+            dest.Email = src.Email;
 
-            dest.RoleName = src.Role.Name;
+            dest.RoleName = src?.UserRoles?.FirstOrDefault()?.Role.Name;
 
-            string showName = src.User.UserName;
+            string showName = src.UserName;
 
-            if (!string.IsNullOrEmpty(src.User.Name) || !string.IsNullOrWhiteSpace(src.User.Surname))
+            if (!string.IsNullOrEmpty(src.Name) || !string.IsNullOrWhiteSpace(src.Surname))
             {
-                showName = $"{src.User.Name} {src.User.Surname}";
+                showName = $"{src.Name} {src.Surname}";
             }
 
             return showName;

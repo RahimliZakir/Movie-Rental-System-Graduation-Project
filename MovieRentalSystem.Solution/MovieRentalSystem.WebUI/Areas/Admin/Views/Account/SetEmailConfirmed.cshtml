@@ -9,15 +9,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Set Email Confirmed</title>
+    <title>Set Email Confirmed | YouVideo</title>
     <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="shortcut icon"
+          href="~/assets/icons/favicon.ico"
+          type="image/x-icon" />
 </head>
 <body>
     <div class="root">
         <div class="container">
             <div class="row vh-100 align-items-center justify-content-center">
                 <div class="col-md-6">
-                    <div class="alert @(Model.Error ? "alert-success" : "alert-danger") text-center" role="alert">
+                    <div class="alert @(!Model.Error ? "alert-success" : "alert-danger") text-center" role="alert">
                         @Model.Message
                     </div>
 

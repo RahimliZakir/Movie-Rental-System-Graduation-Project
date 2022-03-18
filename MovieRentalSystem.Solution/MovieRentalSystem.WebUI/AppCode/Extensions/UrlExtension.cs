@@ -11,5 +11,13 @@ namespace MovieRentalSystem.WebUI.AppCode.Extensions
             if (pattern.IsMatch(content)) return true;
             else return false;
         }
+
+        public static bool ValidateRoute(this string content)
+        {
+            Regex pattern = new(@"/[^-:\/_{}()a-zA-Z\d]/g");
+
+            if (pattern.IsMatch(content)) return true;
+            else return false;
+        }
     }
 }

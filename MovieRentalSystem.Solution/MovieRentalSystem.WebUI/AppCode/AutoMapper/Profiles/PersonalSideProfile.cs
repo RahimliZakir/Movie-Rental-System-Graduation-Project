@@ -15,7 +15,9 @@ namespace MovieRentalSystem.WebUI.AppCode.AutoMapper.Profiles
 
             CreateMap<PersonalSideEditCommand, AppUser>()
                      .ForMember(src => src.UserName, dest => dest.MapFrom(map => map.Username))
-                     .ForMember(src => src.Email, dest => dest.MapFrom(map => map.EmailAddress));
+                     .ForMember(src => src.Email, dest => dest.MapFrom(map => map.EmailAddress))
+                     .ForMember(src => src.NormalizedUserName, dest => dest.MapFrom(map => map.Username.ToUpper()))
+                     .ForMember(src => src.NormalizedEmail, dest => dest.MapFrom(map => map.EmailAddress.ToUpper()));
         }
     }
 }

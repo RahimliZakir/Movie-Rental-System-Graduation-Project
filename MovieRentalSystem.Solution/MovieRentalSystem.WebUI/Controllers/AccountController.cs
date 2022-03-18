@@ -31,9 +31,9 @@ namespace MovieRentalSystem.WebUI.Controllers
 
             if (response.Error == false)
             {
-                if (response.Message.ValidateUrl())
+                if (!string.IsNullOrWhiteSpace(response.ReturnUrl))
                 {
-                    return Redirect(response.Message);
+                    return Redirect(response.ReturnUrl);
                 }
                 else
                 {

@@ -52,7 +52,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                         if (!string.IsNullOrWhiteSpace(returlUrl))
                         {
                             response.Error = false;
-                            response.Message = returlUrl;
+                            response.ReturnUrl = returlUrl;
                             goto stopGenerate;
                         }
                         else

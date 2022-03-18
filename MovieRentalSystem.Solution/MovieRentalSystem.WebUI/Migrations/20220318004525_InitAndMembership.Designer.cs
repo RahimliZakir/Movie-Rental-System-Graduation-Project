@@ -12,8 +12,8 @@ using MovieRentalSystem.WebUI.Models.DataContexts;
 namespace MovieRentalSystem.WebUI.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20220315004619_NullabelChanges3")]
-    partial class NullabelChanges3
+    [Migration("20220318004525_InitAndMembership")]
+    partial class InitAndMembership
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -172,7 +172,7 @@ namespace MovieRentalSystem.WebUI.Migrations
 
                     b.HasIndex("DeletedByUserId");
 
-                    b.ToTable("ContactMessageType");
+                    b.ToTable("ContactMessageTypes");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Faq", b =>
@@ -319,6 +319,9 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -330,11 +333,20 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -354,6 +366,9 @@ namespace MovieRentalSystem.WebUI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -611,17 +626,21 @@ namespace MovieRentalSystem.WebUI.Migrations
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUserRole", b =>
                 {
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppRole", null)
-                        .WithMany()
+                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppRole", "Role")
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", null)
-                        .WithMany()
+                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "User")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUserToken", b =>
@@ -650,6 +669,16 @@ namespace MovieRentalSystem.WebUI.Migrations
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Genre", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppRole", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

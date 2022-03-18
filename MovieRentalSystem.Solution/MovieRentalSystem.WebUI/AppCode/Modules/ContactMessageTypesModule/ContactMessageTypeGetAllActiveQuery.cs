@@ -18,7 +18,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
 
             public async Task<IEnumerable<ContactMessageType>> Handle(ContactMessageTypeGetAllActiveQuery request, CancellationToken cancellationToken)
             {
-                IEnumerable<ContactMessageType> types = await db.ContactMessageType.Where(g => g.DeletedDate == null).ToListAsync(cancellationToken);
+                IEnumerable<ContactMessageType> types = await db.ContactMessageTypes.Where(g => g.DeletedDate == null).ToListAsync(cancellationToken);
 
                 return types;
             }

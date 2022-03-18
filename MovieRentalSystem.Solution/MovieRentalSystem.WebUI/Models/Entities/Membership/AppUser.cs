@@ -15,6 +15,8 @@ namespace MovieRentalSystem.WebUI.Models.Entities.Membership
 
         public string? JobName { get; set; }
 
+        public virtual ICollection<AppUserRole> UserRoles { get; set; }
+
         [NotMapped]
         public string? FileTemp { get; set; }
     }

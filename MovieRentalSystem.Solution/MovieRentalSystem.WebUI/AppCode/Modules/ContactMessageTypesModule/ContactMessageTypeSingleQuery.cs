@@ -28,7 +28,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
                     return null;
                 }
 
-                ContactMessageType type = await db.ContactMessageType.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                ContactMessageType type = await db.ContactMessageTypes.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 ContactMessageTypeViewModel viewModel = mapper.Map<ContactMessageTypeViewModel>(type);
 

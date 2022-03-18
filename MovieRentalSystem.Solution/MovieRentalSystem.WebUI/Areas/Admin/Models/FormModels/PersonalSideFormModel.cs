@@ -4,6 +4,8 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Models.FormModels
 {
     public class PersonalSideFormModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public string Username { get; set; } = null!;
 

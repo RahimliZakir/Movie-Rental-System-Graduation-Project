@@ -38,11 +38,21 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
             //---Identity---
             builder.Entity<AppUser>(e =>
             {
+                e.HasMany(c => c.UserRoles)
+                 .WithOne(c => c.User)
+                 .HasForeignKey(c => c.UserId)
+                 .IsRequired();
+
                 e.ToTable("Users", "Membership");
             });
 
             builder.Entity<AppRole>(e =>
             {
+                e.HasMany(c => c.UserRoles)
+                 .WithOne(c => c.Role)
+                 .HasForeignKey(c => c.RoleId)
+                 .IsRequired();
+
                 e.ToTable("Roles", "Membership");
             });
 
@@ -96,7 +106,5 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
                    .Property(g => g.CreatedDate)
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
         }
-
-        public DbSet<MovieRentalSystem.WebUI.Models.Entities.ContactMessageType> ContactMessageType { get; set; }
     }
 }

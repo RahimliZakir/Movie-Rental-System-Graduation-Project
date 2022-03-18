@@ -19,7 +19,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
             public async Task<IEnumerable<Genre>> Handle(GenreGetAllActiveQuery request, CancellationToken cancellationToken)
             {
                 IEnumerable<Genre> genres = await db.Genres
-                                                    .Include(g => g.Children.Where(g => g.DeletedDate == null))
+                                                    .Include(g => g.Children)
                                                     .Where(g => g.DeletedDate == null)
                                                     .ToListAsync(cancellationToken);
 

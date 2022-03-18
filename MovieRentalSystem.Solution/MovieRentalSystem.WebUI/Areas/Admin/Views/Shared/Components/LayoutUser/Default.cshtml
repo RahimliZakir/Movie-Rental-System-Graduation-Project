@@ -1,0 +1,11 @@
+﻿@model LayoutUserDto
+
+<div class="main-profile">
+    <div class="image-bx">
+        <img src="@Model.ImagePath" alt="">
+        <a href="javascript:void(0);"><i class="d-none fa fa-cog" aria-hidden="true"></i></a>
+    </div>
+    <h5 class="name"><span class="font-w400">Hello,</span> @Model.ShowName</h5>
+    <h6>@Model.RoleName</h6>
+    <p class="email">@Model.Email</p>
+</div>

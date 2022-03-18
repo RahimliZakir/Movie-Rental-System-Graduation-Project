@@ -73,7 +73,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
 
             async public Task<PagedViewModel<ContactMessageType>> Handle(ContactMessageTypePagedQuery request, CancellationToken cancellationToken)
             {
-                IQueryable<ContactMessageType> query = db.ContactMessageType.Where(f => f.DeletedDate == null).AsQueryable();
+                IQueryable<ContactMessageType> query = db.ContactMessageTypes.Where(f => f.DeletedDate == null).AsQueryable();
 
                 request.Text = request.Text?.Trim();
                 if (!string.IsNullOrWhiteSpace(request.Text))

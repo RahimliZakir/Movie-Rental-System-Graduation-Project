@@ -170,7 +170,7 @@ namespace MovieRentalSystem.WebUI.Migrations
 
                     b.HasIndex("DeletedByUserId");
 
-                    b.ToTable("ContactMessageType");
+                    b.ToTable("ContactMessageTypes");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Faq", b =>
@@ -624,17 +624,21 @@ namespace MovieRentalSystem.WebUI.Migrations
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUserRole", b =>
                 {
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppRole", null)
-                        .WithMany()
+                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppRole", "Role")
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", null)
-                        .WithMany()
+                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "User")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUserToken", b =>
@@ -663,6 +667,16 @@ namespace MovieRentalSystem.WebUI.Migrations
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Genre", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppRole", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

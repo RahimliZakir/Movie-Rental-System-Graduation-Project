@@ -110,6 +110,15 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+app.MapGet("/comingsoon.html", async (context) =>
+ {
+     using (StreamReader sr = new("Views/static/comingsoon.html"))
+     {
+         context.Response.ContentType = "text/html";
+         await context.Response.WriteAsync(await sr.ReadToEndAsync());
+     }
+ });
+
 app.UseEndpoints(endpoints =>
 {
 

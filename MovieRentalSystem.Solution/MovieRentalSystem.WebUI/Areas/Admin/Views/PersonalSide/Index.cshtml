@@ -1,0 +1,55 @@
+﻿@model PersonalSideFormModel
+
+@{
+    ViewData["Title"] = "Personal Side Index";
+}
+
+@section css{
+<style>
+    li {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+</style>
+}
+
+<div class="root">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 d-flex flex-column align-items-center">
+                @if (Model.ImagePath == null)
+                {
+                    <div class="img-div" style="width: 25%;">
+                        <img src="~/uploads/personalside/no-profile-picture.jpg" style="width: 100%;" />
+                    </div>
+                }
+                else
+                {
+                    <div class="img-div" style="width: 25%;">
+                        <img src="~/uploads/personalside/@Model.ImagePath" style="width: 100%;" />
+                    </div>
+                }
+                <div class="name-surname d-flex">
+                    <h4> @Model?.Name</h4>
+                    <h4 style="margin-left: 7.5px;"> @Model?.Surname</h4>
+                </div>
+                <ul class="text-center">
+                    <li>Id: @Model?.Id</li>
+                    <li>İstifadəçi adı: @Model?.Username</li>
+                    <li>Email ünvanı: @Model?.EmailAddress</li>
+                    <li>Yaş: @Model?.Age</li>
+                    <li>İş: @Model?.JobName</li>
+                </ul>
+                <div class="tools-group my-5">
+                    <a asp-action="Edit" asp-controller="PersonalSide" class="btn btn-warning">Məlumatları yenilə</a>
+                    @if (!Model.EmailConfirmed)
+                    {
+                        <a asp-action="ConfirmEmail" asp-controller="Account" class="btn btn-success">Maili təsdiqə</a>
+                    }
+                    <a asp-action="ForgotPassword" asp-controller="Account" asp-area="" class="btn btn-info">Şifrəni dəyiş</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

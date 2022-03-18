@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.AppCode.Extensions;
@@ -16,12 +17,14 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.PersonalSideModule
             readonly MovieDbContext db;
             readonly IActionContextAccessor ctx;
             readonly IHostEnvironment env;
+            readonly IMapper mapper;
 
-            public PersonalSideEditCommandHandler(MovieDbContext db, IActionContextAccessor ctx, IHostEnvironment env)
+            public PersonalSideEditCommandHandler(MovieDbContext db, IActionContextAccessor ctx, IHostEnvironment env, IMapper mapper)
             {
                 this.db = db;
                 this.ctx = ctx;
                 this.env = env;
+                this.mapper = mapper;
             }
 
             async public Task<CommandJsonResponse> Handle(PersonalSideEditCommand request, CancellationToken cancellationToken)
@@ -71,6 +74,12 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.PersonalSideModule
                             request.ImagePath = fileName;
                         }
                     }
+
+                    AppUser user = mapper.Map(request, currentUser);
+                    await db.SaveChangesAsync(cancellationToken);
+
+                    response.Error = false;
+                    response.Message = "Məlumatlar uğurla yadda saxlanıldı!";
                 }
 
                 return response;

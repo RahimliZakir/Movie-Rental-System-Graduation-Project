@@ -1,0 +1,98 @@
+﻿@model PersonalSideFormModel
+
+@{
+    ViewData["Title"] = "Personal Side Edit";
+}
+
+@section css{
+<link rel="stylesheet" href="~/libs/jquery-image-input/jquery.image-input.css" />
+<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+}
+
+<h1 class="text-center">Şəxsi Kabinetə Düzəliş</h1>
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <image asp-caption="Profil şəkli:" asp-for="file" asp-path="/uploads/personalside/@Model?.ImagePath"></image>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Ad:</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label">Soyad:</label>
+                <input asp-for="Surname" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label">Yaş:</label>
+                <input asp-for="Age" class="form-control" />
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Username" class="control-label">İstifadəçi adı:</label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label">Email ünvanı:</label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobName" class="control-label">İş:</label>
+                <input asp-for="JobName" class="form-control" />
+            </div>
+            <div class="form-group mb-5">
+                <input type="submit" value="Yadda Saxla" class="btn btn-primary" />
+                <a asp-action="Index" asp-controller="PersonalSide" class="btn btn-danger">Geriyə</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section js{
+<script src="~/libs/jquery-image-input/jquery.image-input.js"></script>
+<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/libs/toastr.js/toastr.min.js"></script>
+<script src="~/libs/toastr.js/toastr.customize.min.js"></script>
+<script>
+    $(document).ready(function(){
+       $('form').on('submit', function(e) {
+          e.preventDefault();
+
+          if(!$(e.currentTarget).valid()){
+              return;
+          }
+
+          let formData = new FormData(e.currentTarget);
+
+          $.ajax({
+              url: '/edit-profile-info',
+              type: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(response){
+                  if(!response.error){
+                      toastr.success(response.message, "Uğurlu!");
+                      setTimeout(() => {
+                          window.location.assign('@Url.Action("Index")');
+                      }, 1500);
+                      return;
+                  }
+
+                  toastr.error(response.message, "Xəta!");
+              },
+              error: function(response){
+                  console.log(response.message);
+              }
+          });
+       }).validate();
+    });
+</script>
+}

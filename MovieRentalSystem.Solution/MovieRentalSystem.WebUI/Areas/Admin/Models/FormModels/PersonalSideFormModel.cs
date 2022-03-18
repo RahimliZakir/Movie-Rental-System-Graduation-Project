@@ -23,6 +23,8 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Models.FormModels
 
         public string? FileTemp { get; set; }
 
+        public bool EmailConfirmed { get; set; }
+
         public int? Age { get; set; }
 
         public string? JobName { get; set; }

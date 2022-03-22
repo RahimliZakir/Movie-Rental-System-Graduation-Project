@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.AccountModule;
+using MovieRentalSystem.WebUI.Areas.Admin.Models.ViewModels;
 using MovieRentalSystem.WebUI.Models.Entities.Membership;
 
 namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
@@ -39,17 +41,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         {
             CommandJsonResponse response = await mediator.Send(request);
 
-
-            if (!string.IsNullOrWhiteSpace(response.Temp))
-            {
-                TempData["ConfirmEmailError"] = response.Temp;
-
-                return View();
-            }
-            else
-            {
-                return Json(response);
-            }
+            return Json(response);
         }
 
         async public Task<IActionResult> SetEmailConfirmed(SetEmailConfirmedCommand request)
@@ -57,6 +49,37 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             CommandJsonResponse response = await mediator.Send(request);
 
             return View(response);
+        }
+
+        [Authorize(Roles = "Admin")]
+        async public Task<IActionResult> GetUsers()
+        {
+
+            return View(await mediator.Send(new UserGetAllActiveQuery()));
+        }
+
+        [Authorize(Roles = "Admin")]
+        async public Task<IActionResult> Policies(UserRolesClaimsGetAllActiveQuery query)
+        {
+            UserPolicyViewModel vm = await mediator.Send(query);
+
+            return View(vm);
+        }
+
+        [Authorize(Roles = "Admin")]
+        async public Task<IActionResult> SetRole(SetRoleCommand request)
+        {
+            CommandJsonResponse response = await mediator.Send(request);
+
+            return Ok(response);
+        }
+
+        [Authorize(Roles = "Admin")]
+        async public Task<IActionResult> SetClaim(SetClaimCommand request)
+        {
+            CommandJsonResponse response = await mediator.Send(request);
+
+            return Ok(response);
         }
     }
 }

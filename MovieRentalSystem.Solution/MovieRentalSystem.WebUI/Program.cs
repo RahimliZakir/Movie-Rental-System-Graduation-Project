@@ -1,11 +1,14 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MovieRentalSystem.WebUI.AppCode.Extensions;
 using MovieRentalSystem.WebUI.AppCode.Initializers;
 using MovieRentalSystem.WebUI.AppCode.ModelBinders;
+using MovieRentalSystem.WebUI.AppCode.Providers;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities.Membership;
 using Newtonsoft.Json;
@@ -51,6 +54,8 @@ services.AddScoped<RoleManager<AppRole>>()
         .AddScoped<UserManager<AppUser>>()
         .AddScoped<SignInManager<AppUser>>();
 
+services.AddScoped<IClaimsTransformation, AppClaimProvider>();
+
 services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
@@ -84,13 +89,18 @@ services.ConfigureApplicationCookie(options =>
 
 services.AddAuthorization(cfg =>
 {
-    cfg.AddPolicy("", options =>
+    string[] policies = services.GetPolicies(typeof(Program));
+
+    foreach (string policy in policies)
     {
-        options.RequireAssertion(assertion =>
+        cfg.AddPolicy(policy, options =>
         {
-            return assertion.User.HasClaim("", "1") || assertion.User.IsInRole("Admin");
+            options.RequireAssertion(assertion =>
+            {
+                return assertion.User.HasClaim(policy, "1") || assertion.User.IsInRole("Admin");
+            });
         });
-    });
+    }
 });
 
 WebApplication app = builder.Build();

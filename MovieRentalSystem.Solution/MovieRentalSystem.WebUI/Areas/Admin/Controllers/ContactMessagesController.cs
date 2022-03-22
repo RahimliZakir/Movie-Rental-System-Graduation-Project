@@ -1,5 +1,6 @@
 ﻿#nullable disable
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule;
@@ -9,6 +10,7 @@ using MovieRentalSystem.WebUI.Models.Entities;
 namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Policy = "contactmessages.config")]
     public class ContactMessagesController : Controller
     {
         readonly IMediator mediator;

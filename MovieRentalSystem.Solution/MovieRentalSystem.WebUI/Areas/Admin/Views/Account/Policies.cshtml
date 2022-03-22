@@ -1,0 +1,206 @@
+﻿@model UserPolicyViewModel
+
+@{
+    ViewData["Title"] = "Policies | YouVideo";
+}
+
+@section css{
+<link rel="stylesheet" href="~/libs/limonte-sweetalert2/sweetalert2.min.css" />
+<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+<style>
+    input[type="checkbox"] {
+        cursor: pointer;
+    }
+</style>
+}
+
+<h1 class="text-center">İmtiyazlar</h1>
+<h6 class="text-center">İstifadəçi: <span class="text-danger">@Model.User.UserName</span></h6>
+
+<div class="root">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-warning">
+                    <h3 class="text-center">Rollar</h3>
+                    <thead>
+                        <tr>
+                            <th>Status: </th>
+                            <th>Rol: </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var role in Model.Roles)
+                        {
+                            <tr>
+                                <td><input data-role-id="@role.Item1.Id" id="role-@role.Item1.Id" type="checkbox" @(role.Item2?"checked":"") /></td>
+                                <td><label for="role-@role.Item1.Id">@role.Item1.Name</label></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-danger">
+                    <h3 class="text-center">Claimlər</h3>
+                    <thead>
+                        <tr>
+                            <th>Status: </th>
+                            <th>Claim: </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var claim in Model.Claims)
+                        {
+                            <tr>
+                                <td><input data-claim="@claim.Item1" id="claim-@claim.Item1" type="checkbox" @(claim.Item2?"checked":"") /></td>
+                                <td><label for="claim-@claim.Item1">@claim.Item1</label></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="btns-box">
+                <a asp-action="GetUsers" class="btn btn-danger">Geriyə</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js{
+<script src="~/libs/limonte-sweetalert2/sweetalert2.min.js"></script>
+<script src="~/libs/toastr.js/toastr.min.js"></script>
+<script src="~/libs/toastr.js/toastr.customize.min.js"></script>
+<script>
+    $(function(){
+        // Roles
+        $('[data-role-id]').change((e) => {
+            let userId = '@Model.User.Id';
+            let roleId = $(e.currentTarget).data('role-id');
+            let selected = $(e.currentTarget).is(':checked');
+
+            let roleName = $(e.currentTarget).parent().next('td').find('label').text();
+
+            let messageSwalText;
+            if(selected){
+            messageSwalText = `'@Model.User.UserName' adlı istifadəçiyə ${roleName} rolunu vermək istədiyinizə əminsinizmi?`;
+            }
+            else{
+                messageSwalText = `'@Model.User.UserName' adlı istifadəçidən ${roleName} rolunu almaq istədiyinizdən əminsinizmi?`;
+            }
+
+            const swalWithBootstrapButtons = Swal.mixin({
+               customClass: {
+                 confirmButton: 'btn btn-success',
+                 cancelButton: 'btn btn-danger'
+               },
+               buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'Əminsiniz?',
+              text: messageSwalText,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Bəli!',
+              cancelButtonText: 'Xeyr!',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                  $.ajax({
+                    url: '@Url.Action("SetRole")',
+                    type: "POST",
+                    data: {userId, roleId, selected},
+                    success: function(response){
+                        if(response.error == false){
+                            toastr.success(response.message, "Uğurlu!");
+
+                            return;
+                        }
+
+                        toastr.warning(response.message, "Diqqət!");
+                    },
+                    error: function(response){
+                        console.log(response);
+                    }
+                  });
+              } else if (
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+                swalWithBootstrapButtons.fire(
+                  'Ləğv olundu!',
+                  'Hər şey öz qaydasındadır :)',
+                  'error'
+                )
+
+                $(e.currentTarget).prop('checked', !selected);
+              }
+            })
+        });
+        // Roles
+
+        // Claims
+        $('[data-claim]').change((e) => {
+            let userId = '@Model.User.Id';
+            let claim = $(e.currentTarget).data('claim');
+            let selected = $(e.currentTarget).is(':checked');
+
+            let messageSwalText;
+            if(selected){
+            messageSwalText = `'@Model.User.UserName' adlı istifadəçiyə ${claim} claimini vermək istədiyinizə əminsinizmi?`;
+            }
+            else{
+                messageSwalText = `'@Model.User.UserName' adlı istifadəçidən ${claim} claimini almaq istədiyinizdən əminsinizmi?`;
+            }
+
+            const swalWithBootstrapButtons = Swal.mixin({
+               customClass: {
+                 confirmButton: 'btn btn-success',
+                 cancelButton: 'btn btn-danger'
+               },
+               buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'Əminsiniz?',
+              text: messageSwalText,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Bəli!',
+              cancelButtonText: 'Xeyr!',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                  $.ajax({
+                    url: '@Url.Action("SetClaim")',
+                    type: "POST",
+                    data: {userId, claim, selected},
+                    success: function(response){
+                        if(response.error == false){
+                            toastr.success(response.message, "Uğurlu!");
+
+                            return;
+                        }
+
+                        toastr.warning(response.message, "Diqqət!");
+                    },
+                    error: function(response){
+                        console.log(response);
+                    }
+                  });
+              } else if (
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+                swalWithBootstrapButtons.fire(
+                  'Ləğv olundu!',
+                  'Hər şey öz qaydasındadır :)',
+                  'error'
+                )
+
+                $(e.currentTarget).prop('checked', !selected);
+              }
+            })
+        });
+    });
+</script>
+}

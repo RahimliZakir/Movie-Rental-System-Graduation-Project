@@ -1,25 +1,32 @@
-﻿<div class="deznav">
+﻿@inject SignInManager<AppUser> signInManager
+
+<div class="deznav">
     <div class="deznav-scroll">
         @await Component.InvokeAsync("LayoutUser")
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
             <li><a asp-action="Index" asp-controller="PersonalSide"><i class="fa-solid fa-user"></i> Şəxsi Kabinet</a></li>
-            <li>
-                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-144-layout"></i>
-                    <span class="nav-text">Komponentlər</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a asp-action="Index" asp-controller="Faqs">FAQ</a></li>
-                    <li><a asp-action="Index" asp-controller="Genres">Janrlar</a></li>
-                    <li><a asp-action="Index" asp-controller="AppInfos">Statik Məlumatlar</a></li>
-                    <li><a asp-action="Index" asp-controller="Subscriptions">Abunələr</a></li>
-                    <li><a asp-action="Index" asp-controller="ContactMessageTypes">İsmarıc Tipləri</a></li>
-                    <li><a asp-action="Index" asp-controller="ContactMessages">İsmarıclar</a></li>
-                    <li><a href="market-capital.html">Market Capital</a></li>
-                </ul>
+            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <li><a asp-action="GetUsers" asp-controller="Account"><i class="fa-solid fa-users-gear"></i> Səlahiyyətləndirmə</a></li>
 
-            </li>
+                <li>
+                    <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-144-layout"></i>
+                        <span class="nav-text">Komponentlər</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a asp-action="Index" asp-controller="Faqs">FAQ</a></li>
+                        <li><a asp-action="Index" asp-controller="Genres">Janrlar</a></li>
+                        <li><a asp-action="Index" asp-controller="AppInfos">Statik Məlumatlar</a></li>
+                        <li><a asp-action="Index" asp-controller="Subscriptions">Abunələr</a></li>
+                        <li><a asp-action="Index" asp-controller="ContactMessageTypes">İsmarıc Tipləri</a></li>
+                        <li><a asp-action="Index" asp-controller="ContactMessages">İsmarıclar</a></li>
+                        <li><a href="market-capital.html">Market Capital</a></li>
+                    </ul>
+
+                </li>
+            }
             <li class="nav-label">Apps</li>
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

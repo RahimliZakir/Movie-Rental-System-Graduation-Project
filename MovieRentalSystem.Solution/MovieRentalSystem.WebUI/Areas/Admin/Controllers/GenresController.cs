@@ -1,5 +1,6 @@
 ﻿#nullable disable
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
@@ -9,6 +10,7 @@ using MovieRentalSystem.WebUI.Models.Entities;
 namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Policy = "genres.config")]
     public class GenresController : Controller
     {
         readonly IMediator mediator;

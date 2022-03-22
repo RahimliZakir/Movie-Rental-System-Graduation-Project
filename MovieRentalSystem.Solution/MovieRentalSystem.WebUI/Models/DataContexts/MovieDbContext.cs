@@ -31,6 +31,11 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<ContactMessageType> ContactMessageTypes { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
 
+        //---Blogs---
+        public DbSet<BlogImage> BlogImages { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        //---Blogs---
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

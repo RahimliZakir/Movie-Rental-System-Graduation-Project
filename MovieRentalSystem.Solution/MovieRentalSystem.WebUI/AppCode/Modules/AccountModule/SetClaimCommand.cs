@@ -70,7 +70,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;
-                    response.Message = $"{user.UserName} adlı istifadəçiyə {claim} claimi verildi!";
+                    response.Message = $"'{user.UserName}' adlı istifadəçiyə {claim} claimi verildi!";
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;
-                    response.Message = $"{user.UserName} adlı istifadəçidən {claim} claimi silindi!";
+                    response.Message = $"'{user.UserName}' adlı istifadəçidən {claim} claimi silindi!";
                 }
 
             stopGenerate:

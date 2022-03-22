@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://kit.fontawesome.com/1154e1d6ee.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="imager.css">
+</head>
+
+<body>
+    <div style="width: 600px;" class="imager-container" id="viewer1" name="files">
+        <label thumb-url='https://picsum.photos/300?v=1' image-id="1" checked="true"></label>
+        <label thumb-url='https://picsum.photos/300?v=2' image-id="2"></label>
+        <label thumb-url='https://picsum.photos/300?v=3' image-id="3"></label>
+        <label thumb-url='https://picsum.photos/300?v=4' image-id="4"></label>
+        <label thumb-url='https://picsum.photos/300?v=5' image-id="5"></label>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="jquery.image-input.js"></script>
+    <script src="imager.js"></script>
+    <script>
+        $('#viewer1').imgadd({
+            tnWidth: '120px',
+            tnHeight: '120px',
+            fontSize: '55px',
+            plusInnerHtml: '',
+            plusBtnClass: undefined
+        });
+    </script>
+</body>
+
+</html>

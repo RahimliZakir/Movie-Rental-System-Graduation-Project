@@ -67,7 +67,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;
-                    response.Message = $"{user.UserName} adlı istifadəçiyə {role.Name} rolu verildi!";
+                    response.Message = $"'{user.UserName}' adlı istifadəçiyə {role.Name} rolu verildi!";
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AccountModule
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;
-                    response.Message = $"{user.UserName} adlı istifadəçidən {role.Name} rolu silindi!";
+                    response.Message = $"'{user.UserName}' adlı istifadəçidən {role.Name} rolu silindi!";
                 }
 
             stopGenerate:

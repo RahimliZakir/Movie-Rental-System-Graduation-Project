@@ -3,38 +3,39 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
+using MovieRentalSystem.WebUI.AppCode.Modules.BlogModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule;
 
 namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Policy = "faqs.config")]
-    public class FaqsController : Controller
+    public class BlogsController : Controller
     {
         readonly IMediator mediator;
 
-        public FaqsController(IMediator mediator)
+        public BlogsController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
-        public async Task<IActionResult> Index(FaqPagedQuery query)
+        public async Task<IActionResult> Index(BlogPagedQuery query)
         {
             query.Response = await mediator.Send(query);
 
             return View(query);
         }
 
-        public async Task<IActionResult> Details(FaqSingleQuery query)
+        public async Task<IActionResult> Details(BlogSingleQuery query)
         {
-            FaqViewModel faq = await mediator.Send(query);
+            BlogViewModel blog = await mediator.Send(query);
 
-            if (faq == null)
+            if (blog == null)
             {
                 return NotFound();
             }
 
-            return View(faq);
+            return View(blog);
         }
 
         public IActionResult Create()
@@ -44,28 +45,28 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Question,Answer")] FaqCreateCommand request)
+        public async Task<IActionResult> Create([Bind("Title,Description,Files")] BlogCreateCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
             return Json(response);
         }
 
-        public async Task<IActionResult> Edit(FaqSingleQuery query)
+        public async Task<IActionResult> Edit(BlogSingleQuery query)
         {
-            FaqViewModel faq = await mediator.Send(query);
+            BlogViewModel blog = await mediator.Send(query);
 
-            if (faq == null)
+            if (blog == null)
             {
                 return NotFound();
             }
 
-            return View(faq);
+            return View(blog);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Question,Answer,Id")] FaqEditCommand request)
+        public async Task<IActionResult> Edit([Bind("Title,Description,Files,Id")] BlogEditCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
@@ -74,7 +75,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(FaqRemoveCommand request)
+        public async Task<IActionResult> Delete(BlogRemoveCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 

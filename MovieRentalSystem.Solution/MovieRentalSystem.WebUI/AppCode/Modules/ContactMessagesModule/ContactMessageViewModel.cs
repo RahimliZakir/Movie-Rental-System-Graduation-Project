@@ -28,6 +28,6 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule
 
         public DateTime? AnswerDate { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
+        public DateTime CreatedDate { get; set; }
     }
 }

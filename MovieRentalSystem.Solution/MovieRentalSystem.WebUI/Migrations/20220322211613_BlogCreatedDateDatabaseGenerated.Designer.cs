@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 
@@ -11,9 +12,10 @@ using MovieRentalSystem.WebUI.Models.DataContexts;
 namespace MovieRentalSystem.WebUI.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    partial class MovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322211613_BlogCreatedDateDatabaseGenerated")]
+    partial class BlogCreatedDateDatabaseGenerated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,58 +85,6 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.HasIndex("DeletedByUserId");
 
                     b.ToTable("AppInfos");
-                });
-
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.AuditLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Action")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Area")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Controller")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsHttps")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Method")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QueryString")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RequestTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ResponseTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StatusCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.ToTable("AuditLogs");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Blog", b =>
@@ -635,15 +585,6 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.Navigation("CreatedByUser");
 
                     b.Navigation("DeletedByUser");
-                });
-
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.AuditLog", b =>
-                {
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId");
-
-                    b.Navigation("CreatedByUser");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Blog", b =>

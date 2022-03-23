@@ -15,6 +15,6 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.SubscriptionsModule
         [Column(TypeName = "datetime")]
         public DateTime? ConfirmationDate { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
+        public DateTime CreatedDate { get; set; }
     }
 }

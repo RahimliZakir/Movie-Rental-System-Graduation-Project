@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.AppCode.Extensions;
 using MovieRentalSystem.WebUI.AppCode.Initializers;
+using MovieRentalSystem.WebUI.AppCode.Middlewares;
 using MovieRentalSystem.WebUI.AppCode.ModelBinders;
 using MovieRentalSystem.WebUI.AppCode.Providers;
 using MovieRentalSystem.WebUI.Models.DataContexts;
@@ -119,6 +120,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseAuditMiddleware();
 
 app.MapGet("/comingsoon.html", async (context) =>
  {

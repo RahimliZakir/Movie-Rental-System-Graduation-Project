@@ -31,6 +31,10 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<ContactMessageType> ContactMessageTypes { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
 
+        //---Audit---
+        public DbSet<AuditLog> AuditLogs { get; set; }
+        //---Audit---
+
         //---Blogs---
         public DbSet<BlogImage> BlogImages { get; set; }
         public DbSet<Blog> Blogs { get; set; }
@@ -108,6 +112,10 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
 
             builder.Entity<ContactMessage>()
+                   .Property(g => g.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
+
+            builder.Entity<Blog>()
                    .Property(g => g.CreatedDate)
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
         }

@@ -17,6 +17,6 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
 
         public AppUser? CreatedByUser { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
+        public DateTime CreatedDate { get; set; }
     }
 }

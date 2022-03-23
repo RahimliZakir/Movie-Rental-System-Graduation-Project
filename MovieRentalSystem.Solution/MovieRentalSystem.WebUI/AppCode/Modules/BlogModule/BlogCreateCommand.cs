@@ -50,7 +50,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
                         foreach (ImageItem item in request.Files)
                         {
                             string ext = Path.GetExtension(item.File.FileName);
-                            string filename = $"blog-{Guid.NewGuid().ToString()}{ext}".ToLower();
+                            string filename = $"blog-{Guid.NewGuid().ToString().Replace("-", "")}{ext}".ToLower();
                             string fullname = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "blogs", filename);
 
                             using (FileStream fs = new(fullname, FileMode.Create, FileAccess.Write))

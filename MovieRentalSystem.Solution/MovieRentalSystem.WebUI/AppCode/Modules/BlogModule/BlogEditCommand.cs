@@ -37,7 +37,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
                     goto end;
                 }
 
-                Blog entity = await db.Blogs.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Blog entity = await db.Blogs
+                                      .Include(b => b.BlogImages)
+                                      .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
                 {
@@ -62,7 +64,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
 
                             if (image != null)
                             {
-                                if (!string.IsNullOrWhiteSpace(item.TempPath))
+                                if (string.IsNullOrWhiteSpace(item.TempPath))
                                 {
                                     db.BlogImages.Remove(image);
                                 }
@@ -75,7 +77,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
                         else if (item.File != null)
                         {
                             string ext = Path.GetExtension(item.File.FileName);
-                            string filename = $"blog-{Guid.NewGuid().ToString()}{ext}".ToLower();
+                            string filename = $"blog-{Guid.NewGuid().ToString().Replace("-", "")}{ext}".ToLower();
                             string fullname = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "blogs", filename);
 
                             using (FileStream fs = new(fullname, FileMode.Create, FileAccess.Write))
@@ -83,7 +85,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
                                 await item.File.CopyToAsync(fs, cancellationToken);
                             }
 
-                            entity?.BlogImages?.Add(new BlogImage
+                            entity.BlogImages.Add(new BlogImage
                             {
                                 ImagePath = filename,
                                 IsMain = item.IsMain
@@ -92,6 +94,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
                     }
 
                     request.CreatedByUserId = entity.CreatedByUserId;
+                    request.BlogImages = entity.BlogImages;
                     Blog blog = mapper.Map(request, entity);
 
                     await db.SaveChangesAsync(cancellationToken);

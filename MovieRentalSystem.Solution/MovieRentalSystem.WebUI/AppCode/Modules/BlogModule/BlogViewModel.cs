@@ -20,7 +20,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
 
         public DateTime CreatedDate { get; set; }
 
-        public virtual ICollection<BlogImage>? BlogImages { get; set; }
+        public ICollection<BlogImage>? BlogImages { get; set; }
+
+        public ICollection<BlogComment>? BlogComments { get; set; }
 
         public ImageItem[] Files { get; set; }
     }

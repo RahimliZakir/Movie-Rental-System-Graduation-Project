@@ -20,6 +20,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
             {
                 IEnumerable<Blog> blogs = await db.Blogs
                                                   .Include(b => b.BlogImages)
+                                                  .Include(b => b.BlogLikes)
+                                                  .Include(b => b.BlogUnlikes)
                                                   .Where(b => b.DeletedByUserId == null)
                                                   .ToListAsync(cancellationToken);
 

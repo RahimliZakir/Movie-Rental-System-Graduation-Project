@@ -1,0 +1,19 @@
+﻿@model BlogComment
+
+<div identifier="@Model.Id" class="row written-comment-row">
+    <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+        <div class="img-div">
+            <img src="~/uploads/personalside/@Model.CreatedByUser.ImagePath" alt="Profile Photo" />
+        </div>
+    </div>
+    <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
+        <h5 class="written-comment-content-heading">@Model.CreatedByUser.Name @Model.CreatedByUser.Surname</h5>
+        <p class="written-comment-content-content">
+            @Model.Content
+        </p>
+        <div class="written-comment-bottom-box">
+            <a onclick="setReply(event)" data-comment-id="@Model.Id" class="reply-btn">Reply</a>
+            <p class="comment-date">@Model.CreatedDate.ToString("MMMM dd, yyyy")</p>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
+using MovieRentalSystem.WebUI.AppCode.Modules.BlogCommentModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.BlogLikeModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.BlogModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.BlogUnlikeModule;
@@ -50,6 +51,20 @@ namespace MovieRentalSystem.WebUI.Controllers
             CommandJsonResponse response = await mediator.Send(request);
 
             return Json(response);
+        }
+
+        [HttpPost]
+        [Authorize]
+        async public Task<IActionResult> BlogComment(BlogCommentCommand request)
+        {
+            BlogComment blogComment = await mediator.Send(request);
+
+            if (blogComment.ParentId.HasValue && blogComment.ParentId > 0)
+            {
+                Response.Headers.Add("BlogCommentParentId", blogComment.ParentId.ToString());
+            }
+
+            return PartialView("_BlogComment", blogComment);
         }
     }
 }

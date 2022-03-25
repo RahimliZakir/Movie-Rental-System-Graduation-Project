@@ -9,6 +9,10 @@
     .blog-main-img-side {
         background-image: url(/uploads/blogs/@Model.BlogImages.FirstOrDefault(bi => bi.IsMain)?.ImagePath) !important;
     }
+
+    .reply-btn {
+        cursor: pointer;
+    }
 </style>
 }
 
@@ -54,11 +58,13 @@
     <div class="container blog-description-comment-container">
         <div class="row blog-description-comment-row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 blog-description-comment-col">
-                <h2 class="comment-heading">20 Comments</h2>
+                <h2 class="comment-heading">@Model.BlogComments.Count Comments</h2>
                 <p class="comment-helper-text">Write comments</p>
-                <form method="post" id="blog-description-comment-form">
+                <form method="post" asp-action="BlogComment" id="blog-description-comment-form">
+                    <input type="hidden" name="ParentId" id="parent-id-input" />
+                    <input type="hidden" asp-for="@Model.Id" name="BlogId" id="blog-id-input" />
                     <div class="form-group mb-3">
-                        <textarea cols="30" rows="4" class="blog-description-textarea form-control"
+                        <textarea cols="30" rows="4" class="blog-description-textarea form-control" name="Content"
                                   placeholder="Comment"></textarea>
                     </div>
                     <div class="comment-btn-side">
@@ -68,74 +74,51 @@
             </div>
             <div class="col-xl-12 col-lg-122 col-md-12 col-sm-12 written-comments-col">
                 <div class="written-comment">
-                    <div class="row written-comment-row">
-                        <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
-                            <div class="img-div">
-                                <img src="~/assets/images/movie-details/people-1.jpg" alt="Profile Photo" />
-                            </div>
-                        </div>
-                        <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
-                            <h5 class="written-comment-content-heading">Emmy Gosling</h5>
-                            <p class="written-comment-content-content">
-                                Sed porttitor lectus nibh. Nulla quis lorem ut libero
-                                malesuada feugiat. Vivamus suscipit tortor eget felis
-                                porttitor volutpat. Nulla porttitor accumsan tincidunt.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </p>
-                            <div class="written-comment-bottom-box">
-                                <a href="#" class="reply-btn">Reply</a>
-                                <p class="comment-date">January 29, 2019</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="movie-details-replies">
-                        <div class="written-comment reply">
-                            <div class="row written-comment-row">
-                                <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
-                                    <div class="img-div">
-                                        <img src="~/assets/images/movie-details/people-2.jpg"
-                                             alt="Profile Photo" />
-                                    </div>
-                                </div>
-                                <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
-                                    <h5 class="written-comment-content-heading">Emmy Gosling</h5>
-                                    <p class="written-comment-content-content">
-                                        Sed porttitor lectus nibh. Nulla quis lorem ut libero
-                                        malesuada feugiat. Vivamus suscipit tortor eget felis
-                                        porttitor volutpat. Nulla porttitor accumsan tincidunt.
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </p>
-                                    <div class="written-comment-bottom-box">
-                                        <a href="#" class="reply-btn">Reply</a>
-                                        <p class="comment-date">January 29, 2019</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="written-comment">
-                        <div class="row written-comment-row">
+                    @foreach (BlogComment comment in Model.BlogComments)
+                    {
+                        <div identifier="@comment.Id" class="row written-comment-row">
                             <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
                                 <div class="img-div">
-                                    <img src="~/assets/images/movie-details/people-3.jpg" alt="Profile Photo" />
+                                    <img src="~/uploads/personalside/@comment.CreatedByUser.ImagePath" alt="Profile Photo" />
                                 </div>
                             </div>
-                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
-                                <h5 class="written-comment-content-heading">Emmy Gosling</h5>
+                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
+                                <h5 class="written-comment-content-heading">@comment.CreatedByUser.Name @comment.CreatedByUser.Surname</h5>
                                 <p class="written-comment-content-content">
-                                    Sed porttitor lectus nibh. Nulla quis lorem ut libero
-                                    malesuada feugiat. Vivamus suscipit tortor eget felis
-                                    porttitor volutpat. Nulla porttitor accumsan tincidunt.
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    @comment.Content
                                 </p>
                                 <div class="written-comment-bottom-box">
-                                    <a href="#" class="reply-btn">Reply</a>
-                                    <p class="comment-date">January 29, 2019</p>
+                                    <a onclick="setReply(event)" data-comment-id="@comment.Id" class="reply-btn">Reply</a>
+                                    <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy")</p>
                                 </div>
                             </div>
+                            <div class="movie-details-replies">
+                                @foreach (BlogComment child in comment.FillCommentChildren())
+                                {
+                                    <div identifier="@child.Id" class="written-comment written-comment-row reply">
+                                        <div class="row written-comment-row">
+                                            <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                                                <div class="img-div">
+                                                    <img src="~/uploads/personalside/@child.CreatedByUser.ImagePath"
+                                                 alt="Profile Photo" />
+                                                </div>
+                                            </div>
+                                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                                                <h5 class="written-comment-content-heading">@child.CreatedByUser.Name @child.CreatedByUser.Surname</h5>
+                                                <p class="written-comment-content-content">
+                                                    @child.Content
+                                                </p>
+                                                <div class="written-comment-bottom-box">
+                                                    <a onclick="setReply(event)" data-comment-id="@child.Id" class="reply-btn">Reply</a>
+                                                    <p class="comment-date">@child.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -145,6 +128,64 @@
 <!-- movie description comment end -->
 @section js{
 <script src="~/assets/js/blog-details.js"></script>
+<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(function(){
+      let form = $('#blog-description-comment-form');
+      $(form).on('submit', (e) => {
+         e.preventDefault();
+
+         if($(e.currentTarget).find('.blog-description-textarea').val() == ""){
+             $(e.currentTarget).find('.blog-description-textarea').css('border-color', 'red');
+             return;
+         }
+
+         let formData = new FormData(e.currentTarget);
+         $.ajax({
+           url: '@Url.Action("BlogComment")',
+           type: "POST",
+           processData: false,
+           contentType: false,
+           data: formData,
+           dataType: 'html',
+           success: function(response, status, xhr){
+               $(e.currentTarget).find('.blog-description-textarea').css('border-color', '#eeeeee');
+               let parentId = xhr.getResponseHeader('BlogCommentParentId');
+               if(parentId != null) {
+                   $(`[identifier="${parentId}"] .movie-details-replies`).append(response);
+               }
+               else {
+                 $(response).insertAfter($('.written-comment'));
+               }
+               e.currentTarget.reset();
+               $('#blog-description-comment-form div.comment').remove();
+           },
+           error: function(response){
+               console.log(response);
+           }
+         });
+      });
+    });
+
+    function setReply(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        const parentId = $(ev.currentTarget).data('comment-id');
+
+        $('#blog-description-comment-form input[name="ParentId"]').val(parentId);
+        $('#blog-description-comment-form .written-comment-row').remove();
+        const comment = $(ev.currentTarget).closest('.written-comment-row').clone(true);
+        $(comment).find('.reply-btn').remove();
+        let trashBtn = $("<span class='trash-btn' style='color: red;cursor: pointer;'><i class='far fa-trash-alt'></i></span>");
+        $(trashBtn).click(() => {
+          $(comment).remove();
+        });
+        $(comment).find('.reply-btn').append(trashBtn);
+        $(comment).insertBefore($('#blog-description-comment-form').children()[0]);
+    }
+</script>
 }
 
 

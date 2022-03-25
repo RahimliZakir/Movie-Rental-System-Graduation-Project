@@ -77,6 +77,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
             {
                 IQueryable<Blog> query = db.Blogs
                                            .Include(b => b.BlogImages)
+                                           .Include(b => b.BlogLikes)
+                                           .Include(b => b.BlogUnlikes)
                                            .Where(b => b.DeletedByUserId == null)
                                            .AsQueryable();
 

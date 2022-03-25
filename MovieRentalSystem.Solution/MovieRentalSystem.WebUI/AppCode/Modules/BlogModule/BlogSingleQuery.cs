@@ -25,6 +25,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
             {
                 Blog blog = await db.Blogs
                                     .Include(b => b.BlogImages)
+                                    .Include(b => b.BlogComments)
+                                    .ThenInclude(b => b.Children)
+                                    .Include(b => b.BlogComments)
+                                    .ThenInclude(b => b.CreatedByUser)
                                     .FirstOrDefaultAsync(b => b.Id == request.Id && b.DeletedByUserId == null, cancellationToken);
 
                 BlogViewModel vm = mapper.Map<BlogViewModel>(blog);

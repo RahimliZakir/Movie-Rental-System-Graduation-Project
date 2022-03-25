@@ -4,6 +4,15 @@
     ViewData["Title"] = "Blog";
 }
 
+@section css{
+<style>
+    .like-side > i, .like-side > .like-count,
+    .unlike-side > i, .unlike-side > .unlike-count {
+        user-select: none;
+    }
+</style>
+}
+
 <!-- blog starter start -->
 <section id="blog-starter">
     <div class="container blog-starter-container">
@@ -19,7 +28,7 @@
         <div class="row blogs-row">
             @foreach (var item in Model)
             {
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 blogs-col">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 blogs-col" id="blog-@item.Id">
                     <div class="card blogs-card">
                         <img src="~/uploads/blogs/@item.BlogImages.FirstOrDefault(bi => bi.IsMain)?.ImagePath"
                          class="card-img-top"
@@ -32,11 +41,11 @@
                             <div class="card-like-unlike-side">
                                 <div class="like-side">
                                     <i class="fa-solid fa-thumbs-up" data-blog-id="@item.Id"></i>
-                                    <span class="like-count">0</span>
+                                    <span class="like-count">@item.BlogLikes.Count</span>
                                 </div>
                                 <div class="unlike-side">
                                     <i class="fa-solid fa-thumbs-down" data-blog-id="@item.Id"></i>
-                                    <span class="unlike-count">0</span>
+                                    <span class="unlike-count">@item.BlogUnlikes.Count</span>
                                 </div>
                             </div>
                             <a asp-action="Details" asp-route-id="@item.Id"
@@ -60,7 +69,7 @@
             let likeCount = $(e.currentTarget).next('.like-count');
             let currentUnlikeCount = $(e.currentTarget).closest('.card-like-unlike-side').find('.unlike-count');
             $.ajax({
-                url: `@Url.Action("BlogLike", "Blog")?blogId=${blogId}`,
+                url: `@Url.Action("BlogLike", "Blog")/?blogId=${blogId}`,
                 type: "POST",
                 success: function (successMsg) {
                     if (successMsg.error == false && successMsg.likeCount) {
@@ -89,7 +98,7 @@
                let unlikeCount = $(e.currentTarget).next('.unlike-count');
                let currentLikeCount = $(e.currentTarget).closest('.card-like-unlike-side').find('.like-count');
                $.ajax({
-                   url: `@Url.Action("BlogUnlike", "Blog")/${blogId}`,
+                   url: `@Url.Action("BlogUnlike", "Blog")/?blogId=${blogId}`,
                    type: "POST",
                    success: function (successMsg) {
                        if (successMsg.error == false && successMsg.unlikeCount) {
@@ -110,6 +119,21 @@
                });
            });
         // Unlike
+
+        if (window.location.href.indexOf('#') != -1) {
+            let match = window.location.href.match(/.+(#.+)/);
+            let matchBlogId = match[1];
+            if (matchBlogId != null) {
+                $(matchBlogId).find('.like-side>i').trigger('click');
+            }
+        }
+        else {
+            let unlikeMatch = window.location.href.split('?%');
+            let unlikeMatchBlogId = unlikeMatch[1];
+            if (unlikeMatchBlogId != null) {
+                $(`#${unlikeMatchBlogId}`).find('.unlike-side>i').trigger('click');
+            }
+        }
     });
 </script>
 }

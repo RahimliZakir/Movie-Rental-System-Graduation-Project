@@ -34,6 +34,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogUnlikeModule
                     BlogLike currentLikedBlog = await db.BlogLikes.FirstOrDefaultAsync(bl => bl.BlogId.Equals(request.BlogId) && bl.CreatedByUserId.Equals(userId), cancellationToken);
 
                     db.BlogLikes.Remove(currentLikedBlog);
+                    await db.SaveChangesAsync(cancellationToken);
                 }
 
                 if (!await db.BlogUnlikes.AnyAsync(bu => bu.BlogId.Equals(request.BlogId) && bu.CreatedByUserId.Equals(userId), cancellationToken))
@@ -46,13 +47,12 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogUnlikeModule
 
 
                     await db.BlogUnlikes.AddAsync(unlikedBlog, cancellationToken);
+                    await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;
                     response.LikeCount = await db.BlogLikes.CountAsync(bu => bu.BlogId == request.BlogId, cancellationToken);
                     response.UnlikeCount = await db.BlogUnlikes.CountAsync(bu => bu.BlogId == request.BlogId, cancellationToken);
                 }
-
-                await db.SaveChangesAsync(cancellationToken);
 
                 return response;
             }

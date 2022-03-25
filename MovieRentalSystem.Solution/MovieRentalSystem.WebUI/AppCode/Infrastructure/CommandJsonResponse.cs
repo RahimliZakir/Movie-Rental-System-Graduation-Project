@@ -8,6 +8,10 @@
 
         public string ReturnUrl { get; set; }
 
+        public int LikeCount { get; set; }
+
+        public int UnlikeCount { get; set; }
+
         public bool Error { get; set; }
     }
 }

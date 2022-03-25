@@ -31,11 +31,11 @@
                             </p>
                             <div class="card-like-unlike-side">
                                 <div class="like-side">
-                                    <i class="fa-solid fa-thumbs-up"></i>
+                                    <i class="fa-solid fa-thumbs-up" data-blog-id="@item.Id"></i>
                                     <span class="like-count">0</span>
                                 </div>
                                 <div class="unlike-side">
-                                    <i class="fa-solid fa-thumbs-down"></i>
+                                    <i class="fa-solid fa-thumbs-down" data-blog-id="@item.Id"></i>
                                     <span class="unlike-count">0</span>
                                 </div>
                             </div>
@@ -51,4 +51,65 @@
 <!-- blogs end -->
 @section js{
 <script src="~/assets/js/blog.js"></script>
+<script>
+    $(document).ready(function(){
+       // Like
+       let likeBtn = $('.like-side>i');
+        $(likeBtn).click((e) => {
+            let blogId = $(e.currentTarget).data('blog-id');
+            let likeCount = $(e.currentTarget).next('.like-count');
+            let currentUnlikeCount = $(e.currentTarget).closest('.card-like-unlike-side').find('.unlike-count');
+            $.ajax({
+                url: `@Url.Action("BlogLike", "Blog")?blogId=${blogId}`,
+                type: "POST",
+                success: function (successMsg) {
+                    if (successMsg.error == false && successMsg.likeCount) {
+                        $(likeCount).text(successMsg.likeCount);
+                        $(currentUnlikeCount).text(successMsg.unlikeCount);
+                    }
+                },
+                error: function (errorMsg) {
+                    switch (errorMsg.status) {
+                        case 401:
+                            window.location.href = `@Url.Action("SignIn", "Account")?returnUrl=${window.location.pathname}#blog-${blogId}`
+                            break;
+                        default:
+                            console.log(errorMsg);
+                            break;
+                    }
+                }
+            });
+        });
+        // Like
+
+        // Unlike
+           let unlikeBtn = $('.unlike-side>i');
+           $(unlikeBtn).click((e) => {
+               let blogId = $(e.currentTarget).data('blog-id');
+               let unlikeCount = $(e.currentTarget).next('.unlike-count');
+               let currentLikeCount = $(e.currentTarget).closest('.card-like-unlike-side').find('.like-count');
+               $.ajax({
+                   url: `@Url.Action("BlogUnlike", "Blog")/${blogId}`,
+                   type: "POST",
+                   success: function (successMsg) {
+                       if (successMsg.error == false && successMsg.unlikeCount) {
+                           $(unlikeCount).text(successMsg.unlikeCount);
+                           $(currentLikeCount).text(successMsg.likeCount);
+                       }
+                   },
+                   error: function (errorMsg) {
+                       switch (errorMsg.status) {
+                           case 401:
+                               window.location.href = `@Url.Action("SignIn", "Account")?returnUrl=${window.location.pathname}?%blog-${blogId}`
+                               break;
+                           default:
+                               console.log(errorMsg);
+                               break;
+                       }
+                   }
+               });
+           });
+        // Unlike
+    });
+</script>
 }

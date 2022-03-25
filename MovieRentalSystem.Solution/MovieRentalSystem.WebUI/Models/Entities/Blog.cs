@@ -14,6 +14,10 @@ namespace MovieRentalSystem.WebUI.Models.Entities
 
         public virtual ICollection<BlogImage>? BlogImages { get; set; }
 
+        public virtual ICollection<BlogLike> BlogLikes { get; set; }
+
+        public virtual ICollection<BlogUnlike> BlogUnlikes { get; set; }
+
         [NotMapped]
         public ImageItem[] Files { get; set; }
     }

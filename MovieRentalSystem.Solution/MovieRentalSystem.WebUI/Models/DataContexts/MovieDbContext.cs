@@ -38,6 +38,8 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         //---Blogs---
         public DbSet<BlogImage> BlogImages { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogLike> BlogLikes { get; set; }
+        public DbSet<BlogUnlike> BlogUnlikes { get; set; }
         //---Blogs---
 
         protected override void OnModelCreating(ModelBuilder builder)

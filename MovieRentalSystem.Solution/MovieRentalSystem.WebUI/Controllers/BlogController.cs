@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MovieRentalSystem.WebUI.AppCode.Modules.BlogModule;
+using MovieRentalSystem.WebUI.Models.Entities;
 
 namespace MovieRentalSystem.WebUI.Controllers
 {
@@ -14,15 +16,19 @@ namespace MovieRentalSystem.WebUI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<Blog> blogs = await mediator.Send(new BlogGetAllActiveQuery());
+
+            return View(blogs);
         }
 
         [AllowAnonymous]
-        public IActionResult Details()
+        public async Task<IActionResult> Details(BlogSingleQuery query)
         {
-            return View();
+            BlogViewModel blog = await mediator.Send(query);
+
+            return View(blog);
         }
     }
 }

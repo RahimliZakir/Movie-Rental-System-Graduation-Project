@@ -1,5 +1,15 @@
-﻿@{
+﻿@model BlogViewModel
+
+@{
     ViewData["Title"] = "Blog Details";
+}
+
+@section css{
+<style>
+    .blog-main-img-side {
+        background-image: url(/uploads/blogs/@Model.BlogImages.FirstOrDefault(bi => bi.IsMain)?.ImagePath) !important;
+    }
+</style>
 }
 
 <!-- blog description starter start -->
@@ -16,40 +26,21 @@
     <div class="container blog-description-container">
         <div class="row blog-description-row">
             <div class="col-10 col-xl-8 col-lg-8 col-md-10 col-sm-10 blog-description-col">
-                <h2 class="blog-description-heading">Card Title</h2>
+                <h2 class="blog-description-heading">@Model.Title</h2>
                 <div class="blog-main-img-side"></div>
                 <p class="blog-description-content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Magnam
-                    nulla rem facere architecto, velit atque at ipsa optio consectetur consequatur repudiandae
-                    laborum praesentium similique tempore alias incidunt veritatis quae assumenda libero,
-                    corporis
-                    debitis. Quod quo id incidunt voluptatibus nihil vitae modi beatae omnis sint architecto
-                    eaque
-                    animi dolorem quasi perspiciatis error, sunt, inventore soluta cum. Quod repellendus eos
-                    dolorem
-                    placeat quam minima alias ipsa! Quisquam, nobis veniam repudiandae laborum sit, officiis ad
-                    dolorum assumenda iure eius ullam itaque vero fugit nisi incidunt voluptatum ea minima
-                    aperiam
-                    explicabo, illo quas nesciunt quibusdam. Reprehenderit accusantium impedit dolorum a iure
-                    animi
-                    tenetur adipisci?
+                    @Model.Description
                 </p>
 
                 <h5 class="blog-description-second-heading">Other Images</h5>
                 <div class="swiper blog-description-swiper">
                     <div class="swiper-wrapper blog-description-swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="~/assets/images/blog-details/2464.jpg" alt="Blog Description Other Images">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="~/assets/images/blog-details/4790364.jpg"
-                                 alt="Blog Description Other Images">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="~/assets/images/blog-details/front-view-fresh-popcorn-pink-table-cinema-corn-movie-color.jpg"
-                                 alt="Blog Description Other Images">
-                        </div>
+                        @foreach (var item in Model.BlogImages.Where(bi => !bi.IsMain))
+                        {
+                            <div class="swiper-slide">
+                                <img src="~/uploads/blogs/@item.ImagePath" alt="Blog Description Other Images">
+                            </div>
+                        }
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>

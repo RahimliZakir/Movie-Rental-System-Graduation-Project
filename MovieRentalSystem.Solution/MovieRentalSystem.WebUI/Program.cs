@@ -121,7 +121,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseAuditMiddleware();
+//app.UseAuditMiddleware();
 
 app.MapGet("/comingsoon.html", async (context) =>
  {

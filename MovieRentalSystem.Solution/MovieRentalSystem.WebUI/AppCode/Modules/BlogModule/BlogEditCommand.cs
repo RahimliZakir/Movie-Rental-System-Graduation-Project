@@ -93,9 +93,11 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
                         }
                     }
 
-                    request.CreatedByUserId = entity.CreatedByUserId;
-                    request.BlogImages = entity.BlogImages;
-                    Blog blog = mapper.Map(request, entity);
+                    //request.CreatedByUserId = entity.CreatedByUserId;
+                    //request.BlogImages = entity.BlogImages;
+                    //Blog blog = mapper.Map(request, entity);
+                    entity.Title = request.Title;
+                    entity.Description = request.Description;
 
                     await db.SaveChangesAsync(cancellationToken);
 

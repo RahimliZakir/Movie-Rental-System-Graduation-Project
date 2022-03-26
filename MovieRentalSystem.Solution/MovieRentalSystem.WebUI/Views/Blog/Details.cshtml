@@ -13,6 +13,67 @@
     .reply-btn {
         cursor: pointer;
     }
+
+    .movie-details-replies {
+        margin: 0.75% 0;
+        padding-left: 8.5%;
+    }
+
+    #blog-description-comment-form .written-comment-row {
+        margin: 0.75% 0;
+    }
+
+    #blog-description-comment-form .written-comment-profile-side > .img-div {
+        width: 60%;
+    }
+
+        #blog-description-comment-form .written-comment-profile-side > .img-div > img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+    #blog-description-comment-form .written-comment-content-side {
+        position: relative;
+        background-color: #343946;
+        border-radius: 4px;
+        padding: 1.5% 1%;
+    }
+
+        #blog-description-comment-form .written-comment-content-side::after {
+            content: "";
+            position: absolute;
+            right: 100%;
+            top: 10px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-right: 5px solid #343946;
+            border-bottom: 5px solid transparent;
+        }
+
+    #blog-description-comment-form .written-comment-content-heading,
+    #blog-description-comment-form .written-comment-content-content {
+        font-family: "Baloo";
+    }
+
+    #blog-description-comment-form .written-comment-content-heading {
+        color: #777777;
+    }
+
+    .written-comment-content-content {
+        color: white;
+    }
+
+    #blog-description-comment-form .written-comment-bottom-box {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1%;
+    }
+
+        #blog-description-comment-form .written-comment-bottom-box .comment-date {
+            color: #777777;
+            font-size: 0.9rem;
+        }
 </style>
 }
 
@@ -74,7 +135,7 @@
             </div>
             <div class="col-xl-12 col-lg-122 col-md-12 col-sm-12 written-comments-col">
                 <div class="written-comment">
-                    @foreach (BlogComment comment in Model.BlogComments)
+                    @foreach (BlogComment comment in Model.BlogComments.Where(bc => bc.ParentId == null))
                     {
                         <div identifier="@comment.Id" class="row written-comment-row">
                             <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
@@ -128,8 +189,6 @@
 <!-- movie description comment end -->
 @section js{
 <script src="~/assets/js/blog-details.js"></script>
-<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
-<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script>
     $(function(){
       let form = $('#blog-description-comment-form');
@@ -156,7 +215,7 @@
                    $(`[identifier="${parentId}"] .movie-details-replies`).append(response);
                }
                else {
-                 $(response).insertAfter($('.written-comment'));
+                 $('.written-comment').append(response);
                }
                e.currentTarget.reset();
                $('#blog-description-comment-form div.comment').remove();
@@ -177,12 +236,14 @@
         $('#blog-description-comment-form input[name="ParentId"]').val(parentId);
         $('#blog-description-comment-form .written-comment-row').remove();
         const comment = $(ev.currentTarget).closest('.written-comment-row').clone(true);
+        $(comment).find('.movie-details-replies').html('');
         $(comment).find('.reply-btn').remove();
         let trashBtn = $("<span class='trash-btn' style='color: red;cursor: pointer;'><i class='far fa-trash-alt'></i></span>");
         $(trashBtn).click(() => {
           $(comment).remove();
+          $('#blog-description-comment-form input[name="ParentId"]').val('');
         });
-        $(comment).find('.reply-btn').append(trashBtn);
+        $(comment).find('.written-comment-bottom-box').prepend(trashBtn);
         $(comment).insertBefore($('#blog-description-comment-form').children()[0]);
     }
 </script>

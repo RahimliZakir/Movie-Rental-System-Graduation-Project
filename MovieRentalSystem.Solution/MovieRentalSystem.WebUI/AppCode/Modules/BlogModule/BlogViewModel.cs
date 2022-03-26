@@ -24,6 +24,17 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
 
         public ICollection<BlogComment>? BlogComments { get; set; }
 
+        public int CommentCount
+        {
+            get
+            {
+                if (BlogComments.Where(bc => bc.ParentId == null).Count() > 0)
+                    return BlogComments.Where(bc => bc.ParentId == null).Count();
+
+                return 0;
+            }
+        }
+
         public ImageItem[] Files { get; set; }
     }
 }

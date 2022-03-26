@@ -66,5 +66,13 @@ namespace MovieRentalSystem.WebUI.Controllers
 
             return PartialView("_BlogComment", blogComment);
         }
+
+        [Authorize]
+        async public Task<IActionResult> BlogCommentCount(BlogCommentCountCommand request)
+        {
+            int count = await mediator.Send(request);
+
+            return Json(count);
+        }
     }
 }

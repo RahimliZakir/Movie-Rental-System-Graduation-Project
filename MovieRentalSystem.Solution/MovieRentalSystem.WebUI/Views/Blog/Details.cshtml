@@ -14,9 +14,37 @@
         cursor: pointer;
     }
 
+    .comment-btn-side > a {
+        display: inline-block;
+        background-color: #e41a1a;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 7.5px 25px;
+        font-family: "Baloo";
+        transition: 0.3s;
+    }
+
+        .comment-btn-side > a:hover {
+            background-color: #d93535;
+        }
+
     .movie-details-replies {
         margin: 0.75% 0;
         padding-left: 8.5%;
+    }
+
+    .written-comment-profile-side .img-div {
+        width: 70% !important;
+    }
+
+        .written-comment-profile-side .img-div > img {
+            height: 50px;
+            object-fit: cover;
+        }
+
+    .written-comment-row {
+        margin-bottom: 1.5%;
     }
 
     #blog-description-comment-form .written-comment-row {
@@ -24,11 +52,13 @@
     }
 
     #blog-description-comment-form .written-comment-profile-side > .img-div {
-        width: 60%;
+        width: 70%;
     }
 
         #blog-description-comment-form .written-comment-profile-side > .img-div > img {
             width: 100%;
+            height: 50px;
+            object-fit: cover;
             border-radius: 50%;
         }
 
@@ -119,7 +149,7 @@
     <div class="container blog-description-comment-container">
         <div class="row blog-description-comment-row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 blog-description-comment-col">
-                <h2 class="comment-heading">@Model.BlogComments.Count Comments</h2>
+                <h2 class="comment-heading">@Model.CommentCount Comments</h2>
                 <p class="comment-helper-text">Write comments</p>
                 <form method="post" asp-action="BlogComment" id="blog-description-comment-form">
                     <input type="hidden" name="ParentId" id="parent-id-input" />
@@ -129,7 +159,14 @@
                                   placeholder="Comment"></textarea>
                     </div>
                     <div class="comment-btn-side">
-                        <button type="submit">Submit Comment</button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <button type="submit">Submit Comment</button>
+                        }
+                        else
+                        {
+                            <a asp-action="SignIn" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path">Submit Comment</a>
+                        }
                     </div>
                 </form>
             </div>
@@ -156,24 +193,24 @@
                             <div class="movie-details-replies">
                                 @foreach (BlogComment child in comment.FillCommentChildren())
                                 {
-                                    <div identifier="@child.Id" class="written-comment written-comment-row reply">
-                                        <div class="row written-comment-row">
-                                            <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
-                                                <div class="img-div">
-                                                    <img src="~/uploads/personalside/@child.CreatedByUser.ImagePath"
-                                                 alt="Profile Photo" />
-                                                </div>
+                                    <div identifier="@child.Id" class="row written-comment-row">
+                                        <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                                            <div class="img-div">
+                                                <img src="~/uploads/personalside/@child.CreatedByUser.ImagePath"
+                                             alt="Profile Photo" />
                                             </div>
-                                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
-                                                <h5 class="written-comment-content-heading">@child.CreatedByUser.Name @child.CreatedByUser.Surname</h5>
-                                                <p class="written-comment-content-content">
-                                                    @child.Content
-                                                </p>
-                                                <div class="written-comment-bottom-box">
-                                                    <a onclick="setReply(event)" data-comment-id="@child.Id" class="reply-btn">Reply</a>
-                                                    <p class="comment-date">@child.CreatedDate.ToString("MMMM dd, yyyy")</p>
-                                                </div>
+                                        </div>
+                                        <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                                            <h5 class="written-comment-content-heading">@child.CreatedByUser.Name @child.CreatedByUser.Surname</h5>
+                                            <p class="written-comment-content-content">
+                                                @child.Content
+                                            </p>
+                                            <div class="written-comment-bottom-box">
+                                                <a onclick="setReply(event)" data-comment-id="@child.Id" class="reply-btn">Reply</a>
+                                                <p class="comment-date">@child.CreatedDate.ToString("MMMM dd, yyyy")</p>
                                             </div>
+                                        </div>
+                                        <div class="movie-details-replies">
                                         </div>
                                     </div>
                                 }
@@ -212,13 +249,23 @@
                $(e.currentTarget).find('.blog-description-textarea').css('border-color', '#eeeeee');
                let parentId = xhr.getResponseHeader('BlogCommentParentId');
                if(parentId != null) {
-                   $(`[identifier="${parentId}"] .movie-details-replies`).append(response);
+                 $(`[identifier="${parentId}"]>.movie-details-replies`).append(response);
                }
                else {
                  $('.written-comment').append(response);
+
+                 $.ajax({
+                   url: `@Url.Action("BlogCommentCount")/?blogId=@Model.Id`,
+                   type: "GET",
+                   success: function(response){
+                     let count = response;
+                     $('.comment-heading').text(`${count} Comments`);
+                   }
+                 });
                }
                e.currentTarget.reset();
-               $('#blog-description-comment-form div.comment').remove();
+               $('#blog-description-comment-form .written-comment-row').remove();
+               $('#blog-description-comment-form input[name="ParentId"]').val('');
            },
            error: function(response){
                console.log(response);

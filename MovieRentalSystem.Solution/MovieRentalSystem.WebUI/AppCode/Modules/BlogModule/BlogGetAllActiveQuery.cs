@@ -19,9 +19,14 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
             async public Task<IEnumerable<Blog>> Handle(BlogGetAllActiveQuery request, CancellationToken cancellationToken)
             {
                 IEnumerable<Blog> blogs = await db.Blogs
+                                                  .Include(b => b.CreatedByUser)
                                                   .Include(b => b.BlogImages)
                                                   .Include(b => b.BlogLikes)
                                                   .Include(b => b.BlogUnlikes)
+                                                  .Include(b => b.BlogComments)
+                                                  .ThenInclude(b => b.Children)
+                                                  .Include(b => b.BlogComments)
+                                                  .ThenInclude(b => b.CreatedByUser)
                                                   .Where(b => b.DeletedByUserId == null)
                                                   .ToListAsync(cancellationToken);
 

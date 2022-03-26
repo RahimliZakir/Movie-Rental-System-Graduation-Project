@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Blog>
+﻿@model IEnumerable<BlogDto>
 
 @{
     ViewData["Title"] = "Blog";
@@ -26,26 +26,26 @@
 <section id="blogs">
     <div class="container blogs-container">
         <div class="row blogs-row">
-            @foreach (var item in Model)
+            @foreach (BlogDto item in Model)
             {
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 blogs-col" id="blog-@item.Id">
                     <div class="card blogs-card">
-                        <img src="~/uploads/blogs/@item.BlogImages.FirstOrDefault(bi => bi.IsMain)?.ImagePath"
+                        <img src="@item.MainImage"
                          class="card-img-top"
                          alt="Blogs Image" />
                         <div class="card-body">
                             <h5 class="card-title">@item.Title</h5>
                             <p class="card-text">
-                                @item.Description.EllipseText(100)
+                                @item.ShortDesciption
                             </p>
                             <div class="card-like-unlike-side">
                                 <div class="like-side">
                                     <i class="fa-solid fa-thumbs-up" data-blog-id="@item.Id"></i>
-                                    <span class="like-count">@item.BlogLikes.Count</span>
+                                    <span class="like-count">@item.LikeCount</span>
                                 </div>
                                 <div class="unlike-side">
                                     <i class="fa-solid fa-thumbs-down" data-blog-id="@item.Id"></i>
-                                    <span class="unlike-count">@item.BlogUnlikes.Count</span>
+                                    <span class="unlike-count">@item.UnlikeCount</span>
                                 </div>
                             </div>
                             <a asp-action="Details" asp-route-id="@item.Id"

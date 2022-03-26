@@ -3,7 +3,7 @@
 <div identifier="@Model.Id" class="row written-comment-row">
     <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
         <div class="img-div">
-            <img src="~/uploads/personalside/@Model.CreatedByUser.ImagePath" alt="Profile Photo" />
+            <img src="@(!string.IsNullOrWhiteSpace(Model.CreatedByUser.ImagePath) ? $"~/uploads/personalside/{Model.CreatedByUser.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg")" alt="Profile Photo" />
         </div>
     </div>
     <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">

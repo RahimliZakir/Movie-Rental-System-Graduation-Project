@@ -29,6 +29,16 @@
             background-color: #d93535;
         }
 
+    .blog-credentials-heading {
+        font-family: "Roboto";
+        font-size: 0.9rem;
+    }
+
+        .blog-credentials-heading > span {
+            color: #e41a1a;
+            font-weight: 600;
+        }
+
     .movie-details-replies {
         margin: 0.75% 0;
         padding-left: 8.5%;
@@ -122,6 +132,7 @@
         <div class="row blog-description-row">
             <div class="col-10 col-xl-8 col-lg-8 col-md-10 col-sm-10 blog-description-col">
                 <h2 class="blog-description-heading">@Model.Title</h2>
+                <h6 class="blog-credentials-heading">by <span>@Model.CreatedByUser.Name @Model.CreatedByUser.Surname</span></h6>
                 <div class="blog-main-img-side"></div>
                 <p class="blog-description-content">
                     @Model.Description

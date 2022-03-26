@@ -1,24 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MovieRentalSystem.WebUI.Models.DataContexts;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MovieRentalSystem.WebUI.AppCode.Modules.GenresModule;
+using MovieRentalSystem.WebUI.Models.Entities;
+using MovieRentalSystem.WebUI.Models.ViewModels;
 
 namespace MovieRentalSystem.WebUI.Controllers
 {
     public class ShowController : Controller
     {
-        readonly MovieDbContext db;
+        readonly IMediator mediator;
+        readonly IConfiguration conf;
 
-        public ShowController(MovieDbContext db)
+        public ShowController(IMediator mediator, IConfiguration conf)
         {
-            this.db = db;
+            this.mediator = mediator;
+            this.conf = conf;
         }
 
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
+            ShowViewModel vm = new();
 
-            return View();
+            int showParentId = conf.GetValue<int>("Genres:ShowParentId");
+
+            IEnumerable<Genre> genres = await mediator.Send(new GenreGetAllActiveQuery());
+
+            vm.Genres = genres.Where(g => g.ParentId.Equals(showParentId));
+
+            return View(vm);
         }
 
+        [AllowAnonymous]
         public IActionResult Details()
         {
             return View();

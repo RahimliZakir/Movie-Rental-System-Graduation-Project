@@ -25,6 +25,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
             {
                 Blog blog = await db.Blogs
                                     .Include(b => b.BlogImages)
+                                    .Include(b => b.CreatedByUser)
                                     .Include(b => b.BlogComments)
                                     .ThenInclude(b => b.Children)
                                     .Include(b => b.BlogComments)

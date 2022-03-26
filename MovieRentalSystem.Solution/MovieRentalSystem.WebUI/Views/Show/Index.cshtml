@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ShowViewModel
+
+@{
     ViewData["Title"] = "Shows";
 }
 
@@ -9,27 +11,12 @@
             <h2 class="shows-cards-main-heading">Shows</h2>
             <h6 class="shows-cards-other-heading">Genre:</h6>
             <ul class="shows-cards-list">
-                <li class="shows-cards-item">
-                    <a class="badge shows-cards-badge" href="#">Action</a>
-                </li>
-                <li class="shows-cards-item">
-                    <a class="badge shows-cards-badge" href="#">Adventure</a>
-                </li>
-                <li class="shows-cards-item">
-                    <a class="badge shows-cards-badge" href="#">Comedy</a>
-                </li>
-                <li class="shows-cards-item">
-                    <a class="badge shows-cards-badge" href="#">Romance</a>
-                </li>
-                <li class="shows-cards-item">
-                    <a class="badge shows-cards-badge" href="#">Sci-Fi</a>
-                </li>
-                <li class="shows-cards-item">
-                    <a class="badge shows-cards-badge" href="#">Horror</a>
-                </li>
-                <li class="shows-cards-item">
-                    <a class="badge shows-cards-badge" href="#">Fantasy</a>
-                </li>
+                @foreach (Genre item in Model.Genres)
+                {
+                    <li class="shows-cards-item">
+                        <a class="badge shows-cards-badge" href="#">@item.Name</a>
+                    </li>
+                }
             </ul>
         </div>
     </div>

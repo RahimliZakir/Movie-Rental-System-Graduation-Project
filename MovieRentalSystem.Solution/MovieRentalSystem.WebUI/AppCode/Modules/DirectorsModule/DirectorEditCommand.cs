@@ -13,64 +13,68 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.DirectorsModule
     {
         public class DirectorEditCommandHandler : IRequestHandler<DirectorEditCommand, CommandJsonResponse>
         {
-            readonly MovieDbContext db;
             readonly IActionContextAccessor ctx;
             readonly IMapper mapper;
 
-            public DirectorEditCommandHandler(MovieDbContext db, IActionContextAccessor ctx, IMapper mapper)
+            public DirectorEditCommandHandler(IActionContextAccessor ctx, IMapper mapper)
             {
-                this.db = db;
                 this.ctx = ctx;
                 this.mapper = mapper;
             }
 
             public async Task<CommandJsonResponse> Handle(DirectorEditCommand request, CancellationToken cancellationToken)
             {
-                CommandJsonResponse response = new();
-
-                if (request.Id == null || request.Id <= 0)
+                using (IServiceScope scope = ctx.ActionContext.HttpContext.RequestServices.CreateScope())
                 {
-                    response.Error = true;
-                    response.Message = "Məlumatın tamlığı qorunmayıb!";
-                    goto end;
-                }
+                    MovieDbContext db = scope.ServiceProvider.GetRequiredService<MovieDbContext>();
 
-                Director entity = await db.Directors.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                    CommandJsonResponse response = new();
 
-                if (entity == null)
-                {
-                    response.Error = true;
-                    response.Message = "Məlumat mövcud deyil!";
-                    goto end;
-                }
-
-                if (!ctx.IsValid())
-                {
-                    response.Error = true;
-                    response.Message = "Məlumat düzgün göndərilməyib!";
-                }
-
-                if (ctx.IsValid())
-                {
-                    try
+                    if (request.Id == null || request.Id <= 0)
                     {
-                        request.CreatedByUserId = entity.CreatedByUserId;
-                        Director director = mapper.Map(request, entity);
-
-                        await db.SaveChangesAsync(cancellationToken);
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw;
+                        response.Error = true;
+                        response.Message = "Məlumatın tamlığı qorunmayıb!";
+                        goto end;
                     }
 
-                    response.Error = false;
-                    response.Message = "Məlumat uğurla yeniləndi!";
-                }
+                    Director entity = await db.Directors.AsNoTracking().FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
-            end:
-                return response;
+                    if (entity == null)
+                    {
+                        response.Error = true;
+                        response.Message = "Məlumat mövcud deyil!";
+                        goto end;
+                    }
+
+                    if (!ctx.IsValid())
+                    {
+                        response.Error = true;
+                        response.Message = "Məlumat düzgün göndərilməyib!";
+                    }
+
+                    if (ctx.IsValid())
+                    {
+                        try
+                        {
+                            request.CreatedByUserId = entity.CreatedByUserId;
+                            Director director = mapper.Map(request, entity);
+
+                            db.Directors.Update(director);
+                            await db.SaveChangesAsync(cancellationToken);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw;
+                        }
+
+                        response.Error = false;
+                        response.Message = "Məlumat uğurla yeniləndi!";
+                    }
+
+                end:
+                    return response;
+                }
             }
         }
     }

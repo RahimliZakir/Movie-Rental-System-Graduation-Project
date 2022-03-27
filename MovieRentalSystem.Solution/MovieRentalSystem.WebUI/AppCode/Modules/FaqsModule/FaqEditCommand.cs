@@ -35,7 +35,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
                     goto end;
                 }
 
-                Faq entity = await db.Faqs.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Faq entity = await db.Faqs.AsNoTracking().FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
                 {
@@ -57,6 +57,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule
                         request.CreatedByUserId = entity.CreatedByUserId;
                         Faq faq = mapper.Map(request, entity);
 
+                        db.Faqs.Update(faq);
                         await db.SaveChangesAsync(cancellationToken);
                     }
                     catch (Exception ex)

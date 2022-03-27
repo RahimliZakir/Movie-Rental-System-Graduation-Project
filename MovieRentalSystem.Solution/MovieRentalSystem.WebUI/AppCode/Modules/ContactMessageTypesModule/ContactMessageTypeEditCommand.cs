@@ -35,7 +35,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
                     goto end;
                 }
 
-                ContactMessageType entity = await db.ContactMessageTypes.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                ContactMessageType entity = await db.ContactMessageTypes.AsNoTracking().FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
                 {
@@ -55,6 +55,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule
                     request.CreatedByUserId = entity.CreatedByUserId;
                     ContactMessageType type = mapper.Map(request, entity);
 
+                    db.ContactMessageTypes.Update(type);
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;

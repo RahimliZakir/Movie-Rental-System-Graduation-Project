@@ -74,8 +74,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.PersonalSideModule
                             request.ImagePath = fileName;
                         }
                     }
-
+                    request.EmailConfirmed = currentUser.EmailConfirmed;
                     AppUser user = mapper.Map(request, currentUser);
+
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;

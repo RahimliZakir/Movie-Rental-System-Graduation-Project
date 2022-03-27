@@ -35,7 +35,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
                     goto end;
                 }
 
-                Genre entity = await db.Genres.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Genre entity = await db.Genres.AsNoTracking().FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
                 {
@@ -55,6 +55,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.GenresModule
                     request.CreatedByUserId = entity.CreatedByUserId;
                     Genre genre = mapper.Map(request, entity);
 
+                    db.Genres.Update(genre);
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;

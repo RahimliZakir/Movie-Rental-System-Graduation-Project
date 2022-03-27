@@ -28,7 +28,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
         {
             get
             {
-                if (BlogComments.Where(bc => bc.ParentId == null).Count() > 0)
+                if (BlogComments?.Where(bc => bc.ParentId == null).Count() > 0)
                     return BlogComments.Where(bc => bc.ParentId == null).Count();
 
                 return 0;

@@ -35,7 +35,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AppInfosModule
                     goto end;
                 }
 
-                AppInfo entity = await db.AppInfos.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                AppInfo entity = await db.AppInfos.AsNoTracking().FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
                 {
@@ -55,6 +55,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.AppInfosModule
                     request.CreatedByUserId = entity.CreatedByUserId;
                     AppInfo appInfo = mapper.Map(request, entity);
 
+                    db.AppInfos.Update(appInfo);
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;

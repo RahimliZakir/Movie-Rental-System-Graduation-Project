@@ -39,6 +39,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
 
                 Blog entity = await db.Blogs
                                       .Include(b => b.BlogImages)
+                                      .AsNoTracking()
                                       .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
@@ -93,12 +94,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.BlogModule
                         }
                     }
 
-                    //request.CreatedByUserId = entity.CreatedByUserId;
-                    //request.BlogImages = entity.BlogImages;
-                    //Blog blog = mapper.Map(request, entity);
-                    entity.Title = request.Title;
-                    entity.Description = request.Description;
+                    request.CreatedByUserId = entity.CreatedByUserId;
+                    Blog blog = mapper.Map(request, entity);
 
+                    db.Blogs.Update(blog);
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;

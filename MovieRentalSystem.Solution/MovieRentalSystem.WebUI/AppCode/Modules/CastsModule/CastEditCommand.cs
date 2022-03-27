@@ -35,7 +35,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.CastsModule
                     goto end;
                 }
 
-                Cast entity = await db.Casts.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Cast entity = await db.Casts.AsNoTracking().FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
                 {
@@ -57,6 +57,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.CastsModule
                         request.CreatedByUserId = entity.CreatedByUserId;
                         Cast cast = mapper.Map(request, entity);
 
+                        db.Casts.Update(cast);
                         await db.SaveChangesAsync(cancellationToken);
                     }
                     catch (Exception ex)

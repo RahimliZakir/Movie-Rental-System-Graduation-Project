@@ -7,5 +7,7 @@ namespace MovieRentalSystem.WebUI.Models.Entities
     {
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public string Name { get; set; } = null!;
+
+        public virtual ICollection<Show> Shows { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<Director> Directors { get; set; }
         public DbSet<Cast> Casts { get; set; }
         public DbSet<Show> Shows { get; set; }
+        public DbSet<ShowComment> ShowComments { get; set; }
         //---Shows---
 
         //---Blogs---

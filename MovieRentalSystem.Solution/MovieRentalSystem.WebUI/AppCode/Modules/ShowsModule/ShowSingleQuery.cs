@@ -28,7 +28,13 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
                     return null;
                 }
 
-                Show show = await db.Shows.Include(s => s.Director).FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Show show = await db.Shows
+                                    .Include(s => s.Director)
+                                    .Include(s => s.ShowComments)
+                                    .ThenInclude(s => s.Children)
+                                    .Include(s => s.ShowComments)
+                                    .ThenInclude(s => s.CreatedByUser)
+                                    .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 ShowViewModel viewModel = mapper.Map<ShowViewModel>(show);
 

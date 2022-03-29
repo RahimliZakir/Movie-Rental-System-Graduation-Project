@@ -1,4 +1,4 @@
-﻿@model ShowViewModel
+﻿@model ShowGenreViewModel
 
 @{
     ViewData["Title"] = "Shows";
@@ -32,412 +32,43 @@
             <div class="col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 latest-tv-show-right-view-all-side">
                 <a href="#">View All</a>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/friends.jpg" class="card-img-top"
+            @foreach (var item in Model.Shows)
+            {
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
+                    <div class="card">
+                        <div class="img-div">
+                            <img src="~/uploads/shows/@item.ImagePath" class="card-img-top"
                              alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
+                            <div class="latest-tv-show-img-box">
+                                <div class="img-box-top">
+                                    <span class="badge latest-tv-show-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
+                                    <p>8.4/10</p>
+                                </div>
+                                <div class="img-box-bottom">
+                                    <ul>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-play"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Friends</a>
-                            <a class="card-bottom-right" href="#">Comedy</a>
+                        <div class="card-body">
+                            <div class="card-body-about-side">
+                                <a class="card-bottom-left" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                                <a class="card-bottom-right" href="#">Comedy</a>
+                            </div>
+                            <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
                         </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/stranger-things.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Stranger-Things</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/breaking-bad.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Breaking Bad</a>
-                            <a class="card-bottom-right" href="#">Science</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/game-of-throne.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Game of Thrones</a>
-                            <a class="card-bottom-right" href="#">Actions</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/grimm.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Grimm</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/umbrella.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Umbrella Academy</a>
-                            <a class="card-bottom-right" href="#">Sci-Fi</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/supergirl.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Supergirl</a>
-                            <a class="card-bottom-right" href="#">Action</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/100.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">The 100</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/friends.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Friends</a>
-                            <a class="card-bottom-right" href="#">Comedy</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/stranger-things.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Stranger-Things</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/breaking-bad.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Breaking Bad</a>
-                            <a class="card-bottom-right" href="#">Science</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/game-of-throne.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Game of Thrones</a>
-                            <a class="card-bottom-right" href="#">Actions</a>
-                        </div>
-                        <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>

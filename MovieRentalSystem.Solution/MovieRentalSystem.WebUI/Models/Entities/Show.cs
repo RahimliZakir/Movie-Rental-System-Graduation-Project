@@ -22,6 +22,8 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public int DirectorId { get; set; }
 
+        public virtual ICollection<ShowComment> ShowComments { get; set; }
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public virtual Director Director { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

@@ -27,6 +27,19 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
 
         public string? Quality { get; set; }
 
+        public ICollection<ShowComment>? ShowComments { get; set; }
+
+        public int CommentCount
+        {
+            get
+            {
+                if (ShowComments?.Where(bc => bc.ParentId == null).Count() > 0)
+                    return ShowComments.Where(bc => bc.ParentId == null).Count();
+
+                return 0;
+            }
+        }
+
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public int DirectorId { get; set; }
 

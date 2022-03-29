@@ -18,7 +18,14 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
 
             public async Task<IEnumerable<Show>> Handle(ShowGetAllActiveQuery request, CancellationToken cancellationToken)
             {
-                IEnumerable<Show> shows = await db.Shows.Include(s => s.Director).Where(g => g.DeletedDate == null).ToListAsync(cancellationToken);
+                IEnumerable<Show> shows = await db.Shows
+                                                  .Include(s => s.Director)
+                                                  .Include(s => s.ShowComments)
+                                                  .ThenInclude(s => s.Children)
+                                                  .Include(s => s.ShowComments)
+                                                  .ThenInclude(s => s.CreatedByUser)
+                                                  .Where(g => g.DeletedDate == null)
+                                                  .ToListAsync(cancellationToken);
 
                 return shows;
             }

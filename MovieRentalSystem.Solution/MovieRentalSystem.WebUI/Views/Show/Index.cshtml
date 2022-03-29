@@ -42,7 +42,7 @@
                             <div class="latest-tv-show-img-box">
                                 <div class="img-box-top">
                                     <span class="badge latest-tv-show-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
-                                    <p>8.4/10</p>
+                                    <p>@item.GetAverageRating()/5</p>
                                 </div>
                                 <div class="img-box-bottom">
                                     <ul>

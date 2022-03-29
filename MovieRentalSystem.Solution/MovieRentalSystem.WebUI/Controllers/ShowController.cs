@@ -39,9 +39,16 @@ namespace MovieRentalSystem.WebUI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Details(ShowSingleQuery query)
         {
-            ShowViewModel show = await mediator.Send(query);
+            ShowGenreViewModel vm = new();
 
-            return View(show);
+            ShowViewModel show = await mediator.Send(query);
+            IEnumerable<Show> relatedShows = await mediator.Send(new ShowGetAllActiveQuery());
+            relatedShows = relatedShows.Where(r => r.Id != show.Id).Take(12).ToList();
+
+            vm.Show = show;
+            vm.RelatedShows = relatedShows;
+
+            return View(vm);
         }
 
         [HttpPost]

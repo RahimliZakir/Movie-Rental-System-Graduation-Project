@@ -9,7 +9,17 @@
     <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
         <h5 class="written-comment-content-heading">@Model.CreatedByUser.Name @Model.CreatedByUser.Surname</h5>
         <p class="written-comment-content-content">
-            @Model.Content
+            <div class="star-rating-answered-div">
+                @for (var i = 1; i <= Model.StarRating; i++)
+                {
+                    <i class="fas fa-star"></i>
+                }
+                @for (var i = 0; i < 5 - Model.StarRating; i++)
+                {
+                    <i class="far fa-star"></i>
+                }
+            </div>
+            <span style="color: #ffffff;">@Model.Content</span>
         </p>
         <div class="written-comment-bottom-box">
             <a onclick="setReply(event)" data-comment-id="@Model.Id" class="reply-btn">Reply</a>

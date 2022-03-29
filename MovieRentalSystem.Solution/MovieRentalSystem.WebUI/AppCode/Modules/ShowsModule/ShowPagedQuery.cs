@@ -77,7 +77,13 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
 
             async public Task<PagedViewModel<Show>> Handle(ShowPagedQuery request, CancellationToken cancellationToken)
             {
-                IQueryable<Show> query = db.Shows.Include(s => s.Director).Where(f => f.DeletedDate == null).AsQueryable();
+                IQueryable<Show> query = db.Shows
+                                           .Include(s => s.Director)
+                                           .Include(s => s.ShowComments)
+                                           .ThenInclude(s => s.Children)
+                                           .Include(s => s.ShowComments)
+                                           .ThenInclude(s => s.CreatedByUser)
+                                           .Where(f => f.DeletedDate == null).AsQueryable();
 
                 request.Name = request.Name?.Trim();
                 if (!string.IsNullOrWhiteSpace(request.Name))

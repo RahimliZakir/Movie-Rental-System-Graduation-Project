@@ -1,4 +1,4 @@
-﻿@model ShowViewModel
+﻿@model ShowGenreViewModel
 
 @{
     ViewData["Title"] = "Show Details";
@@ -23,12 +23,26 @@
         cursor: pointer;
     }
 
-    #movie-details-spoiler + label {
+    .star-rating-error, #movie-details-spoiler + label {
         font-family: "Baloo";
     }
 
     .star-rating-div > i {
         user-select: none;
+    }
+
+    .written-comment-content-side {
+        position: relative;
+    }
+
+    .comment-spoiler-overlay {
+        position: absolute;
+        border-radius: 4px;
+        background-color: #badc58;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
 
     #movie-details-spoiler + label {
@@ -162,7 +176,7 @@
                     <a asp-action="Index" asp-controller="Show" class="go-back-btn">
                         <i class="fa-solid fa-left-long"></i> <span>BACK</span>
                     </a>
-                    <img src="~/uploads/shows/@Model.ImagePath" alt="Show Details Image">
+                    <img src="~/uploads/shows/@Model.Show.ImagePath" alt="Show Details Image">
                 </div>
             </div>
         </div>
@@ -174,17 +188,17 @@
     <div class="container show-description-container">
         <div class="row show-description-row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 films-swiper-col">
-                <span class="badge films-swiper-badge text-dark">@(Model.IsPremium == true ? "Premium" : "")</span>
-                <h2>@Model.Name</h2>
+                <span class="badge films-swiper-badge text-dark">@(Model.Show.IsPremium == true ? "Premium" : "")</span>
+                <h2>@Model.Show.Name</h2>
                 <div class="specifications">
                     <p class="specification-item star-rating">9.4/10</p>
-                    <p class="specification-item duration">@Model.Duration</p>
+                    <p class="specification-item duration">@Model.Show.Duration</p>
                     <p class="specification-item quality">
-                        Quality <span class="is-hd" style="@(string.IsNullOrWhiteSpace(Model.Quality) ? "padding: 0;" : "")">@Model.Quality</span>
+                        Quality <span class="is-hd" style="@(string.IsNullOrWhiteSpace(Model.Show.Quality) ? "padding: 0;" : "")">@Model.Show.Quality</span>
                     </p>
                 </div>
-                <p class="release-date">Release Date: @Model.CreatedDate.ToString("dd MMMM yyyy")</p>
-                <p class="director">Director: <span>@Model.Director.Name</span></p>
+                <p class="release-date">Release Date: @Model.Show.CreatedDate.ToString("dd MMMM yyyy")</p>
+                <p class="director">Director: <span>@Model.Show.Director.Name</span></p>
                 <ul class="genres-ul">
                     <li class="genres-item-title">Genre:</li>
                     <li class="genres-item"><a href="#">Actions,</a></li>
@@ -198,7 +212,7 @@
                     <li class="casts-item"><a href="#">Mark Ruffalo</a></li>
                 </ul>
                 <p class="film-description">
-                    @Model.Description
+                    @Model.Show.Description
                 </p>
                 <ul class="film-types">
                     <li class="film-type">
@@ -379,10 +393,10 @@
     <div class="container show-description-comment-container">
         <div class="row show-description-comment-row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 show-description-comment-col">
-                <h2 class="comment-heading">@Model.CommentCount Comments</h2>
+                <h2 class="comment-heading">@Model.Show.CommentCount Comments</h2>
                 <p class="comment-helper-text">Write comments</p>
                 <form method="post" asp-action="ShowComment" id="blog-description-comment-form">
-                    <div class="star-rating-div">
+                    <div class="star-rating-div mb-0">
                         <i class="far fa-star" data-star-rating="1"></i>
                         <i class="far fa-star" data-star-rating="2"></i>
                         <i class="far fa-star" data-star-rating="3"></i>
@@ -391,8 +405,8 @@
                     </div>
                     <span class="star-rating-error text-danger d-none">Seçim edilməlidir!</span>
                     <input type="hidden" name="ParentId" id="parent-id-input" />
-                    <input type="hidden" asp-for="@Model.Id" name="ShowId" id="blog-id-input" />
-                    <div class="form-group mb-3">
+                    <input type="hidden" asp-for="@Model.Show.Id" name="ShowId" id="blog-id-input" />
+                    <div class="form-group my-3">
                         <textarea cols="30" rows="4" class="blog-description-textarea form-control" name="Content"
                                   placeholder="Comment"></textarea>
                     </div>
@@ -417,7 +431,7 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 written-comments-col">
                 <div class="written-comment">
-                    @foreach (ShowComment comment in Model.ShowComments.Where(bc => bc.ParentId == null))
+                    @foreach (ShowComment comment in Model.Show.ShowComments.Where(bc => bc.ParentId == null))
                     {
                         <div identifier="@comment.Id" class="row written-comment-row">
                             <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
@@ -426,6 +440,13 @@
                                 </div>
                             </div>
                             <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
+                                @if (comment.IsSpoiler)
+                                {
+                                    <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
+                                        <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
+                                    </div>
+                                }
+
                                 <h5 class="written-comment-content-heading">@comment.CreatedByUser.Name @comment.CreatedByUser.Surname</h5>
                                 <p class="written-comment-content-content">
                                     <div class="star-rating-answered-div">
@@ -456,9 +477,26 @@
                                             </div>
                                         </div>
                                         <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                                            @if (child.IsSpoiler)
+                                            {
+                                                <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
+                                                    <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
+                                                </div>
+                                            }
+
                                             <h5 class="written-comment-content-heading">@child.CreatedByUser.Name @child.CreatedByUser.Surname</h5>
                                             <p class="written-comment-content-content">
-                                                @child.Content
+                                                <div class="star-rating-answered-div">
+                                                    @for (var i = 1; i <= child.StarRating; i++)
+                                                    {
+                                                        <i class="fas fa-star"></i>
+                                                    }
+                                                    @for (var i = 0; i < 5 - child.StarRating; i++)
+                                                    {
+                                                        <i class="far fa-star"></i>
+                                                    }
+                                                </div>
+                                                <span style="color: #ffffff;">@child.Content</span>
                                             </p>
                                             <div class="written-comment-bottom-box">
                                                 <a onclick="setReply(event)" data-comment-id="@child.Id" class="reply-btn">Reply</a>
@@ -488,400 +526,42 @@
             <div class="col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 latest-tv-show-right-view-all-side">
                 <a href="#">View All</a>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/friends.jpg" class="card-img-top"
+            @foreach (var item in Model.RelatedShows)
+            {
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
+                    <div class="card">
+                        <div class="img-div">
+                            <img src="~/uploads/shows/@item.ImagePath" class="card-img-top"
                              alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
+                            <div class="latest-tv-show-img-box">
+                                <div class="img-box-top">
+                                    <span class="badge latest-tv-show-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
+                                    <p>@item.GetAverageRating()/5</p>
+                                </div>
+                                <div class="img-box-bottom">
+                                    <ul>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-play"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Friends</a>
-                            <a class="card-bottom-right" href="#">Comedy</a>
+                        <div class="card-body">
+                            <div class="card-body-about-side">
+                                <a class="card-bottom-left" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                                <a class="card-bottom-right" href="#">Comedy</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/stranger-things.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Stranger-Things</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/breaking-bad.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Breaking Bad</a>
-                            <a class="card-bottom-right" href="#">Science</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/game-of-throne.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Game of Thrones</a>
-                            <a class="card-bottom-right" href="#">Actions</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/grimm.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Grimm</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/umbrella.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Umbrella Academy</a>
-                            <a class="card-bottom-right" href="#">Sci-Fi</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/supergirl.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Supergirl</a>
-                            <a class="card-bottom-right" href="#">Action</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/100.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">The 100</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/friends.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Friends</a>
-                            <a class="card-bottom-right" href="#">Comedy</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/stranger-things.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Stranger-Things</a>
-                            <a class="card-bottom-right" href="#">Horror</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/breaking-bad.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Breaking Bad</a>
-                            <a class="card-bottom-right" href="#">Science</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/shows/game-of-throne.jpg" class="card-img-top"
-                             alt="Latest Movies Img" />
-                        <div class="latest-tv-show-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a class="card-bottom-left" href="show-details.html">Game of Thrones</a>
-                            <a class="card-bottom-right" href="#">Actions</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
@@ -890,6 +570,10 @@
 <script src="~/assets/js/show-details.js"></script>
 <script>
     $(function(){
+      $('.show-spoiler-btn').click(function() {
+        $(this).closest('.comment-spoiler-overlay').remove();
+      });
+
       let starRating = 0;
 
       $('.star-rating-div>i').on('click', (e) => {
@@ -933,7 +617,7 @@
                  $('.written-comment').append(response);
 
                  $.ajax({
-                   url: `@Url.Action("ShowCommentCount")/?showId=@Model.Id`,
+                   url: `@Url.Action("ShowCommentCount")/?showId=@Model.Show.Id`,
                    type: "GET",
                    success: function(response){
                      let count = response;
@@ -942,6 +626,7 @@
                  });
                }
                e.currentTarget.reset();
+               $('.star-rating-div>i').removeClass('fas').addClass('far');
                $('#blog-description-comment-form .written-comment-row').remove();
                $('#blog-description-comment-form input[name="ParentId"]').val('');
            },

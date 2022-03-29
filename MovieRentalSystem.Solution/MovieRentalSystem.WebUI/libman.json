@@ -42,6 +42,10 @@
       "provider": "jsdelivr",
       "library": "bootstrap@5.1.3",
       "destination": "wwwroot/libs/bootstrap/"
+    },
+    {
+      "library": "jquery-cookie@1.4.1",
+      "destination": "wwwroot/libs/jquery-cookie/"
     }
   ]
 }

@@ -10,6 +10,31 @@
         cursor: pointer;
     }
 
+    #blog-description-comment-form .star-rating-div {
+        margin-bottom: 1.5%;
+    }
+
+    .star-rating-answered-div > i {
+        color: #f0932b;
+    }
+
+    #blog-description-comment-form .star-rating-div i {
+        color: #f0932b;
+        cursor: pointer;
+    }
+
+    #movie-details-spoiler + label {
+        font-family: "Baloo";
+    }
+
+    .star-rating-div > i {
+        user-select: none;
+    }
+
+    #movie-details-spoiler + label {
+        user-select: none;
+    }
+
     .comment-btn-side > a {
         display: inline-block;
         background-color: #e41a1a;
@@ -356,12 +381,27 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 show-description-comment-col">
                 <h2 class="comment-heading">@Model.CommentCount Comments</h2>
                 <p class="comment-helper-text">Write comments</p>
-                <form method="post" asp-action="BlogComment" id="blog-description-comment-form">
+                <form method="post" asp-action="ShowComment" id="blog-description-comment-form">
+                    <div class="star-rating-div">
+                        <i class="far fa-star" data-star-rating="1"></i>
+                        <i class="far fa-star" data-star-rating="2"></i>
+                        <i class="far fa-star" data-star-rating="3"></i>
+                        <i class="far fa-star" data-star-rating="4"></i>
+                        <i class="far fa-star" data-star-rating="5"></i>
+                    </div>
+                    <span class="star-rating-error text-danger d-none">Seçim edilməlidir!</span>
                     <input type="hidden" name="ParentId" id="parent-id-input" />
                     <input type="hidden" asp-for="@Model.Id" name="ShowId" id="blog-id-input" />
                     <div class="form-group mb-3">
                         <textarea cols="30" rows="4" class="blog-description-textarea form-control" name="Content"
                                   placeholder="Comment"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="movie-details-spoiler"
+                               name="IsSpoiler" />
+                        <label for="movie-details-spoiler">Comment contains spoilers?</label>
                     </div>
                     <div class="comment-btn-side">
                         @if (User.Identity.IsAuthenticated)
@@ -388,7 +428,17 @@
                             <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
                                 <h5 class="written-comment-content-heading">@comment.CreatedByUser.Name @comment.CreatedByUser.Surname</h5>
                                 <p class="written-comment-content-content">
-                                    @comment.Content
+                                    <div class="star-rating-answered-div">
+                                        @for (var i = 1; i <= comment.StarRating; i++)
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                        @for (var i = 0; i < 5 - comment.StarRating; i++)
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                    </div>
+                                    <span style="color: #ffffff;">@comment.Content</span>
                                 </p>
                                 <div class="written-comment-bottom-box">
                                     <a onclick="setReply(event)" data-comment-id="@comment.Id" class="reply-btn">Reply</a>
@@ -840,18 +890,34 @@
 <script src="~/assets/js/show-details.js"></script>
 <script>
     $(function(){
+      let starRating = 0;
+
+      $('.star-rating-div>i').on('click', (e) => {
+         starRating = $(e.currentTarget).data('star-rating');
+      });
+
       let form = $('#blog-description-comment-form');
       $(form).on('submit', (e) => {
          e.preventDefault();
+
+         let formData = new FormData(e.currentTarget);
+
+         if(starRating > 0) {
+           $('.star-rating-error').addClass('d-none');
+           formData.append('StarRating', starRating);
+         }
+         else {
+           $('.star-rating-error').removeClass('d-none');
+           return;
+         }
 
          if($(e.currentTarget).find('.blog-description-textarea').val() == ""){
              $(e.currentTarget).find('.blog-description-textarea').css('border-color', 'red');
              return;
          }
 
-         let formData = new FormData(e.currentTarget);
          $.ajax({
-           url: '@Url.Action("BlogComment")',
+           url: '@Url.Action("ShowComment")',
            type: "POST",
            processData: false,
            contentType: false,
@@ -859,7 +925,7 @@
            dataType: 'html',
            success: function(response, status, xhr){
                $(e.currentTarget).find('.blog-description-textarea').css('border-color', '#eeeeee');
-               let parentId = xhr.getResponseHeader('BlogCommentParentId');
+               let parentId = xhr.getResponseHeader('ShowCommentParentId');
                if(parentId != null) {
                  $(`[identifier="${parentId}"]>.movie-details-replies`).append(response);
                }
@@ -867,7 +933,7 @@
                  $('.written-comment').append(response);
 
                  $.ajax({
-                   url: `@Url.Action("BlogCommentCount")/?blogId=@Model.Id`,
+                   url: `@Url.Action("ShowCommentCount")/?showId=@Model.Id`,
                    type: "GET",
                    success: function(response){
                      let count = response;

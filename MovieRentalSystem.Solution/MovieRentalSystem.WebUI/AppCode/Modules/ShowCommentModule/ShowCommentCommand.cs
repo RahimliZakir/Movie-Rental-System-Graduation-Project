@@ -16,6 +16,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowCommentModule
 
         public int ShowId { get; set; }
 
+        public int StarRating { get; set; }
+
+        public bool IsSpoiler { get; set; }
+
         public class ShowCommentCommandHandler : IRequestHandler<ShowCommentCommand, ShowComment>
         {
             readonly MovieDbContext db;
@@ -38,6 +42,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowCommentModule
 
                 showComment.Content = request.Content;
                 showComment.ShowId = request.ShowId;
+                showComment.StarRating = request.StarRating;
+                showComment.IsSpoiler = request.IsSpoiler;
                 showComment.CreatedByUserId = ctx.GetUserId();
 
                 await db.ShowComments.AddAsync(showComment, cancellationToken);

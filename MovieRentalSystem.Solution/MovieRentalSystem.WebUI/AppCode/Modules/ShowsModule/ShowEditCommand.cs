@@ -65,13 +65,13 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
                         }
                         else if (request.File == null)
                         {
-                            currentPath = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", entity.ImagePath);
+                            currentPath = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "shows", entity.ImagePath);
                         }
                         else if (request.File != null)
                         {
                             string ext = Path.GetExtension(request.File.FileName);
-                            string fileName = $"image-{Guid.NewGuid().ToString().Replace("-", "")}{ext}";
-                            fullPath = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", fileName);
+                            string fileName = $"show-{Guid.NewGuid().ToString().Replace("-", "")}{ext}";
+                            fullPath = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "shows", fileName);
 
                             using (var fs = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
                             {

@@ -10,6 +10,10 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public string Content { get; set; } = null!;
 
+        public int StarRating { get; set; }
+
+        public bool IsSpoiler { get; set; }
+
         public int ShowId { get; set; }
 
         public virtual Show Show { get; set; }

@@ -46,7 +46,7 @@ namespace MovieRentalSystem.WebUI.Controllers
 
         [HttpPost]
         [Authorize]
-        async public Task<IActionResult> BlogComment(ShowCommentCommand request)
+        async public Task<IActionResult> ShowComment(ShowCommentCommand request)
         {
             ShowComment showComment = await mediator.Send(request);
 
@@ -56,6 +56,14 @@ namespace MovieRentalSystem.WebUI.Controllers
             }
 
             return PartialView("_ShowComment", showComment);
+        }
+
+        [Authorize]
+        async public Task<IActionResult> ShowCommentCount(ShowCommentCountCommand request)
+        {
+            int count = await mediator.Send(request);
+
+            return Json(count);
         }
     }
 }

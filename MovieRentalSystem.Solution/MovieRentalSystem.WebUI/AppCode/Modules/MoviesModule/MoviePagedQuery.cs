@@ -4,7 +4,7 @@ using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities;
 using MovieRentalSystem.WebUI.Models.ViewModels;
 
-namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
+namespace MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule
 {
     public class MoviePagedQuery : IRequest<PagedViewModel<Movie>>
     {

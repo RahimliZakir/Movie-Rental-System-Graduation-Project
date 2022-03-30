@@ -1,0 +1,88 @@
+﻿@model MovieViewModel
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+@section css{
+<style>
+    .form-paragraph {
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    .movie-paragraph {
+        background-color: transparent !important;
+    }
+
+        .movie-paragraph > iframe {
+            width: 100%;
+        }
+
+    .img-paragraph {
+        width: 65;
+    }
+
+        .img-paragraph > img {
+            width: 100%;
+            height: 310px;
+            object-fit: cover;
+        }
+</style>
+}
+
+<div class="form-group">
+    <label asp-for="Id"></label>
+    <p class="form-paragraph">@Model.Id</p>
+</div>
+<div class="form-group">
+    <label asp-for="Name">Adı:</label>
+    <p class="form-paragraph">@Model.Name</p>
+</div>
+<div class="form-group">
+    <label asp-for="Description">Ətraflı:</label>
+    <p class="form-paragraph">@Model.Description</p>
+</div>
+<div class="form-group">
+    <label asp-for="MovieFrame">Film Ünvanı:</label>
+    <p class="form-paragraph movie-paragraph">@Html.Raw(Model.MovieFrame)</p>
+</div>
+<div class="form-group">
+    <label asp-for="IsPremium">Premium Statusu:</label>
+    <p class="form-paragraph">@(Model.IsPremium ? "Premium" : "Premium Deyil")</p>
+</div>
+@if (!string.IsNullOrWhiteSpace(Model.Duration))
+{
+    <div class="form-group">
+        <label asp-for="Duration">Müddət:</label>
+        <p class="form-paragraph">@Model.Duration</p>
+    </div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.Quality))
+{
+    <div class="form-group">
+        <label asp-for="Quality">Keyfiyyət:</label>
+        <p class="form-paragraph">@Model.Quality</p>
+    </div>
+}
+<div class="form-group">
+    <label asp-for="DirectorId">Direktor:</label>
+    <p class="form-paragraph">@Model.Director.Name</p>
+</div>
+<div class="form-group">
+    <label asp-for="CreatedDate">Əlavə olunma tarixi:</label>
+    <p class="form-paragraph">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</p>
+</div>
+<div class="form-group">
+    <label asp-for="Price">Qiymət: </label>
+    <p class="form-paragraph">@Model.Price</p>
+</div>
+<a asp-action="Index" class="btn btn-danger">Geriyə</a>

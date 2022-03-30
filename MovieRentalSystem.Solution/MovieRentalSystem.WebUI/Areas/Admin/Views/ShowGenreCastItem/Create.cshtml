@@ -1,0 +1,102 @@
+﻿@model ShowGenreCastItemFormModel
+
+@{
+    ViewData["Title"] = "Show Genre Cast Item Create";
+}
+
+@section css{
+<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+}
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Show.Id" class="label-required">Tamaşa: </label>
+        <select asp-for="Show.Id" class="form-control" asp-items="@ViewBag.Shows"></select>
+        <span asp-validation-for="Show.Id" style="color: red;"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ShowGenreCastItems[0].Genre.Id" class="label-required">Janrlar: </label>
+        <select asp-for="ShowGenreCastItems[0].Genre.Id" class="form-control" asp-items="@ViewBag.Genres"></select>
+        <span asp-validation-for="ShowGenreCastItems[0].Genre.Id" style="color: red;"></span>
+
+        <label asp-for="ShowGenreCastItems[0].Cast.Id" class="label-required mt-2">Aktyorlar: </label>
+        <select asp-for="ShowGenreCastItems[0].Cast.Id" class="form-control" asp-items="@ViewBag.Casts"></select>
+        <span asp-validation-for="ShowGenreCastItems[0].Cast.Id" style="color: red;"></span>
+    </div>
+
+    <div class="text-center mt-3">
+        <a class="btn btn-success plus-btn" style="border-radius: 50%; cursor: pointer; margin: 10px 0;">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+
+    <a asp-action="Index" class="btn btn-danger">Geriyə</a>
+    <button class="btn btn-info" type="submit">Əlavə et</button>
+</form>
+
+@section js{
+<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/libs/autosize.js/autosize.min.js"></script>
+<script src="~/libs/toastr.js/toastr.min.js"></script>
+<script src="~/libs/toastr.js/toastr.customize.min.js"></script>
+<script>
+    $(document).ready(function(){
+            let plusBtn = $('.plus-btn');
+            let i = 1;
+            $(plusBtn).on('click', function () {
+                let genreLabel = `<label class="label-required" for="ShowGenreCastItems[${i}].Genre.Id">Janrlar: </label>`;
+                let genresSelect =  `@Html.DropDownList("GenreId", ViewBag.Genres, "---Seçin---", htmlAttributes: new{
+                   @class  = "form-control"
+                })`;
+                let castLabel = `<label class="label-required mt-2" for="ShowGenreCastItems[${i}].Cast.Id">Aktyorlar: </label>`;
+                let castsSelect =  `@Html.DropDownList("CastId", ViewBag.Casts, "---Seçin---", htmlAttributes: new{
+                   @class  = "form-control"
+                })`;
+                let content = `<div class="form-group">
+                                 ${genreLabel}
+                                 ${genresSelect}
+                                 ${castLabel}
+                                 ${castsSelect}
+                               </div>`;
+                $(this).parent().before(content);
+                $(this).parent().prev('.form-group').find('select#GenreId').attr('name', `ShowGenreCastItems[${i}].Genre.Id`);
+                $(this).parent().prev('.form-group').find('select#CastId').attr('name', `ShowGenreCastItems[${i}].Cast.Id`);
+                i++;
+            });
+
+        $('form').on('submit', (e) => {
+          e.preventDefault();
+
+          if(!$(e.currentTarget).valid()){
+              return;
+          }
+
+          let formData = new FormData(e.currentTarget);
+
+          $.ajax({
+            url: '@Url.Action("Create")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(!response.error){
+                    toastr.success(response.message, "Uğurlu!");
+                    setTimeout(() => {
+                      window.location.assign('@Url.Action("Index")');
+                    }, 2000);
+                    return;
+                }
+
+                toastr.error(response.message, "Xəta!");
+            },
+            error: function(response){
+                console.log(response.message);
+            }
+          });
+        }).validate();
+    });
+</script>
+}

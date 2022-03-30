@@ -1,0 +1,50 @@
+﻿@model ShowGenreCastItemFormModel
+
+@{
+    ViewData["Title"] = "Show Genre Cast Item Details";
+}
+
+@section css{
+<style>
+    .form-paragraph {
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+</style>
+}
+
+<form>
+    <div class="form-group">
+        <label asp-for="Show.Name" class="label-required">Tamaşa: </label>
+        <input asp-for="Show.Name" class="form-control" readonly />
+        <span asp-validation-for="Show.Name" style="color: red;"></span>
+    </div>
+
+    @{
+        int j = 0;
+    }
+    @foreach (var item in Model.ShowGenreCastItems)
+    {
+        <div class="form-group selects">
+            <label asp-for="ShowGenreCastItems[j].Genre.Name" class="label-required">Teq: </label>
+            <input asp-for="ShowGenreCastItems[j].Genre.Name" class="form-control" readonly />
+            <span asp-validation-for="ShowGenreCastItems[j].Genre.Name" style="color: red;"></span>
+
+            <label asp-for="ShowGenreCastItems[j].Cast.Name" class="label-required">Bloq Kateqoriyası: </label>
+            <input asp-for="ShowGenreCastItems[j].Cast.Name" class="form-control" readonly />
+            <span asp-validation-for="ShowGenreCastItems[j].Cast.Name" style="color: red;"></span>
+        </div>
+
+        j++;
+    }
+
+    <a asp-action="Index" class="btn btn-danger">Geriyə</a>
+</form>

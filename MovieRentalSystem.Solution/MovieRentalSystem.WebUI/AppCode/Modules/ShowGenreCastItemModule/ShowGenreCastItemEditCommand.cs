@@ -60,7 +60,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
                                               && b.GenreId == item.GenreId
                                               && b.CastId == item.CastId, cancellationToken);
 
-                        db.ShowGenreCastItems.Remove(deleted);
+                        deleted.DeletedByUserId = ctx.GetUserId();
+                        deleted.DeletedDate = DateTime.UtcNow.AddHours(4);
                     }
                     else
                     {

@@ -47,7 +47,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,IsPremium,File,Duration,Quality,DirectorId")] ShowCreateCommand request)
+        public async Task<IActionResult> Create([Bind("Name,Description,IsPremium,Price,File,Duration,Quality,DirectorId")] ShowCreateCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
@@ -70,7 +70,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Name,Description,IsPremium,Duration,File,Quality,DirectorId,Id")] ShowEditCommand request)
+        public async Task<IActionResult> Edit([Bind("Name,Description,IsPremium,Duration,Price,File,FileTemp,Quality,DirectorId,Id")] ShowEditCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 

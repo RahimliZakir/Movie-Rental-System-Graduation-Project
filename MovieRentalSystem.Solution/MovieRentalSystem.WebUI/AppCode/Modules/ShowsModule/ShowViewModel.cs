@@ -16,16 +16,20 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
 
         public string? ImagePath { get; set; }
 
-        [Required(ErrorMessage = "Xahiş olunur şəkil seçin!")]
-        public IFormFile File { get; set; } = null!;
+        public IFormFile? File { get; set; } = null!;
 
         public string? FileTemp { get; set; }
 
         public bool IsPremium { get; set; }
 
+        [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
+        public decimal Price { get; set; }
+
         public string? Duration { get; set; }
 
         public string? Quality { get; set; }
+
+        public virtual ICollection<ShowGenreCastItem>? ShowGenreCastItems { get; set; }
 
         public ICollection<ShowComment>? ShowComments { get; set; }
 

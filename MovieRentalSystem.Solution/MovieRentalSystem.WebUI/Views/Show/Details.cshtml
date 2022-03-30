@@ -201,15 +201,17 @@
                 <p class="director">Director: <span>@Model.Show.Director.Name</span></p>
                 <ul class="genres-ul">
                     <li class="genres-item-title">Genre:</li>
-                    <li class="genres-item"><a href="#">Actions,</a></li>
-                    <li class="genres-item"><a href="#">Thriller,</a></li>
-                    <li class="genres-item"><a href="#">Comedy</a></li>
+                    @foreach (var item in Model.Show.ShowGenreCastItems)
+                    {
+                        <li class="genres-item"><a href="#">@item.Genre.Name,</a></li>
+                    }
                 </ul>
                 <ul class="casts-ul">
                     <li class="casts-item-title">Casts:</li>
-                    <li class="casts-item"><a href="#">Robert Downey Jr.,</a></li>
-                    <li class="casts-item"><a href="#">Chris Evans,</a></li>
-                    <li class="casts-item"><a href="#">Mark Ruffalo</a></li>
+                    @foreach (var item in Model.Show.ShowGenreCastItems)
+                    {
+                        <li class="casts-item"><a href="#">@item.Cast.Name,</a></li>
+                    }
                 </ul>
                 <p class="film-description">
                     @Model.Show.Description
@@ -556,7 +558,7 @@
                         <div class="card-body">
                             <div class="card-body-about-side">
                                 <a class="card-bottom-left" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                                <a class="card-bottom-right" href="#">Comedy</a>
+                                <a class="card-bottom-right" href="#">@item.ShowGenreCastItems.FirstOrDefault()?.Genre.Name</a>
                             </div>
                         </div>
                     </div>
@@ -570,6 +572,10 @@
 <script src="~/assets/js/show-details.js"></script>
 <script>
     $(function(){
+     $('.genres-item>a').last().text($('.genres-item>a').last().text().substr(0, $('.genres-item>a').last().text().length - 1));
+
+     $('.casts-item>a').last().text($('.casts-item>a').last().text().substr(0, $('.casts-item>a').last().text().length - 1));
+
       $('.show-spoiler-btn').click(function() {
         $(this).closest('.comment-spoiler-overlay').remove();
       });

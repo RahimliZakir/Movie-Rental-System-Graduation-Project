@@ -62,9 +62,9 @@
                         <div class="card-body">
                             <div class="card-body-about-side">
                                 <a class="card-bottom-left" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                                <a class="card-bottom-right" href="#">Comedy</a>
+                                <a class="card-bottom-right" href="#">@item.ShowGenreCastItems.FirstOrDefault()?.Genre.Name</a>
                             </div>
-                            <h5 class="shows-start-price">Starting from <span>$ 5</span></h5>
+                            <h5 class="shows-start-price">Starting from <span>$ @item.Price</span></h5>
                         </div>
                     </div>
                 </div>

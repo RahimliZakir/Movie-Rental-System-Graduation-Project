@@ -17,10 +17,12 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
     public class ShowGenreCastItemController : Controller
     {
         readonly IMediator mediator;
+        readonly IConfiguration conf;
 
-        public ShowGenreCastItemController(IMediator mediator)
+        public ShowGenreCastItemController(IMediator mediator, IConfiguration conf)
         {
             this.mediator = mediator;
+            this.conf = conf;
         }
 
         async public Task<IActionResult> Index()
@@ -45,8 +47,10 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             IEnumerable<Show> shows = await mediator.Send(showsQuery);
             ViewBag.Shows = new SelectList(shows, "Id", "Name");
 
+            int showParentId = conf.GetValue<int>("Genres:ShowParentId");
             GenreGetAllActiveQuery gernesQuery = new();
             IEnumerable<Genre> genres = await mediator.Send(gernesQuery);
+            genres = genres.Where(g => g.ParentId == showParentId);
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
             CastGetAllActiveQuery castsQuery = new();
@@ -77,8 +81,10 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             IEnumerable<Show> shows = await mediator.Send(showsQuery);
             ViewBag.Shows = new SelectList(shows, "Id", "Name", data.Show.Id);
 
-            GenreGetAllActiveQuery gernesQuery = new();
-            IEnumerable<Genre> genres = await mediator.Send(gernesQuery);
+            int showParentId = conf.GetValue<int>("Genres:ShowParentId");
+            GenreGetAllActiveQuery genresQuery = new();
+            IEnumerable<Genre> genres = await mediator.Send(genresQuery);
+            genres = genres.Where(g => g.ParentId == showParentId);
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
             CastGetAllActiveQuery castsQuery = new();

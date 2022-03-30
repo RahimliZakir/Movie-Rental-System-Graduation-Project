@@ -18,6 +18,12 @@
         border-radius: .25rem;
         transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
+
+    .img-div > img {
+        width: 100%;
+        object-fit: cover;
+        height: 375px;
+    }
 </style>
 }
 
@@ -26,6 +32,10 @@
         <label asp-for="Show.Name" class="label-required">Tamaşa: </label>
         <input asp-for="Show.Name" class="form-control" readonly />
         <span asp-validation-for="Show.Name" style="color: red;"></span>
+    </div>
+
+    <div class="img-div">
+        <img src="~/uploads/shows/@Model.Show.ImagePath" />
     </div>
 
     @{

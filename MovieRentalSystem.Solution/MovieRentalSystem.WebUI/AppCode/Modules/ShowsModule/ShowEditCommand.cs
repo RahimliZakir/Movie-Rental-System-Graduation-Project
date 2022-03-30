@@ -86,15 +86,15 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
 
                         db.Shows.Update(show);
                         await db.SaveChangesAsync(cancellationToken);
+
+                        response.Error = false;
+                        response.Message = "Məlumat uğurla yeniləndi!";
                     }
                     catch (Exception ex)
                     {
-
-                        throw;
+                        response.Error = true;
+                        response.Message = "Məlumat əlavə olunan zaman xəta baş verdi!";
                     }
-
-                    response.Error = false;
-                    response.Message = "Məlumat uğurla yeniləndi!";
                 }
 
             end:

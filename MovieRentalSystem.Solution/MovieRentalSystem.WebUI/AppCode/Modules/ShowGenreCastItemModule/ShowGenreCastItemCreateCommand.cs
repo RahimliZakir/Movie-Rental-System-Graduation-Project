@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using MovieRentalSystem.WebUI.AppCode.Extensions;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.Areas.Admin.Models.FormModels;
 using MovieRentalSystem.WebUI.Models.DataContexts;
@@ -28,11 +29,14 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
                 {
                     foreach (ShowGenreCastItem item in request.ShowGenreCastItems)
                     {
+                        int userId = ctx.GetUserId();
+
                         ShowGenreCastItem data = new()
                         {
                             ShowId = request.Show.Id,
                             GenreId = item.Genre.Id,
-                            CastId = item.Cast.Id
+                            CastId = item.Cast.Id,
+                            CreatedByUserId = userId
                         };
 
                         await db.ShowGenreCastItems.AddAsync(data, cancellationToken);

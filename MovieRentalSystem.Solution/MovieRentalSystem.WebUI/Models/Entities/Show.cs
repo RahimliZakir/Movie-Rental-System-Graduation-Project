@@ -15,6 +15,9 @@ namespace MovieRentalSystem.WebUI.Models.Entities
 
         public bool IsPremium { get; set; }
 
+        [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
+        public decimal Price { get; set; }
+
         public string? Duration { get; set; }
 
         public string? Quality { get; set; }

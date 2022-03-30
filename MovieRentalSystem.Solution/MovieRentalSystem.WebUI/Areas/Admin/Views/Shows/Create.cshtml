@@ -44,6 +44,11 @@
         </select>
         <span asp-validation-for="DirectorId" style="color: red;"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="Price">Qiymət: </label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" style="color: red;"></span>
+    </div>
     <a asp-action="Index" class="btn btn-danger">Geriyə</a>
     <button class="btn btn-info" type="submit">Əlavə et</button>
 </form>

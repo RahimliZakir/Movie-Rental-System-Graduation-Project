@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MovieRentalSystem.WebUI.AppCode.Extensions;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 
@@ -12,10 +14,12 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
         public class ShowGenreCastItemRemoveCommandHandler : IRequestHandler<ShowGenreCastItemRemoveCommand, CommandJsonResponse>
         {
             readonly MovieDbContext db;
+            readonly IActionContextAccessor ctx;
 
-            public ShowGenreCastItemRemoveCommandHandler(MovieDbContext db)
+            public ShowGenreCastItemRemoveCommandHandler(MovieDbContext db, IActionContextAccessor ctx)
             {
                 this.db = db;
+                this.ctx = ctx;
             }
 
             async public Task<CommandJsonResponse> Handle(ShowGenreCastItemRemoveCommand request, CancellationToken cancellationToken)
@@ -42,7 +46,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
 
                 foreach (var item in entity)
                 {
-                    db.ShowGenreCastItems.Remove(item);
+                    item.DeletedByUserId = ctx.GetUserId();
+                    item.DeletedDate = DateTime.UtcNow.AddHours(4);
                 }
 
                 await db.SaveChangesAsync(cancellationToken);

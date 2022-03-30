@@ -35,6 +35,11 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<AuditLog> AuditLogs { get; set; }
         //---Audit---
 
+        //---Movie---
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieComment> MovieComments { get; set; }
+        //---Movie---
+
         //---Shows---
         public DbSet<Director> Directors { get; set; }
         public DbSet<Cast> Casts { get; set; }
@@ -131,6 +136,12 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
                    .Property(g => g.CreatedDate)
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
             //---Blogs---
+
+            //---Movie---
+            builder.Entity<Movie>()
+                   .Property(g => g.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
+            //---Movie---
 
             //---Shows---
             builder.Entity<Director>()

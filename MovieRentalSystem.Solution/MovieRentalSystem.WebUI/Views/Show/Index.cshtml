@@ -4,6 +4,15 @@
     ViewData["Title"] = "Shows";
 }
 
+@section css{
+<link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
+<style>
+    .add-to-wishlist-btn {
+        cursor: pointer;
+    }
+</style>
+}
+
 <!-- movies cards animation start -->
 <section id="shows-cards-animation">
     <div class="container shows-cards-animation-container">
@@ -47,13 +56,7 @@
                                 <div class="img-box-bottom">
                                     <ul>
                                         <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-play"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
+                                            <a class="add-to-wishlist-btn" data-id="@item.Id"><i class="fa-solid fa-heart"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -75,6 +78,46 @@
 <!-- latest tv show end -->
 @section js{
 <script src="~/assets/js/shows.js"></script>
+<script src="~/libs/AlertifyJS/alertify.min.js"></script>
+<script src="~/libs/jquery-cookie/jquery.cookie.min.js"></script>
+<script>
+    $(function(){
+        let oldWishlists = $.cookie('wishlist-show');
+        console.log(oldWishlists);
+        if(oldWishlists != null){
+            oldWishlists = oldWishlists.split(',').map(v => parseInt(v));
+            $('.wishlist').text(oldWishlists.length);
+        }
+
+        $('.add-to-wishlist-btn').on('click', (e) => {
+           let showId = $(e.currentTarget).data('id');
+
+           let wishlist = $.cookie('wishlist-show');
+
+           if (wishlist == null || wishlist == '') {
+             wishlist = [];
+           }
+           else {
+             wishlist = wishlist.split(',').map(v => parseInt(v));
+           }
+
+           if (wishlist.indexOf(showId) != -1) {
+             alertify.warning("Bu məhsul artıq səbətdə var!", "Diqqət!");
+           }
+           else {
+             wishlist.push(showId);
+             alertify.success("Məhsul uğurla səbətə əlavə olundu!", "Uğurlu!");
+
+             $.cookie('wishlist-show', wishlist.toString(), { expires: 365 });
+             if (wishlist.length <= 9) {
+                 $('.wishlist').text(wishlist.length);
+             } else {
+                 $('.wishlist').text('9+');
+             }
+           }
+        });
+    });
+</script>
 }
 
 

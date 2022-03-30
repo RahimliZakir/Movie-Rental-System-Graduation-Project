@@ -1,5 +1,11 @@
-﻿@{
+﻿@model WishlistViewModel
+
+@{
     ViewData["Title"] = "Wishlist";
+}
+
+@section css{
+<link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
 }
 
 <!-- wishlist banner start -->
@@ -143,108 +149,39 @@
                 </div>
             </div>
             <div class="row wishlist-shows-row">
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                    <div class="card">
-                        <div class="img-div">
-                            <img src="assets/images/shows/friends.jpg"
+                @if (Model != null && Model?.Shows != null)
+                {
+                    @foreach (var item in Model?.Shows)
+                    {
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
+                            <div class="card" data-id="@item.Id">
+                                <div class="img-div">
+                                    <img src="~/uploads/shows/@item.ImagePath"
                                  class="card-img-top"
                                  alt="Latest Movies Img" />
-                            <div class="latest-tv-show-img-box">
-                                <div class="img-box-top">
-                                    <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                    <p>8.4/10</p>
+                                    <div class="latest-tv-show-img-box">
+                                        <div class="img-box-top">
+                                            <span class="badge latest-tv-show-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
+                                            <p>@item.GetAverageRating()/5</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="img-box-bottom">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-play"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                        </li>
-                                    </ul>
+                                <div class="card-body">
+                                    <div class="card-body-about-side">
+                                        <a class="card-bottom-left" asp-action="Details" asp-controller="Show" asp-route-id="@item.Id">@item.Name</a>
+                                        <a class="card-bottom-right" href="#">@item.ShowGenreCastItems.FirstOrDefault()?.Genre.Name</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card-body-about-side">
-                                <a class="card-bottom-left" href="show-details.html">Friends</a>
-                                <a class="card-bottom-right" href="#">Comedy</a>
-                            </div>
-                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-danger mt-5" role="alert">
+                        Hələ ki, tamaşa istək hissəsi boşdur!
                     </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                    <div class="card">
-                        <div class="img-div">
-                            <img src="assets/images/shows/stranger-things.jpg"
-                                 class="card-img-top"
-                                 alt="Latest Movies Img" />
-                            <div class="latest-tv-show-img-box">
-                                <div class="img-box-top">
-                                    <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                    <p>8.4/10</p>
-                                </div>
-                                <div class="img-box-bottom">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-play"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-body-about-side">
-                                <a class="card-bottom-left" href="show-details.html">Stranger-Things</a>
-                                <a class="card-bottom-right" href="#">Horror</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                    <div class="card">
-                        <div class="img-div">
-                            <img src="assets/images/shows/breaking-bad.jpg"
-                                 class="card-img-top"
-                                 alt="Latest Movies Img" />
-                            <div class="latest-tv-show-img-box">
-                                <div class="img-box-top">
-                                    <span class="badge latest-tv-show-badge text-dark">Premium</span>
-                                    <p>8.4/10</p>
-                                </div>
-                                <div class="img-box-bottom">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-play"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-body-about-side">
-                                <a class="card-bottom-left" href="show-details.html">Breaking Bad</a>
-                                <a class="card-bottom-right" href="#">Science</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -252,4 +189,24 @@
 <!-- wishlist end -->
 @section js{
 <script src="~/assets/js/wishlist.js"></script>
+<script src="~/libs/jquery-cookie/jquery.cookie.min.js"></script>
+<script src="~/libs/AlertifyJS/alertify.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.remove-show-btn').on('click', function(e) {
+          let showId = $(e.currentTarget).closest('.card').data('id');
+
+          let wishlistFromCookieArr = $.cookie("wishlist-show").split(',').map(v => Number(v))
+          let index = wishlistFromCookieArr.indexOf(showId);
+          if (index != -1) {
+              wishlistFromCookieArr.splice(index, 1);
+              $.cookie("wishlist-show", wishlistFromCookieArr.toString(), { expires: 365 });
+              alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+          }
+          else{
+               return;
+          }
+        });
+    });
+</script>
 }

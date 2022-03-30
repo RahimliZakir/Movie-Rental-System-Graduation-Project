@@ -123,6 +123,31 @@ app.UseAuthorization();
 
 //app.UseAuditMiddleware();
 
+app.Use(async (context, next) =>
+{
+    await next();
+
+    switch (context.Response.StatusCode)
+    {
+        case 400:
+        case 403:
+        case 404:
+        case 500:
+        case 503:
+            {
+                using (StreamReader sr = new($"Areas/Admin/Views/static/errors/page-error-{context.Response.StatusCode}.html"))
+                {
+                    context.Response.ContentType = "text/html";
+                    await context.Response.WriteAsync(sr.ReadToEnd());
+                }
+                await next();
+                break;
+            }
+        default:
+            break;
+    }
+});
+
 app.MapGet("/comingsoon.html", async (context) =>
  {
      using (StreamReader sr = new("Views/static/comingsoon.html"))

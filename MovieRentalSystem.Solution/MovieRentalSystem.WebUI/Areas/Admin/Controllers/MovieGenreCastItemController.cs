@@ -81,9 +81,9 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
             MovieGetAllActiveQuery moviesQuery = new();
             IEnumerable<Movie> movies = await mediator.Send(moviesQuery);
-            ViewBag.Shows = new SelectList(movies, "Id", "Name", data.Movie.Id);
+            ViewBag.Movies = new SelectList(movies, "Id", "Name", data.Movie.Id);
 
-            int showParentId = conf.GetValue<int>("Genres:ShowParentId");
+            int showParentId = conf.GetValue<int>("Genres:FilmParentId");
             GenreGetAllActiveQuery genresQuery = new();
             IEnumerable<Genre> genres = await mediator.Send(genresQuery);
             genres = genres.Where(g => g.ParentId == showParentId);

@@ -15,7 +15,7 @@
 
 <form>
     <div class="form-group">
-        <label asp-for="Movie.Id" class="label-required">Tamaşa: </label>
+        <label asp-for="Movie.Id" class="label-required">Film: </label>
         <select asp-for="Movie.Id" class="form-control" asp-items="@ViewBag.Movies">
         </select>
         <span asp-validation-for="Movie.Id" style="color: red;"></span>

@@ -6,6 +6,11 @@
 
 @section css{
 <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+<style>
+    .form-group {
+        margin-top: 3.5%;
+    }
+</style>
 }
 
 <form method="post" asp-action="Create">
@@ -15,7 +20,7 @@
         <span asp-validation-for="Show.Id" style="color: red;"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group selects">
         <label asp-for="ShowGenreCastItems[0].Genre.Id" class="label-required">Janrlar: </label>
         <select asp-for="ShowGenreCastItems[0].Genre.Id" class="form-control" asp-items="@ViewBag.Genres"></select>
         <span asp-validation-for="ShowGenreCastItems[0].Genre.Id" style="color: red;"></span>
@@ -50,19 +55,27 @@
                 let genresSelect =  `@Html.DropDownList("GenreId", ViewBag.Genres, "---Seçin---", htmlAttributes: new{
                    @class  = "form-control"
                 })`;
-                let castLabel = `<label class="label-required mt-2" for="ShowGenreCastItems[${i}].Cast.Id">Aktyorlar: </label>`;
+                let castLabel = `<label class="label-required my-2" for="ShowGenreCastItems[${i}].Cast.Id">Aktyorlar: </label>`;
                 let castsSelect =  `@Html.DropDownList("CastId", ViewBag.Casts, "---Seçin---", htmlAttributes: new{
                    @class  = "form-control"
                 })`;
-                let content = `<div class="form-group">
+                let content = `<div class="form-group selects">
                                  ${genreLabel}
                                  ${genresSelect}
+
                                  ${castLabel}
                                  ${castsSelect}
+
+                                 <button type="button" style="float: right;" class="btn btn-danger selects-btn"><i class="far fa-trash-alt"></i></button>
                                </div>`;
                 $(this).parent().before(content);
                 $(this).parent().prev('.form-group').find('select#GenreId').attr('name', `ShowGenreCastItems[${i}].Genre.Id`);
                 $(this).parent().prev('.form-group').find('select#CastId').attr('name', `ShowGenreCastItems[${i}].Cast.Id`);
+                $('.selects-btn').on('click', function(e) {
+                  e.preventDefault();
+
+                  $(e.currentTarget).closest('.selects').remove();
+                });
                 i++;
             });
 
@@ -74,6 +87,14 @@
           }
 
           let formData = new FormData(e.currentTarget);
+
+          let j = 0;
+          $('.selects').each((index, item) => {
+              formData.append(`ShowGenreCastItems[${j}].Genre.Id`, $(item).children('select').first().val());
+              formData.append(`ShowGenreCastItems[${j}].Cast.Id`, $(item).children('select').last().val());
+              
+              j++;
+          });
 
           $.ajax({
             url: '@Url.Action("Create")',

@@ -23,7 +23,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
                                                   .ThenInclude(s => s.Genre)
                                                   .Include(s => s.ShowGenreCastItems.Where(sgc => sgc.DeletedByUserId == null))
                                                   .ThenInclude(s => s.Cast)
-                                                  .Where(s => s.DeletedByUserId == null && s.ShowGenreCastItems.Any(sgc => sgc.ShowId == s.Id))
+                                                  .Where(s => s.ShowGenreCastItems.Any(sg => sg.DeletedByUserId == null) && s.ShowGenreCastItems.Any(sgc => sgc.ShowId == s.Id))
                                                   .ToListAsync(cancellationToken);
 
                 return shows;

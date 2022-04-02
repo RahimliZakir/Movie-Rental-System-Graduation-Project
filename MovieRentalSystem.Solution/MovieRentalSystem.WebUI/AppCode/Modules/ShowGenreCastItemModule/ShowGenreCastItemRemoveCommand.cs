@@ -34,7 +34,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
                 }
 
                 var entity = await db.ShowGenreCastItems
-                                   .Where(pcc => pcc.ShowId.Equals(request.Id))
+                                   .Where(pcc => pcc.DeletedByUserId == null && pcc.ShowId.Equals(request.Id))
                                    .ToListAsync(cancellationToken);
 
                 if (entity == null)

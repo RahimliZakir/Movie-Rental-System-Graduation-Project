@@ -39,7 +39,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
                 }
 
                 var entity = await db.ShowGenreCastItems
-                                   .Where(p => p.ShowId.Equals(request.Show.Id))
+                                   .Where(p => p.ShowId.Equals(request.Show.Id) && p.DeletedByUserId == null)
                                    .ToListAsync(cancellationToken);
 
                 if (entity == null)
@@ -58,7 +58,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule
                         var deleted = await db.ShowGenreCastItems
                                               .FirstOrDefaultAsync(b => b.ShowId == item.ShowId
                                               && b.GenreId == item.GenreId
-                                              && b.CastId == item.CastId, cancellationToken);
+                                              && b.CastId == item.CastId && b.DeletedByUserId == null, cancellationToken);
 
                         deleted.DeletedByUserId = ctx.GetUserId();
                         deleted.DeletedDate = DateTime.UtcNow.AddHours(4);

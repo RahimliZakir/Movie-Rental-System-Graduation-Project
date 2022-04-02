@@ -1,5 +1,174 @@
-﻿@{
+﻿@model FilmViewModel
+
+@{
     ViewData["Title"] = "Movie Details";
+}
+
+@section css{
+<style>
+    iframe {
+        width: 100%;
+    }
+
+    .reply-btn {
+        cursor: pointer;
+    }
+
+    #blog-description-comment-form .star-rating-div {
+        margin-bottom: 1.5%;
+    }
+
+    .star-rating-answered-div > i {
+        color: #f0932b;
+    }
+
+    #blog-description-comment-form .star-rating-div i {
+        color: #f0932b;
+        cursor: pointer;
+    }
+
+    .star-rating-error, #movie-details-spoiler + label {
+        font-family: "Baloo";
+    }
+
+    .star-rating-div > i {
+        user-select: none;
+    }
+
+    .written-comment-content-side {
+        position: relative;
+    }
+
+    .comment-spoiler-overlay {
+        position: absolute;
+        border-radius: 4px;
+        background-color: #badc58;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    #movie-details-spoiler + label {
+        user-select: none;
+    }
+
+    .comment-btn-side > a {
+        display: inline-block;
+        background-color: #e41a1a;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 7.5px 25px;
+        font-family: "Baloo";
+        transition: 0.3s;
+    }
+
+        .comment-btn-side > a:hover {
+            background-color: #d93535;
+        }
+
+    .comment-btn-side > button {
+        display: inline-block;
+        background-color: #e41a1a;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 7.5px 25px;
+        font-family: "Baloo";
+        transition: 0.3s;
+    }
+
+        .comment-btn-side > button:hover {
+            background-color: #d93535;
+        }
+
+    .blog-credentials-heading {
+        font-family: "Roboto";
+        font-size: 0.9rem;
+    }
+
+        .blog-credentials-heading > span {
+            color: #e41a1a;
+            font-weight: 600;
+        }
+
+    .movie-details-replies {
+        margin: 0.75% 0;
+        padding-left: 8.5%;
+    }
+
+    .written-comment-profile-side .img-div {
+        width: 70% !important;
+    }
+
+        .written-comment-profile-side .img-div > img {
+            height: 50px;
+            object-fit: cover;
+        }
+
+    .written-comment-row {
+        margin-bottom: 1.5%;
+    }
+
+    #blog-description-comment-form .written-comment-row {
+        margin: 0.75% 0;
+    }
+
+    #blog-description-comment-form .written-comment-profile-side > .img-div {
+        width: 70%;
+    }
+
+        #blog-description-comment-form .written-comment-profile-side > .img-div > img {
+            width: 100%;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+    #blog-description-comment-form .written-comment-content-side {
+        position: relative;
+        background-color: #343946;
+        border-radius: 4px;
+        padding: 1.5% 1%;
+    }
+
+        #blog-description-comment-form .written-comment-content-side::after {
+            content: "";
+            position: absolute;
+            right: 100%;
+            top: 10px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-right: 5px solid #343946;
+            border-bottom: 5px solid transparent;
+        }
+
+    #blog-description-comment-form .written-comment-content-heading,
+    #blog-description-comment-form .written-comment-content-content {
+        font-family: "Baloo";
+    }
+
+    #blog-description-comment-form .written-comment-content-heading {
+        color: #777777;
+    }
+
+    .written-comment-content-content {
+        color: white;
+    }
+
+    #blog-description-comment-form .written-comment-bottom-box {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1%;
+    }
+
+        #blog-description-comment-form .written-comment-bottom-box .comment-date {
+            color: #777777;
+            font-size: 0.9rem;
+        }
+</style>
 }
 
 <!-- movie fragment start -->
@@ -11,10 +180,7 @@
                     <a asp-action="Index" asp-controller="Movie" class="go-back-btn">
                         <i class="fa-solid fa-left-long"></i> <span>BACK</span>
                     </a>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/eOrNdBpGMv8"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                    @Html.Raw(Model.Movie.MovieFrame)
                 </div>
             </div>
         </div>
@@ -26,17 +192,17 @@
     <div class="container movie-description-container">
         <div class="row movie-description-row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 films-swiper-col">
-                <span class="badge films-swiper-badge text-dark">Premium</span>
-                <h2>Avenger: Endgame</h2>
+                <span class="badge films-swiper-badge text-dark">@(Model.Movie.IsPremium ? "Premium" : "")</span>
+                <h2>@Model.Movie.Name</h2>
                 <div class="specifications">
-                    <p class="specification-item star-rating">9.4/10</p>
-                    <p class="specification-item duration">196 Min</p>
+                    <p class="specification-item star-rating">@Model.Movie.GetAverageRating()/5</p>
+                    <p class="specification-item duration">@Model.Movie.Duration</p>
                     <p class="specification-item quality">
-                        Quality <span class="is-hd">HD</span>
+                        Quality <span class="is-hd" style="@(string.IsNullOrWhiteSpace(Model.Movie.Quality) ? "padding: 0;" : "")">@(string.IsNullOrWhiteSpace(Model.Movie.Quality) ? "N/A" : Model.Movie.Quality)</span>
                     </p>
                 </div>
-                <p class="release-date">Release Date: 10 March 2020</p>
-                <p class="director">Director: <span>Joss Whedon</span></p>
+                <p class="release-date">Release Date: @Model.Movie.CreatedDate.ToString("dd MMMM yyyy")</p>
+                <p class="director">Director: <span>@Model.Movie.Director.Name</span></p>
                 <ul class="genres-ul">
                     <li class="genres-item-title">Genre:</li>
                     <li class="genres-item"><a href="#">Actions,</a></li>
@@ -50,23 +216,11 @@
                     <li class="casts-item"><a href="#">Mark Ruffalo</a></li>
                 </ul>
                 <p class="film-description">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text
-                    ever since the 1500s, when an unknown printer took a galley of
-                    type and scrambled it to make a type specimen book
+                    @Model.Movie.Description
                 </p>
-                <ul class="film-types">
-                    <li class="film-type">
-                        <i class="bi bi-badge-hd-fill"></i>
-                    </li>
-                    <li class="film-type"><strong>Rated:</strong>8.5</li>
-                    <li class="film-type">
-                        <strong>Genre:</strong>Horror, Comedy, Action, Sci-fi.
-                    </li>
-                </ul>
                 <div class="films-swiper-buttons-box">
                     <a href="#" class="watch-btn">Add To Basket</a>
-                    <a href="#" class="watchlist-btn">+ Add To Watchlist</a>
+                    @*<a href="#" class="watchlist-btn">+ Add To Watchlist</a>*@
                 </div>
             </div>
         </div>
@@ -78,98 +232,123 @@
     <div class="container movie-description-comment-container">
         <div class="row movie-description-comment-row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 movie-description-comment-col">
-                <h2 class="comment-heading">20 Comments</h2>
+                <h2 class="comment-heading">@Model.Movie.CommentCount Comments</h2>
                 <p class="comment-helper-text">Write comments</p>
-                <form method="post" id="movie-description-comment-form">
-                    <div class="star-rating-div">
+                <form method="post" asp-action="MovieComment" id="blog-description-comment-form">
+                    <div class="star-rating-div mb-0">
                         <i class="far fa-star" data-star-rating="1"></i>
                         <i class="far fa-star" data-star-rating="2"></i>
                         <i class="far fa-star" data-star-rating="3"></i>
                         <i class="far fa-star" data-star-rating="4"></i>
                         <i class="far fa-star" data-star-rating="5"></i>
                     </div>
-                    <div class="form-group mb-3">
-                        <textarea cols="30" rows="4" class="movie-description-textarea form-control"
+                    <span class="star-rating-error text-danger d-none">Seçim edilməlidir!</span>
+                    <input type="hidden" name="ParentId" id="parent-id-input" />
+                    <input type="hidden" asp-for="@Model.Movie.Id" name="MovieId" id="blog-id-input" />
+                    <div class="form-group my-3">
+                        <textarea cols="30" rows="4" class="blog-description-textarea form-control" name="Content"
                                   placeholder="Comment"></textarea>
                     </div>
                     <div class="form-group mb-3">
-                        <input type="checkbox" class="form-check-input" id="movie-details-spoiler" />
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="movie-details-spoiler"
+                               name="IsSpoiler" />
                         <label for="movie-details-spoiler">Comment contains spoilers?</label>
                     </div>
                     <div class="comment-btn-side">
-                        <button type="submit">Submit Comment</button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <button type="submit">Submit Comment</button>
+                        }
+                        else
+                        {
+                            <a asp-action="SignIn" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path">Submit Comment</a>
+                        }
                     </div>
                 </form>
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 written-comments-col">
                 <div class="written-comment">
-                    <div class="row written-comment-row">
-                        <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
-                            <div class="img-div">
-                                <img src="~/assets/images/movie-details/people-1.jpg" alt="Profile Photo" />
-                            </div>
-                        </div>
-                        <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
-                            <h5 class="written-comment-content-heading">Emmy Gosling</h5>
-                            <p class="written-comment-content-content">
-                                Sed porttitor lectus nibh. Nulla quis lorem ut libero
-                                malesuada feugiat. Vivamus suscipit tortor eget felis
-                                porttitor volutpat. Nulla porttitor accumsan tincidunt.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </p>
-                            <div class="written-comment-bottom-box">
-                                <a href="#" class="reply-btn">Reply</a>
-                                <p class="comment-date">January 29, 2019</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="movie-details-replies">
-                        <div class="written-comment reply">
-                            <div class="row written-comment-row">
-                                <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
-                                    <div class="img-div">
-                                        <img src="~/assets/images/movie-details/people-2.jpg" alt="Profile Photo" />
-                                    </div>
-                                </div>
-                                <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
-                                    <h5 class="written-comment-content-heading">Emmy Gosling</h5>
-                                    <p class="written-comment-content-content">
-                                        Sed porttitor lectus nibh. Nulla quis lorem ut libero
-                                        malesuada feugiat. Vivamus suscipit tortor eget felis
-                                        porttitor volutpat. Nulla porttitor accumsan tincidunt.
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </p>
-                                    <div class="written-comment-bottom-box">
-                                        <a href="#" class="reply-btn">Reply</a>
-                                        <p class="comment-date">January 29, 2019</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="written-comment">
-                        <div class="row written-comment-row">
+                    @foreach (MovieComment comment in Model.Movie.MovieComments.Where(bc => bc.ParentId == null))
+                    {
+                        <div identifier="@comment.Id" class="row written-comment-row">
                             <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
                                 <div class="img-div">
-                                    <img src="~/assets/images/movie-details/people-3.jpg" alt="Profile Photo" />
+                                    <img src="@(!string.IsNullOrWhiteSpace(comment.CreatedByUser.ImagePath) ? $"/uploads/personalside/{comment.CreatedByUser.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg")" alt="Profile Photo" />
                                 </div>
                             </div>
-                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
-                                <h5 class="written-comment-content-heading">Emmy Gosling</h5>
+                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
+                                @if (comment.IsSpoiler)
+                                {
+                                    <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
+                                        <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
+                                    </div>
+                                }
+
+                                <h5 class="written-comment-content-heading">@comment.CreatedByUser.Name @comment.CreatedByUser.Surname</h5>
                                 <p class="written-comment-content-content">
-                                    Sed porttitor lectus nibh. Nulla quis lorem ut libero
-                                    malesuada feugiat. Vivamus suscipit tortor eget felis
-                                    porttitor volutpat. Nulla porttitor accumsan tincidunt.
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    <div class="star-rating-answered-div">
+                                        @for (var i = 1; i <= comment.StarRating; i++)
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                        @for (var i = 0; i < 5 - comment.StarRating; i++)
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                    </div>
+                                    <span style="color: #ffffff;">@comment.Content</span>
                                 </p>
                                 <div class="written-comment-bottom-box">
-                                    <a href="#" class="reply-btn">Reply</a>
-                                    <p class="comment-date">January 29, 2019</p>
+                                    <a onclick="setReply(event)" data-comment-id="@comment.Id" class="reply-btn">Reply</a>
+                                    <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy")</p>
                                 </div>
                             </div>
+                            <div class="movie-details-replies">
+                                @foreach (MovieComment child in comment.FillCommentChildren())
+                                {
+                                    <div identifier="@child.Id" class="row written-comment-row">
+                                        <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                                            <div class="img-div">
+                                                <img src="@(!string.IsNullOrWhiteSpace(child.CreatedByUser.ImagePath) ? $"/uploads/personalside/{child.CreatedByUser.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg")"
+                                             alt="Profile Photo" />
+                                            </div>
+                                        </div>
+                                        <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                                            @if (child.IsSpoiler)
+                                            {
+                                                <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
+                                                    <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
+                                                </div>
+                                            }
+
+                                            <h5 class="written-comment-content-heading">@child.CreatedByUser.Name @child.CreatedByUser.Surname</h5>
+                                            <p class="written-comment-content-content">
+                                                <div class="star-rating-answered-div">
+                                                    @for (var i = 1; i <= child.StarRating; i++)
+                                                    {
+                                                        <i class="fas fa-star"></i>
+                                                    }
+                                                    @for (var i = 0; i < 5 - child.StarRating; i++)
+                                                    {
+                                                        <i class="far fa-star"></i>
+                                                    }
+                                                </div>
+                                                <span style="color: #ffffff;">@child.Content</span>
+                                            </p>
+                                            <div class="written-comment-bottom-box">
+                                                <a onclick="setReply(event)" data-comment-id="@child.Id" class="reply-btn">Reply</a>
+                                                <p class="comment-date">@child.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                            </div>
+                                        </div>
+                                        <div class="movie-details-replies">
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -186,452 +365,130 @@
             <div class="col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 latest-movies-right-view-all-side">
                 <a href="#">View All</a>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/banner-1.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>8.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
+            @foreach (var item in Model.RelatedMovies)
+            {
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                    <div class="card">
+                        <div class="img-div">
+                            @Html.Raw(item.MovieFrame)
+                            <div class="latest-movies-img-box">
+                                <div class="img-box-top">
+                                    <span class="badge latest-movies-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
+                                    <p>@item.GetAverageRating()/5</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Man Of Steel</a>
-                            <p>196 Min</p>
+                        <div class="card-body">
+                            <div class="card-body-about-side">
+                                <a href="movie-details.html">@item.Name</a>
+                                <p>@item.Duration</p>
+                            </div>
+                            <ul class="latest-movies-tags-ul">
+                                <li><a href="#">Actions,</a></li>
+                                <li><a href="#">Thriller,</a></li>
+                                <li><a href="#">Comedy</a></li>
+                            </ul>
                         </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/banner-2.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>7.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Deadpool</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/banner-3.png" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Avengers</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/banner-4.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Batman</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/banner-5.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Extraction</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/transform.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Transformer</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/turtle.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Ninja Turtle</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/ranger.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Power Ranger</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/prey.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Birds Of Prey</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/pirates.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Pirates</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/godzilla.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">GodZilla</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                <div class="card">
-                    <div class="img-div">
-                        <img src="~/assets/images/movies/baby-driver.jpg" class="card-img-top" alt="Latest Movies Img" />
-                        <div class="latest-movies-img-box">
-                            <div class="img-box-top">
-                                <span class="badge latest-movies-badge text-dark">Premium</span>
-                                <p>9.4/10</p>
-                            </div>
-                            <div class="img-box-bottom">
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body-about-side">
-                            <a href="movie-details.html">Baby Driver</a>
-                            <p>196 Min</p>
-                        </div>
-                        <ul class="latest-movies-tags-ul">
-                            <li><a href="#">Actions,</a></li>
-                            <li><a href="#">Thriller,</a></li>
-                            <li><a href="#">Comedy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
 <!-- more like these movies end -->
 @section js{
 <script src="~/assets/js/movie-details.js"></script>
+<script>
+    $(function(){
+     $('.genres-item>a').last().text($('.genres-item>a').last().text().substr(0, $('.genres-item>a').last().text().length - 1));
+
+     $('.casts-item>a').last().text($('.casts-item>a').last().text().substr(0, $('.casts-item>a').last().text().length - 1));
+
+      $('.show-spoiler-btn').click(function() {
+        $(this).closest('.comment-spoiler-overlay').remove();
+      });
+
+      let starRating = 0;
+
+      $('.star-rating-div>i').on('click', (e) => {
+         starRating = $(e.currentTarget).data('star-rating');
+      });
+
+      let form = $('#blog-description-comment-form');
+      $(form).on('submit', (e) => {
+         e.preventDefault();
+
+         let formData = new FormData(e.currentTarget);
+
+         if(starRating > 0) {
+           $('.star-rating-error').addClass('d-none');
+           formData.append('StarRating', starRating);
+         }
+         else {
+           $('.star-rating-error').removeClass('d-none');
+           return;
+         }
+
+         if($(e.currentTarget).find('.blog-description-textarea').val() == ""){
+             $(e.currentTarget).find('.blog-description-textarea').css('border-color', 'red');
+             return;
+         }
+
+         $.ajax({
+           url: '@Url.Action("MovieComment")',
+           type: "POST",
+           processData: false,
+           contentType: false,
+           data: formData,
+           dataType: 'html',
+           success: function(response, status, xhr){
+               $(e.currentTarget).find('.blog-description-textarea').css('border-color', '#eeeeee');
+               let parentId = xhr.getResponseHeader('MovieCommentParentId');
+               if(parentId != null) {
+                 $(`[identifier="${parentId}"]>.movie-details-replies`).append(response);
+               }
+               else {
+                 $('.written-comment').append(response);
+
+                 $.ajax({
+                   url: `@Url.Action("MovieCommentCount")/?movieId=@Model.Movie.Id`,
+                   type: "GET",
+                   success: function(response){
+                     let count = response;
+                     $('.comment-heading').text(`${count} Comments`);
+                   }
+                 });
+               }
+               e.currentTarget.reset();
+               $('.star-rating-div>i').removeClass('fas').addClass('far');
+               $('#blog-description-comment-form .written-comment-row').remove();
+               $('#blog-description-comment-form input[name="ParentId"]').val('');
+           },
+           error: function(response){
+               console.log(response);
+           }
+         });
+      });
+    });
+
+    function setReply(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        const parentId = $(ev.currentTarget).data('comment-id');
+
+        $('#blog-description-comment-form input[name="ParentId"]').val(parentId);
+        $('#blog-description-comment-form .written-comment-row').remove();
+        const comment = $(ev.currentTarget).closest('.written-comment-row').clone(true);
+        $(comment).find('.movie-details-replies').html('');
+        $(comment).find('.reply-btn').remove();
+        let trashBtn = $("<span class='trash-btn' style='color: red;cursor: pointer;'><i class='far fa-trash-alt'></i></span>");
+        $(trashBtn).click(() => {
+          $(comment).remove();
+          $('#blog-description-comment-form input[name="ParentId"]').val('');
+        });
+        $(comment).find('.written-comment-bottom-box').prepend(trashBtn);
+        $(comment).insertBefore($('#blog-description-comment-form').children()[0]);
+    }
+</script>
 }

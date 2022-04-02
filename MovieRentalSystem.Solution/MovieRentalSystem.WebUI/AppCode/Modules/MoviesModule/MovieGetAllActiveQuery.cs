@@ -20,6 +20,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule
             {
                 IEnumerable<Movie> movies = await db.Movies
                                                   .Include(s => s.Director)
+                                                  .Include(m => m.MovieComments)
+                                                  .ThenInclude(m => m.Children)
+                                                  .Include(m => m.MovieComments)
+                                                  .ThenInclude(m => m.CreatedByUser)
                                                   .Where(g => g.DeletedDate == null)
                                                   .ToListAsync(cancellationToken);
 

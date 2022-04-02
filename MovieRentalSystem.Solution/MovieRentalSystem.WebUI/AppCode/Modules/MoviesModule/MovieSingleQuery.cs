@@ -30,6 +30,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule
 
                 Movie movie = await db.Movies
                                     .Include(s => s.Director)
+                                    .Include(m => m.MovieComments)
+                                    .ThenInclude(m => m.Children)
+                                    .Include(m => m.MovieComments)
+                                    .ThenInclude(m => m.CreatedByUser)
                                     .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 MovieViewModel viewModel = mapper.Map<MovieViewModel>(movie);

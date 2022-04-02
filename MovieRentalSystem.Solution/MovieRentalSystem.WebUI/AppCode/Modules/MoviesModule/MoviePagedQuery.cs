@@ -79,6 +79,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule
             {
                 IQueryable<Movie> query = db.Movies
                                            .Include(s => s.Director)
+                                           .Include(m => m.MovieComments)
+                                           .ThenInclude(m => m.Children)
+                                           .Include(m => m.MovieComments)
+                                           .ThenInclude(m => m.CreatedByUser)
                                            .Where(f => f.DeletedDate == null).AsQueryable();
 
                 request.Name = request.Name?.Trim();

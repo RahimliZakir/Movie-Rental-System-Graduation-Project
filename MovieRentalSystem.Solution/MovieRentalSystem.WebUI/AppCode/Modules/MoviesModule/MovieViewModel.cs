@@ -31,6 +31,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule
 
         public Director? Director { get; set; }
 
+        public virtual ICollection<MovieGenreCastItem>? MovieGenreCastItems { get; set; }
+
         public ICollection<MovieComment>? MovieComments { get; set; }
 
         public int CommentCount

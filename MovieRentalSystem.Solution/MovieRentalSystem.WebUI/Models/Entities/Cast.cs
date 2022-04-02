@@ -9,5 +9,7 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         public string Name { get; set; } = null!;
 
         public virtual ICollection<ShowGenreCastItem> ShowGenreCastItems { get; set; }
+
+        public virtual ICollection<MovieGenreCastItem> MovieGenreCastItems { get; set; }
     }
 }

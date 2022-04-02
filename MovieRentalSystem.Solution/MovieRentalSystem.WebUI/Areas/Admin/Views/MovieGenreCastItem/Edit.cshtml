@@ -1,0 +1,150 @@
+﻿@model MovieGenreCastItemFormModel
+
+@{
+    ViewData["Title"] = "Movie Genre Cast Item Edit";
+}
+
+@section css{
+<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+<style>
+    .form-group {
+        margin-top: 3.5%;
+    }
+</style>
+}
+
+<form>
+    <div class="form-group">
+        <label asp-for="Movie.Id" class="label-required">Tamaşa: </label>
+        <select asp-for="Movie.Id" class="form-control" asp-items="@ViewBag.Movies">
+        </select>
+        <span asp-validation-for="Movie.Id" style="color: red;"></span>
+    </div>
+
+    @{
+        int i = 0;
+    }
+    @foreach (MovieGenreCastItem item in Model.MovieGenreCastItems)
+    {
+        <div class="form-group selects">
+                    <label asp-for="MovieGenreCastItems[i].Genre.Id" class="label-required">Janrlar: </label>
+                    @Html.DropDownList($"ShowGenreCastItems[{i}].Genre.Id",ViewBag.Genres,"Seçin", htmlAttributes: new {
+                @class = "form-control detail-select",
+                data_selected_id = item.Genre.Id,
+                data_count = i
+                })
+                    <span asp-validation-for="MovieGenreCastItems[i].Genre.Id" style="color: red;"></span>
+
+                    <label asp-for="MovieGenreCastItems[i].Cast.Id" class="label-required">Aktyorlar: </label>
+                    @Html.DropDownList($"ShowGenreCastItems[{i}].Cast.Id",ViewBag.Casts,"Seçin", htmlAttributes: new {
+                @class = "form-control detail-select",
+                data_selected_id = item.Cast.Id,
+                data_count = i
+                })
+                    <span asp-validation-for="MovieGenreCastItems[i].Cast.Id" style="color: red;"></span>
+
+                <button type="button" style="float: right;" class="btn btn-danger selects-btn"><i class="far fa-trash-alt"></i></button>
+        </div>
+
+        i++;
+    }
+    <div class="text-center mt-3">
+        <a class="btn btn-success plus-btn" style="border-radius: 50%; cursor: pointer; margin: 10px 0;">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+
+    <a asp-action="Index" class="btn btn-danger">Geriyə</a>
+    <button class="btn btn-info" type="submit">Yenilə</button>
+</form>
+
+@section js{
+<script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/libs/autosize.js/autosize.min.js"></script>
+<script src="~/libs/toastr.js/toastr.min.js"></script>
+<script src="~/libs/toastr.js/toastr.customize.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('select[data-selected-id]').each((index, item) => {
+          let selectedId = $(item).data('selected-id');
+          $(item).val(selectedId);
+          $(item).trigger('change');
+        });
+
+        let plusBtn = $('.plus-btn');
+        let counter = $(plusBtn).parent().prev('.selects').find('select').data('count');
+
+        let i = counter + 1;
+        $(plusBtn).on('click', function () {
+                let genreLabel = `<label class="label-required" for="MovieGenreCastItems[${i}].Genre.Id">Janrlar: </label>`;
+                let genresSelect =  `@Html.DropDownList("GenreId", ViewBag.Genres, "---Seçin---", htmlAttributes: new{
+                   @class  = "form-control"
+                })`;
+                let castLabel = `<label class="label-required mt-2" for="MovieGenreCastItems[${i}].Cast.Id">Aktyorlar: </label>`;
+                let castsSelect =  `@Html.DropDownList("CastId", ViewBag.Casts, "---Seçin---", htmlAttributes: new{
+                   @class  = "form-control"
+                })`;
+                let content = `<div class="form-group selects">
+                                 ${genreLabel}
+                                 ${genresSelect}
+                                 
+
+                                 ${castLabel}
+                                 ${castsSelect}
+
+                                 <button type="button" style="float: right;" class="btn btn-danger selects-btn"><i class="far fa-trash-alt"></i></button>
+                               </div>`;
+            $(this).parent().before(content);
+            $(this).parent().prev('.form-group').find('select#GenreId').attr('name', `MovieGenreCastItems[${i}].Genre.Id`);
+            $(this).parent().prev('.form-group').find('select#CastId').attr('name', `MovieGenreCastItems[${i}].Cast.Id`);
+            $('.selects-btn').on('click', function(e) {
+              e.preventDefault();
+              
+              $(e.currentTarget).closest('.selects').remove();
+            });
+            i++;
+        });
+
+        $('form').on('submit', (e) => {
+          e.preventDefault();
+
+          if(!$(e.currentTarget).valid()){
+              return;
+          }
+
+          let formData = new FormData(e.currentTarget);
+
+          let j = 0;
+          $('.selects').each((index, item) => {
+              formData.append(`MovieGenreCastItems[${j}].Genre.Id`, $(item).children('select').first().val());
+              formData.append(`MovieGenreCastItems[${j}].Cast.Id`, $(item).children('select').last().val());
+              
+              j++;
+          });
+
+          $.ajax({
+            url: '@Url.Action("Edit")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if(!response.error){
+                    toastr.success(response.message, "Uğurlu!");
+                    setTimeout(() => {
+                      window.location.assign('@Url.Action("Index")');
+                    }, 2000);
+                    return;
+                }
+
+                toastr.error(response.message, "Xəta!");
+            },
+            error: function(response) {
+                console.log(response.message);
+            }
+          });
+        }).validate();
+    });
+</script>
+}

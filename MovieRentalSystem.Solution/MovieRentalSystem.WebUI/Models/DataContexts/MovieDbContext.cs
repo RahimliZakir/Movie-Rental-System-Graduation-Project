@@ -38,6 +38,7 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         //---Movie---
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieComment> MovieComments { get; set; }
+        public DbSet<MovieGenreCastItem> MovieGenreCastItems { get; set; }
         //---Movie---
 
         //---Shows---
@@ -153,6 +154,14 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
 
             builder.Entity<Show>()
+                   .Property(g => g.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
+
+            builder.Entity<MovieGenreCastItem>(cfg =>
+            {
+                cfg.HasKey(x => new { x.MovieId, x.CastId, x.GenreId });
+            });
+            builder.Entity<MovieGenreCastItem>()
                    .Property(g => g.CreatedDate)
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
 

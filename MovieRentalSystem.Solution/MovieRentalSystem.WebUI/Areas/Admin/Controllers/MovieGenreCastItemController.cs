@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.CastsModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.GenresModule;
+using MovieRentalSystem.WebUI.AppCode.Modules.MovieGenreCastItemModule;
+using MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.ShowGenreCastItemModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule;
 using MovieRentalSystem.WebUI.Areas.Admin.Models.FormModels;
@@ -13,13 +15,13 @@ using MovieRentalSystem.WebUI.Models.Entities;
 namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Policy = "showgenrecastitems.config")]
-    public class ShowGenreCastItemController : Controller
+    [Authorize(Policy = "moviegenrecastitems.config")]
+    public class MovieGenreCastItemController : Controller
     {
         readonly IMediator mediator;
         readonly IConfiguration conf;
 
-        public ShowGenreCastItemController(IMediator mediator, IConfiguration conf)
+        public MovieGenreCastItemController(IMediator mediator, IConfiguration conf)
         {
             this.mediator = mediator;
             this.conf = conf;
@@ -27,27 +29,27 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         async public Task<IActionResult> Index()
         {
-            var query = new ShowGenreCastItemGetAllActiveQuery();
+            var query = new MovieGenreCastItemGetAllActiveQuery();
 
-            IEnumerable<Show> shows = await mediator.Send(query);
+            IEnumerable<Movie> movies = await mediator.Send(query);
 
-            return View(shows);
+            return View(movies);
         }
 
-        async public Task<IActionResult> Details(ShowGenreCastItemSingleQuery query)
+        async public Task<IActionResult> Details(MovieGenreCastItemSingleQuery query)
         {
-            ShowGenreCastItemFormModel data = await mediator.Send(query);
+            MovieGenreCastItemFormModel data = await mediator.Send(query);
 
             return View(data);
         }
 
         public async Task<IActionResult> Create()
         {
-            ShowGetAllActiveQuery showsQuery = new();
-            IEnumerable<Show> shows = await mediator.Send(showsQuery);
-            ViewBag.Shows = new SelectList(shows, "Id", "Name");
+            MovieGetAllActiveQuery moviesQuery = new();
+            IEnumerable<Movie> movies = await mediator.Send(moviesQuery);
+            ViewBag.Movies = new SelectList(movies, "Id", "Name");
 
-            int showParentId = conf.GetValue<int>("Genres:ShowParentId");
+            int showParentId = conf.GetValue<int>("Genres:FilmParentId");
             GenreGetAllActiveQuery genresQuery = new();
             IEnumerable<Genre> genres = await mediator.Send(genresQuery);
             genres = genres.Where(g => g.ParentId == showParentId);
@@ -61,7 +63,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ShowGenreCastItemCreateCommand request)
+        public async Task<IActionResult> Create(MovieGenreCastItemCreateCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
@@ -73,13 +75,13 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
             return View(request);
         }
 
-        async public Task<IActionResult> Edit(ShowGenreCastItemSingleQuery query)
+        async public Task<IActionResult> Edit(MovieGenreCastItemSingleQuery query)
         {
-            ShowGenreCastItemFormModel data = await mediator.Send(query);
+            MovieGenreCastItemFormModel data = await mediator.Send(query);
 
-            ShowGetAllActiveQuery showsQuery = new();
-            IEnumerable<Show> shows = await mediator.Send(showsQuery);
-            ViewBag.Shows = new SelectList(shows, "Id", "Name", data.Show.Id);
+            MovieGetAllActiveQuery moviesQuery = new();
+            IEnumerable<Movie> movies = await mediator.Send(moviesQuery);
+            ViewBag.Shows = new SelectList(movies, "Id", "Name", data.Movie.Id);
 
             int showParentId = conf.GetValue<int>("Genres:ShowParentId");
             GenreGetAllActiveQuery genresQuery = new();
@@ -95,7 +97,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        async public Task<IActionResult> Edit(ShowGenreCastItemEditCommand request)
+        async public Task<IActionResult> Edit(MovieGenreCastItemEditCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
@@ -106,7 +108,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        async public Task<IActionResult> Delete(ShowGenreCastItemRemoveCommand request)
+        async public Task<IActionResult> Delete(MovieGenreCastItemRemoveCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 

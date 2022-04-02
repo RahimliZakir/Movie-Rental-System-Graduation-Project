@@ -1,0 +1,64 @@
+﻿@model MovieGenreCastItemFormModel
+
+@{
+    ViewData["Title"] = "Movie Genre Cast Item Details";
+}
+
+@section css{
+<style>
+    .form-paragraph {
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    .img-div > img {
+        width: 100%;
+        object-fit: cover;
+        height: 375px;
+    }
+
+    iframe {
+        width: 100%;
+    }
+</style>
+}
+
+<form>
+    <div class="form-group">
+        <label asp-for="Movie.Name" class="label-required">Tamaşa: </label>
+        <input asp-for="Movie.Name" class="form-control" readonly />
+        <span asp-validation-for="Movie.Name" style="color: red;"></span>
+    </div>
+
+    <div class="img-div">
+        @Html.Raw(Model.Movie.MovieFrame)
+    </div>
+
+    @{
+        int j = 0;
+    }
+    @foreach (var item in Model.MovieGenreCastItems)
+    {
+        <div class="form-group selects">
+            <label asp-for="MovieGenreCastItems[j].Genre.Name" class="label-required">Teq: </label>
+            <input asp-for="MovieGenreCastItems[j].Genre.Name" class="form-control" readonly />
+            <span asp-validation-for="MovieGenreCastItems[j].Genre.Name" style="color: red;"></span>
+
+            <label asp-for="MovieGenreCastItems[j].Cast.Name" class="label-required">Bloq Kateqoriyası: </label>
+            <input asp-for="MovieGenreCastItems[j].Cast.Name" class="form-control" readonly />
+            <span asp-validation-for="MovieGenreCastItems[j].Cast.Name" style="color: red;"></span>
+        </div>
+
+        j++;
+    }
+
+    <a asp-action="Index" class="btn btn-danger">Geriyə</a>
+</form>

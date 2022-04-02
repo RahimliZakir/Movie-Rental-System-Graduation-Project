@@ -15,5 +15,7 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         public virtual ICollection<Genre> Children { get; set; }
 
         public virtual ICollection<ShowGenreCastItem> ShowGenreCastItems { get; set; }
+
+        public virtual ICollection<MovieGenreCastItem> MovieGenreCastItems { get; set; }
     }
 }

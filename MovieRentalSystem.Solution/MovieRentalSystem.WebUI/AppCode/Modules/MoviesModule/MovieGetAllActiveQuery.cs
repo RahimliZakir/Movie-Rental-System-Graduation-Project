@@ -24,6 +24,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule
                                                   .ThenInclude(m => m.Children)
                                                   .Include(m => m.MovieComments)
                                                   .ThenInclude(m => m.CreatedByUser)
+                                                  .Include(m => m.MovieGenreCastItems)
+                                                  .ThenInclude(m => m.Genre)
+                                                  .Include(m => m.MovieGenreCastItems)
+                                                  .ThenInclude(m => m.Cast)
                                                   .Where(g => g.DeletedDate == null)
                                                   .ToListAsync(cancellationToken);
 

@@ -34,6 +34,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule
                                     .ThenInclude(m => m.Children)
                                     .Include(m => m.MovieComments)
                                     .ThenInclude(m => m.CreatedByUser)
+                                    .Include(m => m.MovieGenreCastItems)
+                                    .ThenInclude(m => m.Genre)
+                                    .Include(m => m.MovieGenreCastItems)
+                                    .ThenInclude(m => m.Cast)
                                     .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 MovieViewModel viewModel = mapper.Map<MovieViewModel>(movie);

@@ -71,9 +71,10 @@
                             </div>
                             <div class="latest-movies-genre-price-side">
                                 <ul class="latest-movies-tags-ul">
-                                    <li><a href="#">Actions,</a></li>
-                                    <li><a href="#">Thriller,</a></li>
-                                    <li><a href="#">Comedy</a></li>
+                                    @foreach (var dynamic in item.MovieGenreCastItems)
+                                    {
+                                        <li><a href="#">@dynamic.Genre.Name,</a></li>
+                                    }
                                 </ul>
                                 <h5 class="latest-movies-price">$ @item.Price</h5>
                             </div>
@@ -87,4 +88,11 @@
 <!-- latest movies end -->
 @section js{
 <script src="~/assets/js/movies.js"></script>
+<script>
+    $(document).ready(() => {
+         $('.latest-movies-tags-ul').each((index, item) => {
+           $(item).find('a').last().text($(item).find('a').last().text().substr(0, $(item).find('a').last().text().length - 1));
+         });
+       });
+</script>
 }

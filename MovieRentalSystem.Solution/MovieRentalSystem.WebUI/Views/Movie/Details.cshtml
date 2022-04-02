@@ -205,15 +205,17 @@
                 <p class="director">Director: <span>@Model.Movie.Director.Name</span></p>
                 <ul class="genres-ul">
                     <li class="genres-item-title">Genre:</li>
-                    <li class="genres-item"><a href="#">Actions,</a></li>
-                    <li class="genres-item"><a href="#">Thriller,</a></li>
-                    <li class="genres-item"><a href="#">Comedy</a></li>
+                    @foreach (var item in Model.Movie.MovieGenreCastItems)
+                    {
+                        <li class="genres-item"><a href="#">@item.Genre.Name,</a></li>
+                    }
                 </ul>
                 <ul class="casts-ul">
                     <li class="casts-item-title">Casts:</li>
-                    <li class="casts-item"><a href="#">Robert Downey Jr.,</a></li>
-                    <li class="casts-item"><a href="#">Chris Evans,</a></li>
-                    <li class="casts-item"><a href="#">Mark Ruffalo</a></li>
+                    @foreach (var item in Model.Movie.MovieGenreCastItems)
+                    {
+                        <li class="casts-item"><a href="#">@item.Cast.Name,</a></li>
+                    }
                 </ul>
                 <p class="film-description">
                     @Model.Movie.Description

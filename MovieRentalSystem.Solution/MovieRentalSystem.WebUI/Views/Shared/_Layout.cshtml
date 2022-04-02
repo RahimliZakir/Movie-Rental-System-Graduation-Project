@@ -213,9 +213,24 @@
     <script src="~/assets/sources/js/mixitup.min.js"></script>
     <script src="~/libs/toastr.js/toastr.min.js"></script>
     <script src="~/libs/toastr.js/toastr.customize.min.js"></script>
+    <script src="~/libs/jquery-cookie/jquery.cookie.min.js"></script>
     <script src="~/assets/js/header.js"></script>
     <script>
         $(document).ready(function(){
+            let wishlist = $.cookie('wishlist-show');
+            if (wishlist == null || wishlist == '') {
+              wishlist = [];
+            }
+            else {
+              wishlist = wishlist.split(',').map(v => parseInt(v));
+            }
+            if (wishlist.length <= 9) {
+              $('.wishlist').text(wishlist.length);
+            }
+            else {
+              $('.wishlist').text('9+');
+            }
+
             $('#subscription-form').submit(function (e) {
             e.preventDefault();
             let input = $(e.currentTarget).find('input');

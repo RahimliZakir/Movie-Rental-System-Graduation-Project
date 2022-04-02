@@ -203,14 +203,14 @@
                     <li class="genres-item-title">Genre:</li>
                     @foreach (var item in Model.Show.ShowGenreCastItems)
                     {
-                        <li class="genres-item"><a href="#">@item.Genre.Name,</a></li>
+                            <li class="genres-item"><a href="#">@item.Genre.Name,</a></li>
                     }
                 </ul>
                 <ul class="casts-ul">
                     <li class="casts-item-title">Casts:</li>
                     @foreach (var item in Model.Show.ShowGenreCastItems)
                     {
-                        <li class="casts-item"><a href="#">@item.Cast.Name,</a></li>
+                            <li class="casts-item"><a href="#">@item.Cast.Name,</a></li>
                     }
                 </ul>
                 <p class="film-description">
@@ -226,9 +226,9 @@
                     </li>
                 </ul>
                 <div class="films-swiper-buttons-box">
-                    <div class="watchlist-btn-box">
+                    @*<div class="watchlist-btn-box">
                         <a href="#" class="watchlist-btn">+ Add To Watchlist</a>
-                    </div>
+                        </div>*@
                     <div class="films-theatre-box">
                         <h3 class="theatre-heading">Choose seat for show.</h3>
                         <div class="films-theatre-side">
@@ -422,11 +422,11 @@
                     <div class="comment-btn-side">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <button type="submit">Submit Comment</button>
+                                <button type="submit">Submit Comment</button>
                         }
                         else
                         {
-                            <a asp-action="SignIn" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path">Submit Comment</a>
+                                <a asp-action="SignIn" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path">Submit Comment</a>
                         }
                     </div>
                 </form>
@@ -435,82 +435,82 @@
                 <div class="written-comment">
                     @foreach (ShowComment comment in Model.Show.ShowComments.Where(bc => bc.ParentId == null))
                     {
-                        <div identifier="@comment.Id" class="row written-comment-row">
-                            <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
-                                <div class="img-div">
-                                    <img src="@(!string.IsNullOrWhiteSpace(comment.CreatedByUser.ImagePath) ? $"/uploads/personalside/{comment.CreatedByUser.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg")" alt="Profile Photo" />
+                            <div identifier="@comment.Id" class="row written-comment-row">
+                                <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                                    <div class="img-div">
+                                        <img src="@(!string.IsNullOrWhiteSpace(comment.CreatedByUser.ImagePath) ? $"/uploads/personalside/{comment.CreatedByUser.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg")" alt="Profile Photo" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
+                                <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10  written-comment-content-side">
                                 @if (comment.IsSpoiler)
                                 {
-                                    <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
-                                        <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
-                                    </div>
+                                            <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
+                                                <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
+                                            </div>
                                 }
 
-                                <h5 class="written-comment-content-heading">@comment.CreatedByUser.Name @comment.CreatedByUser.Surname</h5>
-                                <p class="written-comment-content-content">
-                                    <div class="star-rating-answered-div">
+                                    <h5 class="written-comment-content-heading">@comment.CreatedByUser.Name @comment.CreatedByUser.Surname</h5>
+                                    <p class="written-comment-content-content">
+                                        <div class="star-rating-answered-div">
                                         @for (var i = 1; i <= comment.StarRating; i++)
                                         {
-                                            <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
                                         }
                                         @for (var i = 0; i < 5 - comment.StarRating; i++)
                                         {
-                                            <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
                                         }
+                                        </div>
+                                        <span style="color: #ffffff;">@comment.Content</span>
+                                    </p>
+                                    <div class="written-comment-bottom-box">
+                                        <a onclick="setReply(event)" data-comment-id="@comment.Id" class="reply-btn">Reply</a>
+                                        <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy")</p>
                                     </div>
-                                    <span style="color: #ffffff;">@comment.Content</span>
-                                </p>
-                                <div class="written-comment-bottom-box">
-                                    <a onclick="setReply(event)" data-comment-id="@comment.Id" class="reply-btn">Reply</a>
-                                    <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy")</p>
                                 </div>
-                            </div>
-                            <div class="movie-details-replies">
+                                <div class="movie-details-replies">
                                 @foreach (ShowComment child in comment.FillCommentChildren())
                                 {
-                                    <div identifier="@child.Id" class="row written-comment-row">
-                                        <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
-                                            <div class="img-div">
-                                                <img src="@(!string.IsNullOrWhiteSpace(child.CreatedByUser.ImagePath) ? $"/uploads/personalside/{child.CreatedByUser.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg")"
+                                            <div identifier="@child.Id" class="row written-comment-row">
+                                                <div class="col-2 col-xl-1 col-lg-1 col-md-1 col-sm-2 written-comment-profile-side">
+                                                    <div class="img-div">
+                                                        <img src="@(!string.IsNullOrWhiteSpace(child.CreatedByUser.ImagePath) ? $"/uploads/personalside/{child.CreatedByUser.ImagePath}" : "/uploads/personalside/no-profile-picture.jpg")"
                                              alt="Profile Photo" />
-                                            </div>
-                                        </div>
-                                        <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
+                                                    </div>
+                                                </div>
+                                                <div class="col-10 col-xl-11 col-lg-11 col-md-11 col-sm-10 written-comment-content-side">
                                             @if (child.IsSpoiler)
                                             {
-                                                <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
-                                                    <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
-                                                </div>
+                                                            <div class="comment-spoiler-overlay d-flex align-items-center justify-content-center">
+                                                                <h5 class="m-0">This comment contains spoilers about this show, would you like to see this anyway? <span class="btn btn-sm btn-danger show-spoiler-btn">Show</span></h5>
+                                                            </div>
                                             }
 
-                                            <h5 class="written-comment-content-heading">@child.CreatedByUser.Name @child.CreatedByUser.Surname</h5>
-                                            <p class="written-comment-content-content">
-                                                <div class="star-rating-answered-div">
+                                                    <h5 class="written-comment-content-heading">@child.CreatedByUser.Name @child.CreatedByUser.Surname</h5>
+                                                    <p class="written-comment-content-content">
+                                                        <div class="star-rating-answered-div">
                                                     @for (var i = 1; i <= child.StarRating; i++)
                                                     {
-                                                        <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
                                                     }
                                                     @for (var i = 0; i < 5 - child.StarRating; i++)
                                                     {
-                                                        <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
                                                     }
+                                                        </div>
+                                                        <span style="color: #ffffff;">@child.Content</span>
+                                                    </p>
+                                                    <div class="written-comment-bottom-box">
+                                                        <a onclick="setReply(event)" data-comment-id="@child.Id" class="reply-btn">Reply</a>
+                                                        <p class="comment-date">@child.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                                    </div>
                                                 </div>
-                                                <span style="color: #ffffff;">@child.Content</span>
-                                            </p>
-                                            <div class="written-comment-bottom-box">
-                                                <a onclick="setReply(event)" data-comment-id="@child.Id" class="reply-btn">Reply</a>
-                                                <p class="comment-date">@child.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                                <div class="movie-details-replies">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="movie-details-replies">
-                                        </div>
-                                    </div>
                                 }
+                                </div>
                             </div>
-                        </div>
                     }
                 </div>
             </div>
@@ -530,26 +530,26 @@
             </div>
             @foreach (var item in Model.RelatedShows)
             {
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
-                    <div class="card">
-                        <div class="img-div">
-                            <img src="~/uploads/shows/@item.ImagePath" class="card-img-top"
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-tv-show-bottom-col">
+                        <div class="card">
+                            <div class="img-div">
+                                <img src="~/uploads/shows/@item.ImagePath" class="card-img-top"
                              alt="Latest Movies Img" />
-                            <div class="latest-tv-show-img-box">
-                                <div class="img-box-top">
-                                    <span class="badge latest-tv-show-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
-                                    <p>@item.GetAverageRating()/5</p>
+                                <div class="latest-tv-show-img-box">
+                                    <div class="img-box-top">
+                                        <span class="badge latest-tv-show-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
+                                        <p>@item.GetAverageRating()/5</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body-about-side">
+                                    <a class="card-bottom-left" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                                    <a class="card-bottom-right" href="#">@item.ShowGenreCastItems.FirstOrDefault()?.Genre.Name</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card-body-about-side">
-                                <a class="card-bottom-left" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                                <a class="card-bottom-right" href="#">@item.ShowGenreCastItems.FirstOrDefault()?.Genre.Name</a>
-                            </div>
-                        </div>
                     </div>
-                </div>
             }
         </div>
     </div>

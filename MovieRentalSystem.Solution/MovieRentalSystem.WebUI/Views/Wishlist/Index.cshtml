@@ -130,8 +130,35 @@
               wishlistFromCookieArr.splice(index, 1);
               $.cookie("wishlist-movie", wishlistFromCookieArr.toString(), { expires: 365 });
               alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+
+              let wishlistShow = $.cookie('wishlist-show');
+              if (wishlistShow == null || wishlistShow == '') {
+                wishlistShow = [];
+              }
+              else {
+                wishlistShow = wishlistShow.split(',').map(v => parseInt(v));
+              }
+              
+              let wishlistMovie= $.cookie('wishlist-movie');
+              if (wishlistMovie == null || wishlistMovie == '') {
+                wishlistMovie = [];
+              }
+              else {
+                wishlistMovie = wishlistMovie.split(',').map(v => parseInt(v));
+              }
+              
+              let wishlistShowCount = wishlistShow.length;
+              let wishlistMovieCount = wishlistMovie.length;
+              let totalWishlistCount = wishlistShowCount + wishlistMovieCount;
+              
+              if (totalWishlistCount <= 9) {
+                $('.wishlist').text(totalWishlistCount);
+              }
+              else {
+                $('.wishlist').text('9+');
+              }
           }
-          else{
+          else {
                return;
           }
         });
@@ -145,8 +172,35 @@
               wishlistFromCookieArr.splice(index, 1);
               $.cookie("wishlist-show", wishlistFromCookieArr.toString(), { expires: 365 });
               alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+
+              let wishlistShow = $.cookie('wishlist-show');
+              if (wishlistShow == null || wishlistShow == '') {
+                wishlistShow = [];
+              }
+              else {
+                wishlistShow = wishlistShow.split(',').map(v => parseInt(v));
+              }
+              
+              let wishlistMovie= $.cookie('wishlist-movie');
+              if (wishlistMovie == null || wishlistMovie == '') {
+                wishlistMovie = [];
+              }
+              else {
+                wishlistMovie = wishlistMovie.split(',').map(v => parseInt(v));
+              }
+              
+              let wishlistShowCount = wishlistShow.length;
+              let wishlistMovieCount = wishlistMovie.length;
+              let totalWishlistCount = wishlistShowCount + wishlistMovieCount;
+              
+              if (totalWishlistCount <= 9) {
+                $('.wishlist').text(totalWishlistCount);
+              }
+              else {
+                $('.wishlist').text('9+');
+              }
           }
-          else{
+          else {
                return;
           }
         });

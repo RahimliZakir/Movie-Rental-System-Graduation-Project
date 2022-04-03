@@ -217,19 +217,33 @@
     <script src="~/assets/js/header.js"></script>
     <script>
         $(document).ready(function(){
-            let wishlist = $.cookie('wishlist-show');
-            if (wishlist == null || wishlist == '') {
-              wishlist = [];
+            let wishlistShow = $.cookie('wishlist-show');
+            if (wishlistShow == null || wishlistShow == '') {
+              wishlistShow = [];
             }
             else {
-              wishlist = wishlist.split(',').map(v => parseInt(v));
+              wishlistShow = wishlistShow.split(',').map(v => parseInt(v));
             }
-            if (wishlist.length <= 9) {
-              $('.wishlist').text(wishlist.length);
+
+            let wishlistMovie= $.cookie('wishlist-movie');
+            if (wishlistMovie == null || wishlistMovie == '') {
+              wishlistMovie = [];
+            }
+            else {
+              wishlistMovie = wishlistMovie.split(',').map(v => parseInt(v));
+            }
+
+            let wishlistShowCount = wishlistShow.length;
+            let wishlistMovieCount = wishlistMovie.length;
+            let totalWishlistCount = wishlistShowCount + wishlistMovieCount;
+
+            if (totalWishlistCount <= 9) {
+              $('.wishlist').text(totalWishlistCount);
             }
             else {
               $('.wishlist').text('9+');
             }
+
 
             $('#subscription-form').submit(function (e) {
             e.preventDefault();

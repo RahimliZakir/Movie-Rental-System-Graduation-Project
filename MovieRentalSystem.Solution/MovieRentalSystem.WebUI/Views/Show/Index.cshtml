@@ -81,13 +81,6 @@
 <script src="~/libs/AlertifyJS/alertify.min.js"></script>
 <script>
     $(function(){
-        let oldWishlists = $.cookie('wishlist-show');
-
-        if(oldWishlists != null){
-            oldWishlists = oldWishlists.split(',').map(v => parseInt(v));
-            $('.wishlist').text(oldWishlists.length);
-        }
-
         $('.add-to-wishlist-btn').on('click', (e) => {
            let showId = $(e.currentTarget).data('id');
 
@@ -108,10 +101,22 @@
              alertify.success("Məhsul uğurla səbətə əlavə olundu!", "Uğurlu!");
 
              $.cookie('wishlist-show', wishlist.toString(), { expires: 365 });
-             if (wishlist.length <= 9) {
-                 $('.wishlist').text(wishlist.length);
-             } else {
-                 $('.wishlist').text('9+');
+
+             let wishlistMovie = $.cookie('wishlist-movie');
+             if (wishlistMovie == null || wishlistMovie == '') {
+               wishlistMovie = [];
+             }
+             else {
+               wishlistMovie = wishlistMovie.split(',').map(v => parseInt(v));
+             }
+
+             let totalWishlistCount = wishlist.length + wishlistMovie.length;
+
+             if (totalWishlistCount <= 9) {
+               $('.wishlist').text(totalWishlistCount);
+             }
+             else {
+               $('.wishlist').text('9+');
              }
            }
         });

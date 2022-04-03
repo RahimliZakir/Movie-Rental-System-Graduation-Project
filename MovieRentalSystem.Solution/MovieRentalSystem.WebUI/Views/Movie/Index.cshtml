@@ -100,14 +100,7 @@
          $(item).find('a').last().text($(item).find('a').last().text().substr(0, $(item).find('a').last().text().length - 1));
        });
 
-       let oldWishlists = $.cookie('wishlist-movie');
-
-        if(oldWishlists != null){
-            oldWishlists = oldWishlists.split(',').map(v => parseInt(v));
-            $('.wishlist').text(oldWishlists.length);
-        }
-
-        $('.add-to-wishlist-btn').on('click', (e) => {
+       $('.add-to-wishlist-btn').on('click', (e) => {
            let movieId = $(e.currentTarget).data('id');
 
            let wishlist = $.cookie('wishlist-movie');
@@ -131,6 +124,23 @@
                  $('.wishlist').text(wishlist.length);
              } else {
                  $('.wishlist').text('9+');
+             }
+
+             let wishlistShow = $.cookie('wishlist-show');
+             if (wishlistShow == null || wishlistShow == '') {
+               wishlistShow = [];
+             }
+             else {
+               wishlistShow = wishlistShow.split(',').map(v => parseInt(v));
+             }
+
+             let totalWishlistCount = wishlist.length + wishlistShow.length;
+
+             if (totalWishlistCount <= 9) {
+               $('.wishlist').text(totalWishlistCount);
+             }
+             else {
+               $('.wishlist').text('9+');
              }
            }
         });

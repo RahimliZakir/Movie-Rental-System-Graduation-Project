@@ -5,6 +5,7 @@
 }
 
 @section css{
+<link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
 <style>
     iframe {
         width: 100%;
@@ -12,6 +13,10 @@
 
     .ytp-chrome-top {
         display: none !important;
+    }
+
+    .add-to-wishlist-btn {
+        cursor: pointer;
     }
 </style>
 }
@@ -58,7 +63,7 @@
                                 <div class="img-box-bottom">
                                     <ul>
                                         <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                            <a class="add-to-wishlist-btn" data-id="@item.Id"><i class="fa-solid fa-heart"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -88,11 +93,47 @@
 <!-- latest movies end -->
 @section js{
 <script src="~/assets/js/movies.js"></script>
+<script src="~/libs/AlertifyJS/alertify.min.js"></script>
 <script>
     $(document).ready(() => {
-         $('.latest-movies-tags-ul').each((index, item) => {
-           $(item).find('a').last().text($(item).find('a').last().text().substr(0, $(item).find('a').last().text().length - 1));
-         });
+       $('.latest-movies-tags-ul').each((index, item) => {
+         $(item).find('a').last().text($(item).find('a').last().text().substr(0, $(item).find('a').last().text().length - 1));
        });
+
+       let oldWishlists = $.cookie('wishlist-movie');
+
+        if(oldWishlists != null){
+            oldWishlists = oldWishlists.split(',').map(v => parseInt(v));
+            $('.wishlist').text(oldWishlists.length);
+        }
+
+        $('.add-to-wishlist-btn').on('click', (e) => {
+           let movieId = $(e.currentTarget).data('id');
+
+           let wishlist = $.cookie('wishlist-movie');
+
+           if (wishlist == null || wishlist == '') {
+             wishlist = [];
+           }
+           else {
+             wishlist = wishlist.split(',').map(v => parseInt(v));
+           }
+
+           if (wishlist.indexOf(movieId) != -1) {
+             alertify.warning("Bu məhsul artıq səbətdə var!", "Diqqət!");
+           }
+           else {
+             wishlist.push(movieId);
+             alertify.success("Məhsul uğurla səbətə əlavə olundu!", "Uğurlu!");
+
+             $.cookie('wishlist-movie', wishlist.toString(), { expires: 365 });
+             if (wishlist.length <= 9) {
+                 $('.wishlist').text(wishlist.length);
+             } else {
+                 $('.wishlist').text('9+');
+             }
+           }
+        });
+    });
 </script>
 }

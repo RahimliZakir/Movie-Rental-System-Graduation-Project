@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule;
 using MovieRentalSystem.WebUI.Models.Entities;
 using MovieRentalSystem.WebUI.Models.ViewModels;
@@ -35,6 +36,22 @@ namespace MovieRentalSystem.WebUI.Controllers
                     IEnumerable<Show>? shows = await mediator.Send(new ShowGetAllActiveQuery());
                     shows = shows.Where(s => selectedShowIds.Contains(s.Id));
                     vm.Shows = shows;
+                }
+            }
+
+            HttpContext.Request.Cookies.TryGetValue("wishlist-movie", out string? wishlistMovie);
+
+            if (!string.IsNullOrWhiteSpace(wishlistMovie))
+            {
+                int[]? selectedMovieIds = wishlistMovie?.Split(new[] { ',' })
+                                                      .Select(b => int.Parse(b))
+                                                      .ToArray();
+
+                if (selectedMovieIds?.Length > 0 && selectedMovieIds != null)
+                {
+                    IEnumerable<Movie>? movies = await mediator.Send(new MovieGetAllActiveQuery());
+                    movies = movies.Where(s => selectedMovieIds.Contains(s.Id));
+                    vm.Movies = movies;
                 }
             }
 

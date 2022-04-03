@@ -82,7 +82,7 @@
 <script>
     $(function(){
         let oldWishlists = $.cookie('wishlist-show');
-        console.log(oldWishlists);
+
         if(oldWishlists != null){
             oldWishlists = oldWishlists.split(',').map(v => parseInt(v));
             $('.wishlist').text(oldWishlists.length);

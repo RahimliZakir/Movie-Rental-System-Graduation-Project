@@ -6,6 +6,11 @@
 
 @section css{
 <link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
+<style>
+    iframe {
+        width: 100%;
+    }
+</style>
 }
 
 <!-- wishlist banner start -->
@@ -30,123 +35,43 @@
                 </button>
             </div>
             <div class="row wishlist-movies-row">
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                    <div class="card">
-                        <div class="img-div">
-                            <img src="assets/images/movies/banner-1.jpg"
-                                 class="card-img-top"
-                                 alt="Latest Movies Img" />
-                            <div class="latest-movies-img-box">
-                                <div class="img-box-top">
-                                    <span class="badge latest-movies-badge text-dark">Premium</span>
-                                    <p>8.4/10</p>
+                @if (Model != null && Model?.Movies != null)
+                {
+                    @foreach (var item in Model.Movies)
+                    {
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
+                            <div class="card" data-id="@item.Id">
+                                <div class="img-div">
+                                    @Html.Raw(item.MovieFrame)
+                                    <div class="latest-movies-img-box">
+                                        <div class="img-box-top">
+                                            <span class="badge latest-movies-badge text-dark">@(item.IsPremium ? "Premium" : "")</span>
+                                            <p>@item.GetAverageRating()/5</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="img-box-bottom">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-play"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                        </li>
+                                <div class="card-body">
+                                    <div class="card-body-about-side">
+                                        <a href="movie-details.html">@item.Name</a>
+                                        <p>@item.Duration</p>
+                                    </div>
+                                    <ul class="latest-movies-tags-ul">
+                                        @foreach (var dynamic in item.MovieGenreCastItems)
+                                        {
+                                            <li><a href="#">@dynamic.Genre.Name,</a></li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card-body-about-side">
-                                <a href="movie-details.html">Man Of Steel</a>
-                                <p>196 Min</p>
-                            </div>
-                            <div class="latest-movies-tags-ul">
-                                <li><a href="#">Actions,</a></li>
-                                <li><a href="#">Thriller,</a></li>
-                                <li><a href="#">Comedy</a></li>
-                            </div>
-                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-danger mt-5" role="alert">
+                        Hələ ki, film istək hissəsi boşdur!
                     </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                    <div class="card">
-                        <div class="img-div">
-                            <img src="assets/images/movies/banner-2.jpg"
-                                 class="card-img-top"
-                                 alt="Latest Movies Img" />
-                            <div class="latest-movies-img-box">
-                                <div class="img-box-top">
-                                    <span class="badge latest-movies-badge text-dark">Premium</span>
-                                    <p>7.4/10</p>
-                                </div>
-                                <div class="img-box-bottom">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-play"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-body-about-side">
-                                <a href="movie-details.html">Deadpool</a>
-                                <p>196 Min</p>
-                            </div>
-                            <div class="latest-movies-tags-ul">
-                                <li><a href="#">Actions,</a></li>
-                                <li><a href="#">Thriller,</a></li>
-                                <li><a href="#">Comedy</a></li>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 latest-movies-card-col">
-                    <div class="card">
-                        <div class="img-div">
-                            <img src="assets/images/movies/banner-3.png"
-                                 class="card-img-top"
-                                 alt="Latest Movies Img" />
-                            <div class="latest-movies-img-box">
-                                <div class="img-box-top">
-                                    <span class="badge latest-movies-badge text-dark">Premium</span>
-                                    <p>9.4/10</p>
-                                </div>
-                                <div class="img-box-bottom">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-play"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-tag"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-body-about-side">
-                                <a href="movie-details.html">Avengers</a>
-                                <p>196 Min</p>
-                            </div>
-                            <div class="latest-movies-tags-ul">
-                                <li><a href="#">Actions,</a></li>
-                                <li><a href="#">Thriller,</a></li>
-                                <li><a href="#">Comedy</a></li>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
             <div class="row wishlist-shows-row">
                 @if (Model != null && Model?.Shows != null)
@@ -192,6 +117,25 @@
 <script src="~/libs/AlertifyJS/alertify.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('.latest-movies-tags-ul').each((index, item) => {
+         $(item).find('a').last().text($(item).find('a').last().text().substr(0, $(item).find('a').last().text().length - 1));
+        });
+
+        $('.remove-movie-btn').on('click', function(e) {
+          let movieId = $(e.currentTarget).closest('.card').data('id');
+
+          let wishlistFromCookieArr = $.cookie("wishlist-movie").split(',').map(v => Number(v))
+          let index = wishlistFromCookieArr.indexOf(movieId);
+          if (index != -1) {
+              wishlistFromCookieArr.splice(index, 1);
+              $.cookie("wishlist-movie", wishlistFromCookieArr.toString(), { expires: 365 });
+              alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+          }
+          else{
+               return;
+          }
+        });
+
         $('.remove-show-btn').on('click', function(e) {
           let showId = $(e.currentTarget).closest('.card').data('id');
 

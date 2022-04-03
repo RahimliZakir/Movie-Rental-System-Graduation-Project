@@ -1,9 +1,57 @@
-﻿@{
+﻿@model CheckoutViewModel
+
+@{
     ViewData["Title"] = "Shopping Cart";
 }
 
 @section css{
 <link rel="stylesheet" href="~/assets/sources/css/select2.min.css" />
+<link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
+<style>
+    iframe {
+        width: 100%;
+    }
+
+    .shopping-cart-empty-side-row {
+        align-items: center;
+        padding: 3.5% 2.5%;
+        border-radius: 4px;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+        .shopping-cart-empty-side-row .empty-basket-desc {
+            font-weight: 600;
+            font-family: "Baloo";
+            font-size: 1.2rem !important;
+            margin-left: 1.5%;
+        }
+
+        .shopping-cart-empty-side-row .basket-span {
+            display: inline-block;
+            width: 75px;
+            height: 75px;
+            font-size: 2.2rem;
+            line-height: 75px;
+            text-align: center;
+            border-radius: 50%;
+            color: #e41a1a;
+            background: linear-gradient( 90deg, rgba(252, 92, 101, 1) 0%, rgba(252, 92, 101, 0.35384576193758754) 0% );
+        }
+
+        .shopping-cart-empty-side-row .shopping-empty-right-side {
+            text-align: right;
+        }
+
+        .shopping-cart-empty-side-row .empty-basket-redirect-btn {
+            background-color: #e41a1a;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 600;
+            padding: 14.5px 23.5px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+</style>
 }
 
 <!-- shopping cart banner start -->
@@ -20,18 +68,6 @@
     <div class="container shopping-cart-container">
         <div class="row shopping-cart-row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 shopping-cart-col">
-                <div class="row shopping-cart-empty-side-row">
-                    <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 shopping-empty-left-side">
-                        <span class="basket-span"><i class="bi bi-cart3"></i></span>
-                        <p class="empty-basket-desc">
-                            There are no products in your cart.
-                        </p>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-4 col-sm-12 shopping-empty-right-side">
-                        <a href="movies.html" class="empty-basket-redirect-btn">Back To Movies Tab</a>
-                    </div>
-                </div>
-
                 <div class="shopping-cart-filter-tools-side">
                     <button class="shopping-cart-filter-movies-btn selected">
                         <i class="bi bi-film"></i> Movies
@@ -43,32 +79,51 @@
 
                 <div class="row movie-checkout-box-row visible">
                     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 checkout-items-col">
-                        <div class="movie-checkout-item">
-                            <div class="img-div">
-                                <img src="assets/images/movies/ranger.jpg"
-                                     alt="Movie Checkout Image" />
+                        @if (Model != null && Model?.Movies != null)
+                        {
+                            @foreach (var item in Model.Movies)
+                            {
+                                <div class="movie-checkout-item" data-id="@item.Id">
+                                    <div class="img-div">
+                                        @Html.Raw(item.MovieFrame)
+                                    </div>
+                                    <div class="name-and-price-side">
+                                        <h5 class="name-price-heading">@item.Name</h5>
+                                        <p class="name-price-price">$ @item.Price</p>
+                                    </div>
+                                    <div class="select-for-days">
+                                        <select class="select-for-days-select">
+                                            <option value="">---Choose---</option>
+                                            <option value="OneDay">For 1 Day</option>
+                                            <option value="ThreeDays">For 3 Day</option>
+                                            <option value="SevenDays">For 7 Day</option>
+                                        </select>
+                                    </div>
+                                    <div class="final-price">
+                                        <p class="name-price-price">$ @item.Price</p>
+                                    </div>
+                                    <div class="times-side">
+                                        <button class="times-side-btn times-movie-btn">
+                                            <i class="bi bi-x-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row shopping-cart-empty-side-row">
+                                <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 shopping-empty-left-side">
+                                    <span class="basket-span"><i class="bi bi-cart3"></i></span>
+                                    <p class="empty-basket-desc">
+                                        There are no movies in your cart.
+                                    </p>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-4 col-sm-12 shopping-empty-right-side">
+                                    <a asp-action="Index" asp-controller="Movie" class="empty-basket-redirect-btn">Back To Movies Tab</a>
+                                </div>
                             </div>
-                            <div class="name-and-price-side">
-                                <h5 class="name-price-heading">Power Rangers</h5>
-                                <p class="name-price-price">$ 15.00</p>
-                            </div>
-                            <div class="select-for-days">
-                                <select class="select-for-days-select">
-                                    <option value="">---Choose---</option>
-                                    <option value="OneDay">For 1 Day</option>
-                                    <option value="ThreeDays">For 3 Day</option>
-                                    <option value="SevenDays">For 7 Day</option>
-                                </select>
-                            </div>
-                            <div class="final-price">
-                                <p class="name-price-price">$ 15.00</p>
-                            </div>
-                            <div class="times-side">
-                                <button class="times-side-btn">
-                                    <i class="bi bi-x-circle"></i>
-                                </button>
-                            </div>
-                        </div>
+                        }
                     </div>
 
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 total-price-col">
@@ -125,5 +180,94 @@
 @section js{
 <script src="~/assets/sources/js/select2.min.js"></script>
 <script src="~/assets/js/shopping-cart.js"></script>
+<script src="~/libs/AlertifyJS/alertify.min.js"></script>
+<script>
+    $(function() {
+    $('.times-movie-btn').on('click', function(e) {
+              let movieId = $(e.currentTarget).closest('.movie-checkout-item').data('id');
+              $(e.currentTarget).closest('.movie-checkout-item').remove();
+
+              let checkoutFromCookieArr = $.cookie("checkout-movie").split(',').map(v => Number(v))
+              let index = checkoutFromCookieArr.indexOf(movieId);
+              if (index != -1) {
+                  checkoutFromCookieArr.splice(index, 1);
+                  $.cookie("checkout-movie", checkoutFromCookieArr.toString(), { expires: 365, path: '/' });
+                  alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+
+                  let checkoutShow = $.cookie('checkout-show');
+                  if (checkoutShow == null || checkoutShow == '') {
+                    checkoutShow = [];
+                  }
+                  else {
+                    checkoutShow = checkoutShow.split(',').map(v => parseInt(v));
+                  }
+
+                  let checkoutMovie= $.cookie('checkout-movie');
+                  if (checkoutMovie == null || checkoutMovie == '') {
+                    checkoutMovie = [];
+                  }
+                  else {
+                    checkoutMovie = checkoutMovie.split(',').map(v => parseInt(v));
+                  }
+
+                  let checkoutShowCount = checkoutShow.length;
+                  let checkoutMovieCount = checkoutMovie.length;
+                  let totalCheckoutCount = checkoutShowCount + checkoutMovieCount;
+
+                  if (totalCheckoutCount <= 9) {
+                    $('.card-budget').text(totalCheckoutCount);
+                  }
+                  else {
+                    $('.card-budget').text('9+');
+                  }
+              }
+              else {
+                   return;
+              }
+            });
+
+            //$('.remove-show-btn').on('click', function(e) {
+            //  let showId = $(e.currentTarget).closest('.card').data('id');
+
+            //  let wishlistFromCookieArr = $.cookie("wishlist-show").split(',').map(v => Number(v))
+            //  let index = wishlistFromCookieArr.indexOf(showId);
+            //  if (index != -1) {
+            //      wishlistFromCookieArr.splice(index, 1);
+            //      $.cookie("wishlist-show", wishlistFromCookieArr.toString(), { expires: 365, path: '/' });
+            //      alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+
+            //      let wishlistShow = $.cookie('wishlist-show');
+            //      if (wishlistShow == null || wishlistShow == '') {
+            //        wishlistShow = [];
+            //      }
+            //      else {
+            //        wishlistShow = wishlistShow.split(',').map(v => parseInt(v));
+            //      }
+
+            //      let wishlistMovie= $.cookie('wishlist-movie');
+            //      if (wishlistMovie == null || wishlistMovie == '') {
+            //        wishlistMovie = [];
+            //      }
+            //      else {
+            //        wishlistMovie = wishlistMovie.split(',').map(v => parseInt(v));
+            //      }
+
+            //      let wishlistShowCount = wishlistShow.length;
+            //      let wishlistMovieCount = wishlistMovie.length;
+            //      let totalWishlistCount = wishlistShowCount + wishlistMovieCount;
+
+            //      if (totalWishlistCount <= 9) {
+            //        $('.wishlist').text(totalWishlistCount);
+            //      }
+            //      else {
+            //        $('.wishlist').text('9+');
+            //      }
+            //  }
+            //  else {
+            //       return;
+            //  }
+            //});
+    });
+</script>
 }
 

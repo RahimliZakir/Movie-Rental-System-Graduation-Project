@@ -100,7 +100,7 @@
              wishlist.push(showId);
              alertify.success("Məhsul uğurla səbətə əlavə olundu!", "Uğurlu!");
 
-             $.cookie('wishlist-show', wishlist.toString(), { expires: 365 });
+             $.cookie('wishlist-show', wishlist.toString(), { expires: 365, path: '/' });
 
              let wishlistMovie = $.cookie('wishlist-movie');
              if (wishlistMovie == null || wishlistMovie == '') {

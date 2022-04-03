@@ -31,5 +31,7 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         public virtual ICollection<MovieComment> MovieComments { get; set; }
 
         public virtual ICollection<MovieGenreCastItem> MovieGenreCastItems { get; set; }
+
+        public virtual ICollection<MovieCheckout> MovieCheckouts { get; set; }
     }
 }

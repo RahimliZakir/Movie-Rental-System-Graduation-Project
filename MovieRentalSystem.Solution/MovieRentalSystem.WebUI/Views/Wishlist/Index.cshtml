@@ -128,7 +128,7 @@
           let index = wishlistFromCookieArr.indexOf(movieId);
           if (index != -1) {
               wishlistFromCookieArr.splice(index, 1);
-              $.cookie("wishlist-movie", wishlistFromCookieArr.toString(), { expires: 365 });
+              $.cookie("wishlist-movie", wishlistFromCookieArr.toString(), { expires: 365, path: '/' });
               alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
 
               let wishlistShow = $.cookie('wishlist-show');
@@ -170,7 +170,7 @@
           let index = wishlistFromCookieArr.indexOf(showId);
           if (index != -1) {
               wishlistFromCookieArr.splice(index, 1);
-              $.cookie("wishlist-show", wishlistFromCookieArr.toString(), { expires: 365 });
+              $.cookie("wishlist-show", wishlistFromCookieArr.toString(), { expires: 365, path: '/' });
               alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
 
               let wishlistShow = $.cookie('wishlist-show');

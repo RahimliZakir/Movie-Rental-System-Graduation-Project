@@ -57,6 +57,10 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<BlogComment> BlogComments { get; set; }
         //---Blogs---
 
+        //---Checkout---
+        public DbSet<MovieCheckout> MovieCheckouts { get; set; }
+        //---Checkout---
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -173,6 +177,12 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
                    .Property(g => g.CreatedDate)
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
             //---Shows---
+
+            //---Checkout---
+            builder.Entity<MovieCheckout>()
+                   .Property(g => g.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
+            //---Checkout---
         }
     }
 }

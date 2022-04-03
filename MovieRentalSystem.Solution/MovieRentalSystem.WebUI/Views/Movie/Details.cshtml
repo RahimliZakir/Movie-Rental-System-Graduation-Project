@@ -5,12 +5,17 @@
 }
 
 @section css{
+<link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
 <style>
     iframe {
         width: 100%;
     }
 
     .reply-btn {
+        cursor: pointer;
+    }
+
+    .watch-btn {
         cursor: pointer;
     }
 
@@ -221,7 +226,7 @@
                     @Model.Movie.Description
                 </p>
                 <div class="films-swiper-buttons-box">
-                    <a href="#" class="watch-btn">Add To Basket</a>
+                    <a class="watch-btn" data-id="@Model.Movie.Id">Add To Basket</a>
                     @*<a href="#" class="watchlist-btn">+ Add To Watchlist</a>*@
                 </div>
             </div>
@@ -400,11 +405,57 @@
 <!-- more like these movies end -->
 @section js{
 <script src="~/assets/js/movie-details.js"></script>
+<script src="~/libs/AlertifyJS/alertify.min.js"></script>
 <script>
     $(function(){
      $('.genres-item>a').last().text($('.genres-item>a').last().text().substr(0, $('.genres-item>a').last().text().length - 1));
 
      $('.casts-item>a').last().text($('.casts-item>a').last().text().substr(0, $('.casts-item>a').last().text().length - 1));
+
+     $('.watch-btn').on('click', (e) => {
+           let movieId = $(e.currentTarget).data('id');
+
+           let checkout = $.cookie('checkout-movie');
+
+           if (checkout == null || checkout == '') {
+             checkout = [];
+           }
+           else {
+             checkout = checkout.split(',').map(v => parseInt(v));
+           }
+
+           if (checkout.indexOf(movieId) != -1) {
+             alertify.warning("Bu məhsul artıq səbətdə var!", "Diqqət!");
+           }
+           else {
+             checkout.push(movieId);
+             alertify.success("Məhsul uğurla səbətə əlavə olundu!", "Uğurlu!");
+
+             $.cookie('checkout-movie', checkout.toString(), { expires: 365, path: '/' });
+             if (checkout.length <= 9) {
+                 $('.card-budget').text(checkout.length);
+             } else {
+                 $('.card-budget').text('9+');
+             }
+
+             let checkoutShow = $.cookie('checkout-show');
+             if (checkoutShow == null || checkoutShow == '') {
+               checkoutShow = [];
+             }
+             else {
+               checkoutShow = checkoutShow.split(',').map(v => parseInt(v));
+             }
+
+             let totalCheckoutCount = checkout.length + checkoutShow.length;
+
+             if (totalCheckoutCount <= 9) {
+               $('.card-budget').text(totalCheckoutCount);
+             }
+             else {
+               $('.card-budget').text('9+');
+             }
+           }
+        });
 
       $('.show-spoiler-btn').click(function() {
         $(this).closest('.comment-spoiler-overlay').remove();

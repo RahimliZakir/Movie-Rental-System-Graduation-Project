@@ -217,6 +217,7 @@
     <script src="~/assets/js/header.js"></script>
     <script>
         $(document).ready(function(){
+            //---Wishlist---
             let wishlistShow = $.cookie('wishlist-show');
             if (wishlistShow == null || wishlistShow == '') {
               wishlistShow = [];
@@ -243,6 +244,36 @@
             else {
               $('.wishlist').text('9+');
             }
+            //---Wishlist---
+
+            //---Checkout---
+            let checkoutShow = $.cookie('checkout-show');
+            if (checkoutShow == null || checkoutShow == '') {
+              checkoutShow = [];
+            }
+            else {
+              checkoutShow = checkoutShow.split(',').map(v => parseInt(v));
+            }
+
+            let checkoutMovie = $.cookie('checkout-movie');
+            if (checkoutMovie == null || checkoutMovie == '') {
+              checkoutMovie = [];
+            }
+            else {
+              checkoutMovie = checkoutMovie.split(',').map(v => parseInt(v));
+            }
+
+            let checkoutShowCount = checkoutShow.length;
+            let checkoutMovieCount = checkoutMovie.length;
+            let totalCheckoutCount = checkoutShowCount + checkoutMovieCount;
+
+            if (totalCheckoutCount <= 9) {
+              $('.card-budget').text(totalCheckoutCount);
+            }
+            else {
+              $('.card-budget').text('9+');
+            }
+            //---Checkout---
 
 
             $('#subscription-form').submit(function (e) {

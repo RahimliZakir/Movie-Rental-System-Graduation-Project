@@ -4,9 +4,6 @@ window.addEventListener("load", function () {
     let collapsedMenus = document.querySelectorAll(".collapsed-nav-links>li");
     let menusLength = menus.length;
 
-    menus[0].children[0].classList.add("active");
-    collapsedMenus[0].children[0].classList.add("active");
-
     for (let i = 0; i < menusLength; i++) {
         if (
             menus[i].children[0].href == currentLocation &&
@@ -17,6 +14,12 @@ window.addEventListener("load", function () {
 
             menus[i].children[0].classList.add("active");
             collapsedMenus[i].children[0].classList.add("active");
+        } else if (
+            window.location.pathname == "" ||
+            window.location.pathname == "/"
+        ) {
+            menus[0].children[0].classList.add("active");
+            collapsedMenus[0].children[0].classList.add("active");
         }
     }
 

@@ -7,5 +7,7 @@ namespace MovieRentalSystem.WebUI.Models.ViewModels
         public IEnumerable<Show>? Shows { get; set; }
 
         public IEnumerable<Movie>? Movies { get; set; }
+
+        public List<MovieCheckout>? MovieCheckouts { get; set; }
     }
 }

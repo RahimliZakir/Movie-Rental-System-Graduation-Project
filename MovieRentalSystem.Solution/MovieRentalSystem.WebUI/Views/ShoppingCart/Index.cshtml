@@ -12,6 +12,18 @@
         width: 100%;
     }
 
+    .name-price-price > span,
+    .name-price-price > span {
+        font-family: "Baloo";
+    }
+
+    .cart_total p,
+    .cart_total span {
+        font-family: "Baloo";
+        color: #e41a1a;
+        font-weight: 600;
+    }
+
     .shopping-cart-empty-side-row {
         align-items: center;
         padding: 3.5% 2.5%;
@@ -89,7 +101,7 @@
                                     </div>
                                     <div class="name-and-price-side">
                                         <h5 class="name-price-heading">@item.Name</h5>
-                                        <p class="name-price-price">$ @item.Price</p>
+                                        <p class="name-price-price">$ <span>@item.Price</span></p>
                                     </div>
                                     <div class="select-for-days">
                                         <select class="select-for-days-select">
@@ -100,7 +112,7 @@
                                         </select>
                                     </div>
                                     <div class="final-price">
-                                        <p class="name-price-price">$ @item.Price</p>
+                                        <p class="name-price-price">$ <span>@item.Price</span></p>
                                     </div>
                                     <div class="times-side">
                                         <button class="times-side-btn times-movie-btn">
@@ -130,7 +142,7 @@
                         <div class="cart_total">
                             <h6>Cart total</h6>
                             <ul>
-                                <li>Total: <span>$134.50</span></li>
+                                <li>Total: <p>$ <span></span></p></li>
                             </ul>
                             <a style="cursor: pointer; color: white" class="primary-btn">Proceed to checkout</a>
                         </div>
@@ -183,7 +195,38 @@
 <script src="~/libs/AlertifyJS/alertify.min.js"></script>
 <script>
     $(function() {
-    $('.times-movie-btn').on('click', function(e) {
+      let movieCardTotal = $('.cart_total').find('span');
+
+      let movieCardTotalPrice = 0;
+      $('.select-for-days-select').each((index, item) => {
+          movieCardTotalPrice += parseFloat($(item).parent().next('.final-price').find('.name-price-price').find('span').text());
+          $(movieCardTotal).text(movieCardTotalPrice);
+      });
+
+      $('.select-for-days-select').change((e) => {
+          let moviePrice = parseFloat($(e.currentTarget).parent().prev('.name-and-price-side').find('.name-price-price').find('span').text());
+          let movieTotalPriceSide = $(e.currentTarget).parent().next('.final-price').find('.name-price-price').find('span');
+
+          if($(e.currentTarget).val() == "OneDay") {
+              moviePrice = moviePrice * 1;
+          }
+          else if($(e.currentTarget).val() == "ThreeDays"){
+              moviePrice = moviePrice * 3;
+          }
+          else if($(e.currentTarget).val() == "SevenDays"){
+              moviePrice = moviePrice * 7;
+          }
+
+          $(movieTotalPriceSide).text(moviePrice);
+
+          movieCardTotalPrice = 0;
+          $('.select-for-days-select').each((index, item) => {
+              movieCardTotalPrice += parseFloat($(item).parent().next('.final-price').find('.name-price-price').find('span').text());
+              $(movieCardTotal).text(movieCardTotalPrice);
+          });
+      });
+
+      $('.times-movie-btn').on('click', function(e) {
               let movieId = $(e.currentTarget).closest('.movie-checkout-item').data('id');
               $(e.currentTarget).closest('.movie-checkout-item').remove();
 
@@ -220,6 +263,12 @@
                   else {
                     $('.card-budget').text('9+');
                   }
+
+                  let movieCardTotalPrice = 0;
+                  $('.select-for-days-select').each((index, item) => {
+                      movieCardTotalPrice += parseFloat($(item).parent().next('.final-price').find('.name-price-price').find('span').text());
+                      $(movieCardTotal).text(movieCardTotalPrice);
+                  });
               }
               else {
                    return;

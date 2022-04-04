@@ -11,5 +11,7 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         public int Period { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public DateTime? ExpiredDate { get; set; }
     }
 }

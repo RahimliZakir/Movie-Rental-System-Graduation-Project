@@ -24,6 +24,10 @@
         font-weight: 600;
     }
 
+    .purchase-movie-btn {
+        user-select: none;
+    }
+
     .shopping-cart-empty-side-row {
         align-items: center;
         padding: 3.5% 2.5%;
@@ -144,7 +148,7 @@
                             <ul>
                                 <li>Total: <p>$ <span></span></p></li>
                             </ul>
-                            <a style="cursor: pointer; color: white" class="primary-btn">Proceed to checkout</a>
+                            <a style="cursor: pointer; color: white" class="primary-btn purchase-movie-btn">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
@@ -316,6 +320,10 @@
             //       return;
             //  }
             //});
+
+            $('.purchase-movie-btn').on('click', function(){
+                console.log("hey!");
+            });
     });
 </script>
 }

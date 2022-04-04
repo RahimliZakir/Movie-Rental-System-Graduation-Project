@@ -35,12 +35,6 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<AuditLog> AuditLogs { get; set; }
         //---Audit---
 
-        //---Movie---
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<MovieComment> MovieComments { get; set; }
-        public DbSet<MovieGenreCastItem> MovieGenreCastItems { get; set; }
-        //---Movie---
-
         //---Shows---
         public DbSet<Director> Directors { get; set; }
         public DbSet<Cast> Casts { get; set; }
@@ -48,6 +42,12 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
         public DbSet<ShowComment> ShowComments { get; set; }
         public DbSet<ShowGenreCastItem> ShowGenreCastItems { get; set; }
         //---Shows---
+
+        //---Movie---
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieComment> MovieComments { get; set; }
+        public DbSet<MovieGenreCastItem> MovieGenreCastItems { get; set; }
+        //---Movie---
 
         //---Blogs---
         public DbSet<BlogImage> BlogImages { get; set; }
@@ -142,12 +142,6 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
             //---Blogs---
 
-            //---Movie---
-            builder.Entity<Movie>()
-                   .Property(g => g.CreatedDate)
-                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
-            //---Movie---
-
             //---Shows---
             builder.Entity<Director>()
                    .Property(g => g.CreatedDate)
@@ -177,6 +171,12 @@ namespace MovieRentalSystem.WebUI.Models.DataContexts
                    .Property(g => g.CreatedDate)
                    .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
             //---Shows---
+
+            //---Movie---
+            builder.Entity<Movie>()
+                   .Property(g => g.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
+            //---Movie---
 
             //---Checkout---
             builder.Entity<MovieCheckout>()

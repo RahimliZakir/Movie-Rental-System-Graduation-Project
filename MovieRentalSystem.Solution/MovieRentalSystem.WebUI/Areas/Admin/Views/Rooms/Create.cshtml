@@ -1,4 +1,4 @@
-﻿@model Room
+﻿@model RoomViewModel
 
 @{
     ViewData["Title"] = "Room Create";
@@ -14,6 +14,11 @@
         <label asp-for="Name" class="label-required">Adı: </label>
         <textarea asp-for="Name" class="form-control"></textarea>
         <span asp-validation-for="Name" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RoomCount" class="label-required">Oturacaq Sayı: </label>
+        <textarea asp-for="RoomCount" class="form-control"></textarea>
+        <span asp-validation-for="RoomCount" style="color: red;"></span>
     </div>
     <a asp-action="Index" class="btn btn-danger">Geriyə</a>
     <button class="btn btn-info" type="submit">Əlavə et</button>

@@ -10,6 +10,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public string Name { get; set; } = null!;
 
+        [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
+        public int RoomCount { get; set; } 
+
         public int? CreatedByUserId { get; set; }
 
         public AppUser? CreatedByUser { get; set; }

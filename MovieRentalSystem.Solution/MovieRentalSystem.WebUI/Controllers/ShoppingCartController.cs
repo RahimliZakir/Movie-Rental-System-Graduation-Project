@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MovieRentalSystem.WebUI.AppCode.Infrastructure;
+using MovieRentalSystem.WebUI.AppCode.Modules.CheckoutMovieModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule;
 using MovieRentalSystem.WebUI.Models.Entities;
@@ -59,11 +61,11 @@ namespace MovieRentalSystem.WebUI.Controllers
 
         [HttpPost]
         [Authorize]
-        async public Task<IActionResult> MovieCheckout()
+        async public Task<IActionResult> MovieCheckout(CheckoutMoviePurchaseCommand request)
         {
+            CommandJsonResponse response = await mediator.Send(request);
 
-
-            return Ok();
+            return Ok(response);
         }
     }
 }

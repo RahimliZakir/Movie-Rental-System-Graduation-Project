@@ -99,7 +99,7 @@
                         {
                             @foreach (var item in Model.Movies)
                             {
-                                <div class="movie-checkout-item" data-id="@item.Id">
+                                <div class="movie-checkout-item the-movie-item" data-movie-id="@item.Id">
                                     <div class="img-div">
                                         @Html.Raw(item.MovieFrame)
                                     </div>
@@ -107,13 +107,14 @@
                                         <h5 class="name-price-heading">@item.Name</h5>
                                         <p class="name-price-price">$ <span>@item.Price</span></p>
                                     </div>
-                                    <div class="select-for-days">
+                                    <div class="select-for-days d-flex flex-column align-items-center">
                                         <select class="select-for-days-select">
                                             <option value="">---Choose---</option>
                                             <option value="OneDay">For 1 Day</option>
                                             <option value="ThreeDays">For 3 Day</option>
                                             <option value="SevenDays">For 7 Day</option>
                                         </select>
+                                        <small class="text-danger d-none error-select">Seçim edin!</small>
                                     </div>
                                     <div class="final-price">
                                         <p class="name-price-price">$ <span>@item.Price</span></p>
@@ -146,9 +147,16 @@
                         <div class="cart_total">
                             <h6>Cart total</h6>
                             <ul>
-                                <li>Total: <p>$ <span></span></p></li>
+                                <li>Total: <p>$ <span>0</span></p></li>
                             </ul>
-                            <a style="cursor: pointer; color: white" class="primary-btn purchase-movie-btn">Proceed to checkout</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a style="cursor: pointer; color: white" class="primary-btn purchase-movie-btn">Proceed to checkout</a>
+                            }
+                            else
+                            {
+                                <a style="cursor: pointer; color: white" asp-action="SignIn" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path.ToString()" class="primary-btn">Proceed to checkout</a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -231,7 +239,7 @@
       });
 
       $('.times-movie-btn').on('click', function(e) {
-              let movieId = $(e.currentTarget).closest('.movie-checkout-item').data('id');
+              let movieId = $(e.currentTarget).closest('.movie-checkout-item').data('movie-id');
               $(e.currentTarget).closest('.movie-checkout-item').remove();
 
               let checkoutFromCookieArr = $.cookie("checkout-movie").split(',').map(v => Number(v))
@@ -322,7 +330,60 @@
             //});
 
             $('.purchase-movie-btn').on('click', function(){
-                console.log("hey!");
+                let formData = new FormData();
+                let counter = 0;
+
+                $('.the-movie-item').each((index, item) => {
+                    if($(item).find('.select-for-days-select').val() == "") {
+                       $(item).find('.error-select').removeClass('d-none');
+                       return;
+                    }
+
+                    let movieId = $(item).data('movie-id');
+                    let totalPrice = $(item).find('.final-price').find('span').text();
+                    let period;
+                    if($(item).find('.select-for-days-select').val() == "OneDay") {
+                        $(item).find('.error-select').addClass('d-none');
+                        period = 1;
+                    }
+                    else if($(item).find('.select-for-days-select').val() == "ThreeDays"){
+                        $(item).find('.error-select').addClass('d-none');
+                        period = 3;
+                    }
+                    else if($(item).find('.select-for-days-select').val() == "SevenDays"){
+                        $(item).find('.error-select').addClass('d-none');
+                        period = 7;
+                    }
+
+                    formData.append(`MovieCheckouts[${counter}].MovieId`, movieId);
+                    formData.append(`MovieCheckouts[${counter}].TotalPrice`, totalPrice);
+                    formData.append(`MovieCheckouts[${counter}].Period`, period);
+
+                    counter++;
+                });
+
+                $.ajax({
+                    url: '@Url.Action("MovieCheckout")',
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (response) => {
+                      if(response.error == false) {
+                          toastr.success(response.message, "Uğurlu!");
+                          setTimeout(() => {
+                              window.location.href = '@Url.Action("Index")';
+                          }, 2500);
+                          $.removeCookie('checkout-movie');
+                          return;
+                      }
+
+                      toastr.error(response.message, "Xəta!");
+                    },
+                    error: (response) => {
+                      console.log(response);
+                    }
+                });
             });
     });
 </script>

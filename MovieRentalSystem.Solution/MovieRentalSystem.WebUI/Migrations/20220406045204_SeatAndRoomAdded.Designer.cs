@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 
@@ -11,9 +12,10 @@ using MovieRentalSystem.WebUI.Models.DataContexts;
 namespace MovieRentalSystem.WebUI.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    partial class MovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220406045204_SeatAndRoomAdded")]
+    partial class SeatAndRoomAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -925,77 +927,6 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.ToTable("MovieGenreCastItems");
                 });
 
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Room", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
-
-                    b.Property<int?>("DeletedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Seat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
-
-                    b.Property<int?>("DeletedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("Seats");
-                });
-
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Show", b =>
                 {
                     b.Property<int>("Id")
@@ -1567,48 +1498,6 @@ namespace MovieRentalSystem.WebUI.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Room", b =>
-                {
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("DeletedByUser");
-                });
-
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Seat", b =>
-                {
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "DeletedByUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId");
-
-                    b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Room", "Room")
-                        .WithMany("Seats")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("DeletedByUser");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Show", b =>
                 {
                     b.HasOne("MovieRentalSystem.WebUI.Models.Entities.Membership.AppUser", "CreatedByUser")
@@ -1773,11 +1662,6 @@ namespace MovieRentalSystem.WebUI.Migrations
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.MovieComment", b =>
                 {
                     b.Navigation("Children");
-                });
-
-            modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Room", b =>
-                {
-                    b.Navigation("Seats");
                 });
 
             modelBuilder.Entity("MovieRentalSystem.WebUI.Models.Entities.Show", b =>

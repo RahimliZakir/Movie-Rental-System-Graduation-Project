@@ -4,15 +4,25 @@
     <div class="deznav-scroll">
         @await Component.InvokeAsync("LayoutUser")
         <ul class="metismenu" id="menu">
-            <li class="nav-label first">Main Menu</li>
+            <li class="nav-label first">Menu</li>
             <li><a asp-action="Index" asp-controller="PersonalSide"><i class="fa-solid fa-user"></i> Şəxsi Kabinet</a></li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="nav-text">Sahib Olduqlarım</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a asp-action="Index" asp-controller="PurchasedMovies">Filmlər</a></li>
+                    <li><a asp-action="Index" asp-controller="Directors">Tamaşalar</a></li>
+                </ul>
+            </li>
             @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
                 <li><a asp-action="GetUsers" asp-controller="Account"><i class="fa-solid fa-users-gear"></i> Səlahiyyətləndirmə</a></li>
 
                 <li>
                     <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-144-layout"></i>
+                        <i class="fa-solid fa-house"></i>
                         <span class="nav-text">Əsas Hissələr</span>
                     </a>
                     <ul aria-expanded="false">

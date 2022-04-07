@@ -18,7 +18,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
 
             public async Task<IEnumerable<Room>> Handle(RoomGetAllActiveQuery request, CancellationToken cancellationToken)
             {
-                IEnumerable<Room> rooms = await db.Rooms.Where(g => g.DeletedDate == null).ToListAsync(cancellationToken);
+                IEnumerable<Room> rooms = await db.Rooms
+                                                  .Include(r => r.Seats)
+                                                  .Where(g => g.DeletedDate == null)
+                                                  .ToListAsync(cancellationToken);
 
                 return rooms;
             }

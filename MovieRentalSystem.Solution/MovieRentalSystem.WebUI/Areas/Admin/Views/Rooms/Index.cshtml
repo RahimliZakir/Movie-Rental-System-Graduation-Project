@@ -53,6 +53,7 @@
                         <tr>
                             <th>Id: </th>
                             <th>Adı: </th>
+                            <th>Oturacaq Sayı: </th>
                             <th>Əlavə olunma tarixi: </th>
                             <th></th>
                         </tr>
@@ -63,6 +64,7 @@
                             <tr>
                                 <th scope="row">@item.Id</th>
                                 <td>@item.Name</td>
+                                <td>@item.Seats.Count(s => s.DeletedByUserId == null) ədəd</td>
                                 <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
                                 <td style="float: right;">
                                     <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>

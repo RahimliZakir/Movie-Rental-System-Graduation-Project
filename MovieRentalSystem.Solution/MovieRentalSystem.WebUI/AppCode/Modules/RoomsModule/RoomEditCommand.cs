@@ -35,7 +35,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
                     goto end;
                 }
 
-                Room entity = await db.Rooms.AsNoTracking().FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Room entity = await db.Rooms.AsNoTracking()
+                                            .Include(r => r.Seats)
+                                            .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (entity == null)
                 {
@@ -52,12 +54,30 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
 
                 if (ctx.IsValid())
                 {
+                    int userId = ctx.GetUserId();
+
                     try
                     {
+                        if (request.SeatCount != entity.Seats.Count)
+                        {
+                            foreach (var item in entity.Seats)
+                            {
+                                db.Seats.Remove(item);
+                            }
+                            for (int i = 0; i < request.SeatCount; i++)
+                            {
+                                var seat = new Seat
+                                {
+                                    CreatedByUserId = userId,
+                                    RoomId = (int)request.Id
+                                };
+                                await db.Seats.AddAsync(seat, cancellationToken);
+                            }
+                        }
+
                         request.CreatedByUserId = entity.CreatedByUserId;
                         Room room = mapper.Map(request, entity);
 
-                        db.Rooms.Update(room);
                         await db.SaveChangesAsync(cancellationToken);
                     }
                     catch (Exception ex)

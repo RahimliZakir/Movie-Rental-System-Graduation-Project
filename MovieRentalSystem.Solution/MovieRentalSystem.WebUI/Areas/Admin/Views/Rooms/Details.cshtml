@@ -30,6 +30,10 @@
     <p class="form-paragraph">@Model.Name</p>
 </div>
 <div class="form-group">
+    <label asp-for="Seats">Oturacaq Sayı:</label>
+    <p class="form-paragraph">@Model.Seats?.Count ədəd</p>
+</div>
+<div class="form-group">
     <label asp-for="CreatedDate">Əlavə olunma tarixi:</label>
     <p class="form-paragraph">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</p>
 </div>

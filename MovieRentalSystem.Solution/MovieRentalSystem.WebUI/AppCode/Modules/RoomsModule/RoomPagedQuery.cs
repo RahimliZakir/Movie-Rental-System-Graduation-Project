@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities;
 using MovieRentalSystem.WebUI.Models.ViewModels;
@@ -73,7 +74,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
 
             async public Task<PagedViewModel<Room>> Handle(RoomPagedQuery request, CancellationToken cancellationToken)
             {
-                IQueryable<Room> query = db.Rooms.Where(f => f.DeletedDate == null).AsQueryable();
+                IQueryable<Room> query = db.Rooms
+                                           .Include(r => r.Seats)
+                                           .Where(f => f.DeletedDate == null)
+                                           .AsQueryable();
 
                 request.Name = request.Name?.Trim();
                 if (!string.IsNullOrWhiteSpace(request.Name))

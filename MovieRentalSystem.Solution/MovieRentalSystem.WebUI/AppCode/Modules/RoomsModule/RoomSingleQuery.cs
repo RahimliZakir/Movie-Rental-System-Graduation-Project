@@ -28,7 +28,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
                     return null;
                 }
 
-                Room room = await db.Rooms.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Room room = await db.Rooms
+                                    .Include(r => r.Seats)
+                                    .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 RoomViewModel viewModel = mapper.Map<RoomViewModel>(room);
 

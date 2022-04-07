@@ -35,10 +35,25 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
 
                 if (ctx.IsValid())
                 {
+                    int userId = ctx.GetUserId();
+
                     Room room = mapper.Map<Room>(request);
-                    room.CreatedByUserId = ctx.GetUserId();
+                    room.CreatedByUserId = userId;
 
                     await db.Rooms.AddAsync(room, cancellationToken);
+
+                    await db.SaveChangesAsync(cancellationToken);
+
+                    for (int i = 0; i < request.SeatCount; i++)
+                    {
+                        var seat = new Seat
+                        {
+                            RoomId = room.Id,
+                            CreatedByUserId = userId
+                        };
+                        await db.Seats.AddAsync(seat, cancellationToken);
+                    }
+
                     await db.SaveChangesAsync(cancellationToken);
 
                     response.Error = false;

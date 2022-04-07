@@ -43,7 +43,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] RoomCreateCommand request)
+        public async Task<IActionResult> Create([Bind("Name,SeatCount")] RoomCreateCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
@@ -64,7 +64,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Name,Id")] RoomEditCommand request)
+        public async Task<IActionResult> Edit([Bind("Name,SeatCount,Id")] RoomEditCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 

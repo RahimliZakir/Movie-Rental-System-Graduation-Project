@@ -12,13 +12,13 @@
     <div asp-validation-summary="ModelOnly"></div>
     <div class="form-group">
         <label asp-for="Name" class="label-required">Adı: </label>
-        <textarea asp-for="Name" class="form-control"></textarea>
+        <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" style="color: red;"></span>
     </div>
     <div class="form-group">
-        <label asp-for="RoomCount" class="label-required">Oturacaq Sayı: </label>
-        <textarea asp-for="RoomCount" class="form-control"></textarea>
-        <span asp-validation-for="RoomCount" style="color: red;"></span>
+        <label asp-for="SeatCount" class="label-required">Oturacaq Sayı: </label>
+        <input asp-for="SeatCount" class="form-control" />
+        <span asp-validation-for="SeatCount" style="color: red;"></span>
     </div>
     <a asp-action="Index" class="btn btn-danger">Geriyə</a>
     <button class="btn btn-info" type="submit">Əlavə et</button>
@@ -32,8 +32,6 @@
 <script src="~/libs/toastr.js/toastr.customize.min.js"></script>
 <script>
     $(document).ready(function(){
-        autosize($('textarea'));
-
         $('form').on('submit', (e) => {
           e.preventDefault();
 

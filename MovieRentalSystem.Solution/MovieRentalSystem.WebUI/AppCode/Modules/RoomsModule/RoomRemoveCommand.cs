@@ -35,7 +35,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
                     goto end;
                 }
 
-                Room room = await db.Rooms.FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
+                Room room = await db.Rooms
+                                    .Include(r => r.Seats)
+                                    .FirstOrDefaultAsync(g => g.Id == request.Id && g.DeletedDate == null, cancellationToken);
 
                 if (room == null)
                 {
@@ -47,6 +49,13 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule
 
                 room.DeletedDate = DateTime.UtcNow.AddHours(4);
                 room.DeletedByUserId = ctx.GetUserId();
+
+                foreach (Seat seat in room.Seats)
+                {
+                    seat.DeletedDate = DateTime.UtcNow.AddHours(4);
+                    seat.DeletedByUserId = ctx.GetUserId();
+                }
+
                 await db.SaveChangesAsync(cancellationToken);
 
                 response.Error = false;

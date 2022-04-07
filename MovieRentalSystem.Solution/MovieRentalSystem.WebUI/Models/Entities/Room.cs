@@ -9,5 +9,7 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         public string Name { get; set; } = null!;
 
         public virtual ICollection<Seat> Seats { get; set; }
+
+        public virtual ICollection<Show> Shows { get; set; }
     }
 }

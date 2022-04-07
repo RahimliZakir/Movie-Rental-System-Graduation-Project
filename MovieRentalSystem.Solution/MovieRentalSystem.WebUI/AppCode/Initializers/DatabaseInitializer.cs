@@ -322,6 +322,48 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
 
                     await db.SaveChangesAsync();
                 }
+                if (!await db.Rooms.AnyAsync())
+                {
+                    await db.Rooms.AddAsync(new Room
+                    {
+                        Name = "Moon",
+                        CreatedByUserId = 1,
+                        CreatedDate = DateTime.UtcNow.AddHours(4)
+                    });
+
+                    await db.Rooms.AddAsync(new Room
+                    {
+                        Name = "Granit",
+                        CreatedByUserId = 1,
+                        CreatedDate = DateTime.UtcNow.AddHours(4)
+                    });
+
+                    await db.SaveChangesAsync();
+                }
+                if (!await db.Seats.AnyAsync())
+                {
+                    for (int i = 0; i < 60; i++)
+                    {
+                        await db.Seats.AddAsync(new Seat
+                        {
+                            RoomId = 1,
+                            CreatedByUserId = 1,
+                            CreatedDate = DateTime.UtcNow.AddHours(4)
+                        });
+                    }
+
+                    for (int i = 0; i < 70; i++)
+                    {
+                        await db.Seats.AddAsync(new Seat
+                        {
+                            RoomId = 2,
+                            CreatedByUserId = 1,
+                            CreatedDate = DateTime.UtcNow.AddHours(4)
+                        });
+                    }
+
+                    await db.SaveChangesAsync();
+                }
                 if (!await db.Casts.AnyAsync())
                 {
                     await db.Casts.AddAsync(new Cast
@@ -437,8 +479,11 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                                          Хореография - Рауля Турккан
                                          Ассистент режиссера - Евгения Невмержицкая(Народная артистка Азербайджана)",
                         IsPremium = true,
+                        ImagePath = "show-e7e194e2f9934bbdbd516cbee23ce22d.jpg",
                         Duration = "190 Min",
                         DirectorId = 4,
+                        RoomId = 1,
+                        Price = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -448,7 +493,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         Name = "Ah, bu uzun sevda yolu",
                         Description = @"Anar Sadoqov",
                         IsPremium = false,
+                        ImagePath = "show-bc2aafef1d4d4d43b40dc2bdb38bd915.jpg",
                         DirectorId = 6,
+                        RoomId = 2,
+                        Price = 7,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -458,7 +506,10 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         Name = "Kontrabas",
                         Description = "Kubizm yanaşması ilə qurulan bu tamaşada əsas mövzu kontrabasçını yəni qəhrəmanın ilk öncə kontrabasdan, ona olan sevgisindən danışıb sonradansa onu param parça etmək istəyindən ibarətdir. Lakin biz bunu alt qatında demək istəyirik ki, orkestr insan cəmiyyətinin eynisidir və nə olur olsun biz bu cəmiyyətdə hansısa bir alətdə ifa etməyə yəni yaşamağa məcburuq.",
                         IsPremium = true,
+                        ImagePath = "show-aa37a5cab9cb4dfe9db56c3a453be12c.jpg",
                         DirectorId = 3,
+                        RoomId = 1,
+                        Price = 9,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -468,8 +519,11 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         Name = "999-cu gecə",
                         Description = "Min bir gecə” nağıllarının motivləri əsasında hazırlanan “999-cu gecə” böyüklər üçün nağıl-tamaşasının süjet xəttinin əsasını çəkməçi Maruf la onun ifritə arvadı arasındakı təzadlı, ziddiyyətli münasibətlər təşkil edir. Maruf kasıb pinəçidir. Arvadı Fatma zənginlərin ayağını yuyur, bu əziyyətin heyfinisə ərindən çıxır-onu söyür döyür, incidir. Maruf əlini Allaha qaldırıb onu bu zülmdən qurtarmasını istəyir və qəfil şah sarayına düşür. Məlum olur ki, cəmi kasıbların var-dövlət arzusu o boyda padşahın arzusu ilə üst-üstə düşür. Rejissor tamaşanın finalında sevgini var-dövlətdən bir taxça yuxarı qoyur, obrazlar arasında fərq qoymadan, mənfi-müsbət obraz demədən, həyatın şərtlər içində oyun olduğuna eyham vurur. Yəni, Xeyir və Şər personajın mövcudluq çərçivəsinə çevrilmir, əməl xətti kimi təqdim olunur. Bu, bir tamaşa finalı üçün olduqca vacib məqamdır. Sonda “İfritə Fatma”nın da sevimli tanrı bəndəsi olduğunu yada salır. “Bu nağıl “1001 gecə”də Şəhrizadın danışdığı 999-cu nağıl olduğundan yaradıcı kollektiv tamaşanı “999-cu gecə” adlandırıb.",
                         IsPremium = false,
+                        ImagePath = "show-e94c73f5959c4c82ab69b4348cce776c.jpg",
                         Duration = "150 Min",
                         DirectorId = 6,
+                        RoomId = 2,
+                        Price = 5,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });

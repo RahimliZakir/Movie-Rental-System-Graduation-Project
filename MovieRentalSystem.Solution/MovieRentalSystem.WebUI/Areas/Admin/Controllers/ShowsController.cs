@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.DirectorsModule;
+using MovieRentalSystem.WebUI.AppCode.Modules.RoomsModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule;
 
 namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
@@ -41,13 +42,14 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Directors = new SelectList(await mediator.Send(new DirectorGetAllActiveQuery()), "Id", "Name");
+            ViewBag.Rooms = new SelectList(await mediator.Send(new RoomGetAllActiveQuery()), "Id", "Name");
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,IsPremium,Price,File,Duration,Quality,DirectorId")] ShowCreateCommand request)
+        public async Task<IActionResult> Create([Bind("Name,Description,IsPremium,RoomId,Price,File,Duration,Quality,DirectorId")] ShowCreateCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 
@@ -58,7 +60,8 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
         {
             ShowViewModel show = await mediator.Send(query);
 
-            ViewBag.Directors = new SelectList(await mediator.Send(new DirectorGetAllActiveQuery()), "Id", "Name", show.Id);
+            ViewBag.Directors = new SelectList(await mediator.Send(new DirectorGetAllActiveQuery()), "Id", "Name", show.DirectorId);
+            ViewBag.Rooms = new SelectList(await mediator.Send(new RoomGetAllActiveQuery()), "Id", "Name", show.RoomId);
 
             if (show == null)
             {
@@ -70,7 +73,7 @@ namespace MovieRentalSystem.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Name,Description,IsPremium,Duration,Price,File,FileTemp,Quality,DirectorId,Id")] ShowEditCommand request)
+        public async Task<IActionResult> Edit([Bind("Name,Description,IsPremium,RoomId,Duration,Price,File,FileTemp,Quality,DirectorId,Id")] ShowEditCommand request)
         {
             CommandJsonResponse response = await mediator.Send(request);
 

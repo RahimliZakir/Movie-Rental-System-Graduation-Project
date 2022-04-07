@@ -27,6 +27,11 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
 
         public string? Duration { get; set; }
 
+        [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
+        public int RoomId { get; set; }
+
+        public Room? Room { get; set; }
+
         public string? Quality { get; set; }
 
         public virtual ICollection<ShowGenreCastItem>? ShowGenreCastItems { get; set; }

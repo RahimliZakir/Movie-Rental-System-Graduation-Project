@@ -25,6 +25,11 @@ namespace MovieRentalSystem.WebUI.Models.Entities
         [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
         public int DirectorId { get; set; }
 
+        [Required(ErrorMessage = "Bu xana doldurulmalıdır!")]
+        public int RoomId { get; set; } = 1;
+
+        public virtual Room Room { get; set; }
+
         public virtual ICollection<ShowComment> ShowComments { get; set; }
 
         public virtual ICollection<ShowGenreCastItem> ShowGenreCastItems { get; set; }

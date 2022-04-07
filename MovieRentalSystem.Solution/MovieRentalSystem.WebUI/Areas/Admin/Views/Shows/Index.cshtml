@@ -70,7 +70,8 @@
                             <th>Müddət: </th>
                             <th>Keyfiyyət: </th>
                             <th>Direktor: </th>
-                            <th>Qiymət:</th>
+                            <th>Qiymət: </th>
+                            <th>Zal: </th>
                             <th>Əlavə olunma tarixi: </th>
                             <th></th>
                         </tr>
@@ -92,6 +93,7 @@
                                 <td>@item.Quality</td>
                                 <td>@item.Director.Name</td>
                                 <td>@item.Price</td>
+                                <td>@item.Room.Name</td>
                                 <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
                                 <td style="float: right;">
                                     <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>

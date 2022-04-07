@@ -79,6 +79,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule
             {
                 IQueryable<Show> query = db.Shows
                                            .Include(s => s.Director)
+                                           .Include(s => s.Room)
+                                           .ThenInclude(s => s.Seats)
                                            .Include(s => s.ShowComments)
                                            .ThenInclude(s => s.Children)
                                            .Include(s => s.ShowComments)

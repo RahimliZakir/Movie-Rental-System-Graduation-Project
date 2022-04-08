@@ -27,6 +27,15 @@
     <link href="~/admin-assets/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/sources/css/all.min.css" />
     <link href="~/admin-assets/css/style.css" rel="stylesheet">
+    <style>
+        li a svg {
+            color: #969BA0 !important;
+        }
+
+        li.mm-active a svg {
+            color: var(--primary) !important;
+        }
+    </style>
     @await RenderSectionAsync("css", required: false)
 </head>
 <body>

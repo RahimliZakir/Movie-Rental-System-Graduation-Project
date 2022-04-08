@@ -29,8 +29,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\multi-language\flags\" />
     <Folder Include="wwwroot\uploads\shows\" />
     <Folder Include="wwwroot\uploads\personalside\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AppCode\Resources\Layout\LayoutResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LayoutResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="AppCode\Resources\Layout\LayoutResource.en.resx">
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="AppCode\Resources\Layout\LayoutResource.resx">
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LayoutResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

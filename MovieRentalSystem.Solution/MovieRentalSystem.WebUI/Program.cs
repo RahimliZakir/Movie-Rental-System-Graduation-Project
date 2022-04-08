@@ -117,11 +117,20 @@ app.InjectData().Wait();
 
 app.UseRouting();
 
+app.UseRequestLocalization(cfg =>
+{
+    cfg.AddSupportedCultures("en", "az", "ru");
+    cfg.AddSupportedUICultures("en", "az", "ru");
+    cfg.RequestCultureProviders.Clear(); // Clears all the default culture providers from the list
+    cfg.RequestCultureProviders.Add(new AppCultureProvider());
+});
+
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-//app.UseAuditMiddleware();
+app.UseAuditMiddleware();
 
 app.Use(async (context, next) =>
 {
@@ -180,7 +189,11 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=PersonalSide}/{action=Index}/{id?}");
 
-    endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(name: "default", pattern: "{lang=temp}/{controller=Home}/{action=Index}/{id?}",
+                    constraints: new
+                    {
+                        lang = "az|en|ru|temp"
+                    });
 });
 
 app.Run();

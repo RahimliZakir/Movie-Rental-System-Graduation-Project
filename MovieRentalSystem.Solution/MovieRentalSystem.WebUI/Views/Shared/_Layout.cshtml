@@ -22,6 +22,30 @@
             box-shadow: none;
             border-radius: 0;
         }
+
+        .header-top-right-language ul {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            padding: 0 7.5%;
+            transition: 0.3s;
+        }
+
+            .header-top-right-language ul a {
+                color: black !important;
+                font-size: 0.9rem;
+                font-family: "Baloo";
+            }
+
+        .header-top-right-language:hover ul {
+            opacity: 1;
+            background-color: white;
+            visibility: visible;
+        }
+
+        header nav .nav-container .nav-row .right-nav .nav-links li:not(:last-child) {
+            margin-right: 3.5% !important;
+        }
     </style>
     @await RenderSectionAsync("css", required: false)
     <link rel="stylesheet"
@@ -43,14 +67,37 @@
                     </div>
                     <div class="col-xl-10 col-lg-10 right-nav">
                         <ul class="nav-links">
-                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                            <li><a asp-action="Index" asp-controller="Movie">Movies</a></li>
-                            <li><a asp-action="Index" asp-controller="Show">Shows</a></li>
-                            <li><a asp-action="Index" asp-controller="Blog">Blog</a></li>
-                            <li><a asp-action="ComingSoon" asp-controller="Home">Coming Soon</a></li>
-                            <li><a asp-action="FAQ" asp-controller="Home">FAQ</a></li>
-                            <li><a asp-action="ContactUs" asp-controller="Home">Contact Us</a></li>
+                            <li><a asp-action="Index" asp-controller="Home">@LayoutResource.Home</a></li>
+                            <li><a asp-action="Index" asp-controller="Movie">@LayoutResource.Movies</a></li>
+                            <li><a asp-action="Index" asp-controller="Show">@LayoutResource.Shows</a></li>
+                            <li><a asp-action="Index" asp-controller="Blog">@LayoutResource.Blog</a></li>
+                            <li><a asp-action="ComingSoon" asp-controller="Home">@LayoutResource.Coming_Soon</a></li>
+                            <li><a asp-action="FAQ" asp-controller="Home">@LayoutResource.FAQ</a></li>
+                            <li><a asp-action="ContactUs" asp-controller="Home">@LayoutResource.Contact_Us</a></li>
                             <li class="nav-login-li"><a asp-action="SignIn" asp-controller="Account">Login</a></li>
+                            <li style="width: 5%;">
+                                <div class="lang header-top-right-language" style="position: relative;">
+                                    <img style="width: 95% !important;" class="lang-flag" src="~/multi-language/flags/aze-flag.svg" alt="" />
+                                    <ul>
+                                        <li>
+                                            <a asp-route-lang="az" data-flag="/multi-language/flags/aze-flag.svg">
+                                                Azərbaycan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-route-lang="en" data-flag="/multi-language/flags/usa-flag.png">
+                                                English
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-route-lang="ru" data-flag="/multi-language/flags/ru-flag.webp">
+                                                Русский
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </li>
                             <li class="cart-shopping-li">
                                 <a asp-action="Index" asp-controller="ShoppingCart">
                                     <i class="fa-solid fa-cart-shopping"></i>
@@ -217,6 +264,13 @@
     <script src="~/assets/js/header.js"></script>
     <script>
         $(document).ready(function(){
+            let url = window.location.pathname;
+
+            var el = $(`.lang [href='${url}']`).eq(0);
+
+            $('.lang-flag').attr('src', $(el).data('flag'));
+            $('.lang-text').html($(el).text());
+
             //---Wishlist---
             let wishlistShow = $.cookie('wishlist-show');
             if (wishlistShow == null || wishlistShow == '') {

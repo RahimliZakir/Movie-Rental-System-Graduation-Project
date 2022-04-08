@@ -1,0 +1,64 @@
+﻿@model List<CheckoutShowViewModel>
+
+@{
+    ViewData["Title"] = "Purchased Movies Index";
+}
+
+@section css{
+<style>
+    iframe {
+        width: 75%;
+        height: 150px;
+    }
+</style>
+}
+
+<div class="card">
+    <div class="card-header row align-items-center justify-content-between">
+        <div class="table-infos">
+            <h5>Purchased Movies</h5>
+        </div>
+    </div>
+</div>
+<div class="card-block table-border-style">
+    <div class="table-responsive">
+        @if (Model.Count() == 0)
+        {
+            <div class="alert alert-warning" role="alert">
+                Hələ ki, məlumat yoxdur!
+            </div>
+        }
+        else
+        {
+            <table class="table" style="width: max-content;">
+                <thead>
+                    <tr>
+                        <th>Id: </th>
+                        <th>Adı: </th>
+                        <th>Şəkil: </th>
+                        <th>Qiymət: </th>
+                        <th>Bilet Sayı: </th>
+                        <th>Biletin bitmə tarixi: </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.Id</th>
+                            <td>@item.Name</td>
+                            <td><img style="height: 200px; object-fit: cover;" src="~/uploads/shows/@item.ImagePath" /></td>
+                            <td>@item.TotalPrice</td>
+                            <td>@item.PeopleCount</td>
+                            <td>@item.ExpiredDate?.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.AntiForgeryToken()
+        }
+    </div>
+</div>
+</div>
+

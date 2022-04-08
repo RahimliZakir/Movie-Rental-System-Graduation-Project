@@ -5,6 +5,7 @@
 }
 
 @section css{
+<link rel="stylesheet" href="~/libs/AlertifyJS/css/alertify.min.css" />
 <style>
     .reply-btn {
         cursor: pointer;
@@ -220,161 +221,161 @@
                     @*<div class="watchlist-btn-box">
                         <a href="#" class="watchlist-btn">+ Add To Watchlist</a>
                         </div>*@
-                    <div class="films-theatre-box">
+                    <button class="btn btn-warning add-to-basket-btn" data-id="@Model.Show.Id">
+                        <i class="fa-solid fa-basket-shopping"></i> Add To Basket
+                    </button>
+                    @* <div class="films-theatre-box">
                         <h3 class="theatre-heading">Choose seat for show.</h3>
                         <div class="films-theatre-side">
-                            <div class="theatre">
-                                <div class="cinema-seats left col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="cinema-row row-1">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="theatre">
+                        <div class="cinema-seats left col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="cinema-row row-1">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-2">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-2">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-3">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-3">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-4">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-4">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-5">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-5">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-6">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-6">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-7">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
-                                </div>
+                        <div class="cinema-row row-7">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
+                        </div>
 
-                                <div class="cinema-seats right col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="cinema-row row-1">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-seats right col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="cinema-row row-1">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-2">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-2">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-3">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-3">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-4">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-4">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-5">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-5">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-6">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
+                        <div class="cinema-row row-6">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
 
-                                    <div class="cinema-row row-7">
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                        <div class="seat"></div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="cinema-row row-7">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        </div>
+                        </div>
+                        </div>
                         </div>
                         <div class="add-to-basket-side">
-                            <button class="add-to-basket-btn">
-                                <i class="fa-solid fa-basket-shopping"></i> Add To Basket
-                            </button>
                         </div>
-                    </div>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -548,11 +549,57 @@
 <!-- show like these end -->
 @section js{
 <script src="~/assets/js/show-details.js"></script>
+<script src="~/libs/AlertifyJS/alertify.min.js"></script>
 <script>
     $(function(){
      $('.genres-item>a').last().text($('.genres-item>a').last().text().substr(0, $('.genres-item>a').last().text().length - 1));
 
      $('.casts-item>a').last().text($('.casts-item>a').last().text().substr(0, $('.casts-item>a').last().text().length - 1));
+
+     $('.add-to-basket-btn').on('click', (e) => {
+           let showId = $(e.currentTarget).data('id');
+
+           let checkout = $.cookie('checkout-show');
+
+           if (checkout == null || checkout == '') {
+             checkout = [];
+           }
+           else {
+             checkout = checkout.split(',').map(v => parseInt(v));
+           }
+
+           if (checkout.indexOf(showId) != -1) {
+             alertify.warning("Bu məhsul artıq səbətdə var!", "Diqqət!");
+           }
+           else {
+             checkout.push(showId);
+             alertify.success("Məhsul uğurla səbətə əlavə olundu!", "Uğurlu!");
+
+             $.cookie('checkout-show', checkout.toString(), { expires: 365, path: '/' });
+             if (checkout.length <= 9) {
+                 $('.card-budget').text(checkout.length);
+             } else {
+                 $('.card-budget').text('9+');
+             }
+
+             let checkoutMovie = $.cookie('checkout-movie');
+             if (checkoutMovie == null || checkoutMovie == '') {
+               checkoutMovie = [];
+             }
+             else {
+               checkoutMovie = checkoutMovie.split(',').map(v => parseInt(v));
+             }
+
+             let totalCheckoutCount = checkout.length + checkoutMovie.length;
+
+             if (totalCheckoutCount <= 9) {
+               $('.card-budget').text(totalCheckoutCount);
+             }
+             else {
+               $('.card-budget').text('9+');
+             }
+           }
+        });
 
       $('.show-spoiler-btn').click(function() {
         $(this).closest('.comment-spoiler-overlay').remove();

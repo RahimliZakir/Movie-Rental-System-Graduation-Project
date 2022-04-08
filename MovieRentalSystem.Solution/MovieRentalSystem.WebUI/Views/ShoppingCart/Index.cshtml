@@ -162,37 +162,62 @@
                 </div>
                 <div class="row shows-checkout-box-row">
                     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 checkout-items-col">
-                        <div class="movie-checkout-item">
-                            <div class="img-div">
-                                <img src="assets/images/shows/breaking-bad.jpg"
-                                     alt="Shows Checkout Image" />
+                        @if (Model != null && Model?.Shows != null)
+                        {
+                            @foreach (var item in Model.Shows)
+                            {
+                                <div class="movie-checkout-item the-show-item" data-show-id="@item.Id">
+                                    <div class="img-div">
+                                        <img style="object-fit: contain;" src="~/uploads/shows/@item.ImagePath" />
+                                    </div>
+                                    <div class="name-and-price-side">
+                                        <h5 class="name-price-heading">@item.Name</h5>
+                                    </div>
+                                    <div class="seats-for-show text-center d-flex flex-column align-items-center">
+                                        <input type="number" class="show-seat-count d-inline-block" style="width: 35%;" />
+                                        <small class="text-danger d-none error-input">Seçim edin!</small>
+                                    </div>
+                                    <div class="final-price show-final-price">
+                                        <p class="name-price-price">$ <span>@item.Price</span></p>
+                                    </div>
+                                    <div class="times-side">
+                                        <button class="times-side-btn">
+                                            <i class="bi bi-x-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row shopping-cart-empty-side-row">
+                                <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 shopping-empty-left-side">
+                                    <span class="basket-span"><i class="bi bi-cart3"></i></span>
+                                    <p class="empty-basket-desc">
+                                        There are no movies in your cart.
+                                    </p>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-4 col-sm-12 shopping-empty-right-side">
+                                    <a asp-action="Index" asp-controller="Show" class="empty-basket-redirect-btn">Back To Shows Tab</a>
+                                </div>
                             </div>
-                            <div class="name-and-price-side">
-                                <h5 class="name-price-heading">Breaking Bad</h5>
-                            </div>
-                            <div class="seats-for-show">
-                                <h5 class="seats-for-show-heading">
-                                    2 Seats have selected.
-                                </h5>
-                            </div>
-                            <div class="final-price">
-                                <p class="name-price-price">$ 15.00</p>
-                            </div>
-                            <div class="times-side">
-                                <button class="times-side-btn">
-                                    <i class="bi bi-x-circle"></i>
-                                </button>
-                            </div>
-                        </div>
+                        }
                     </div>
 
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 total-price-col">
                         <div class="cart_total">
                             <h6>Cart total</h6>
-                            <ul>
-                                <li>Total: <span>$23.99</span></li>
+                            <ul class="show-cart-total">
+                                <li>Total: <span>$ <span>0</span></span></li>
                             </ul>
-                            <a style="cursor: pointer; color: white" class="primary-btn">Proceed to checkout</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a style="cursor: pointer; color: white" class="primary-btn purchase-show-btn">Proceed to checkout</a>
+                            }
+                            else
+                            {
+                                <a style="cursor: pointer; color: white" asp-action="SignIn" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path.ToString()" class="primary-btn">Proceed to checkout</a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -207,6 +232,7 @@
 <script src="~/libs/AlertifyJS/alertify.min.js"></script>
 <script>
     $(function() {
+         //---Movies---
       let movieCardTotal = $('.cart_total').find('span');
 
       let movieCardTotalPrice = 0;
@@ -286,48 +312,82 @@
                    return;
               }
             });
+            //---Movies---
 
-            //$('.remove-show-btn').on('click', function(e) {
-            //  let showId = $(e.currentTarget).closest('.card').data('id');
+         //---Shows---
+         let showCardTotal = $('.show-cart-total').find('span').find('span');
 
-            //  let wishlistFromCookieArr = $.cookie("wishlist-show").split(',').map(v => Number(v))
-            //  let index = wishlistFromCookieArr.indexOf(showId);
-            //  if (index != -1) {
-            //      wishlistFromCookieArr.splice(index, 1);
-            //      $.cookie("wishlist-show", wishlistFromCookieArr.toString(), { expires: 365, path: '/' });
-            //      alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+         let showCardTotalPrice = 0;
+         $('.show-final-price').each((index, item) => {
+             showCardTotalPrice += parseFloat($(item).find('span').text());
+             $(showCardTotal).text(showCardTotalPrice);
+         });
 
-            //      let wishlistShow = $.cookie('wishlist-show');
-            //      if (wishlistShow == null || wishlistShow == '') {
-            //        wishlistShow = [];
-            //      }
-            //      else {
-            //        wishlistShow = wishlistShow.split(',').map(v => parseInt(v));
-            //      }
+         $('.show-seat-count').on('input',(e) => {
+          let showTotalPriceSide = parseFloat($(e.currentTarget).parent().next('.final-price').find('.name-price-price').find('span').text());
 
-            //      let wishlistMovie= $.cookie('wishlist-movie');
-            //      if (wishlistMovie == null || wishlistMovie == '') {
-            //        wishlistMovie = [];
-            //      }
-            //      else {
-            //        wishlistMovie = wishlistMovie.split(',').map(v => parseInt(v));
-            //      }
+          if($(e.currentTarget).val() > 0) {
+              showTotalPriceSide = showTotalPriceSide * $(e.currentTarget).val();
+          }
 
-            //      let wishlistShowCount = wishlistShow.length;
-            //      let wishlistMovieCount = wishlistMovie.length;
-            //      let totalWishlistCount = wishlistShowCount + wishlistMovieCount;
+          $(e.currentTarget).parent().next('.final-price').find('.name-price-price').find('span').text(showTotalPriceSide);
 
-            //      if (totalWishlistCount <= 9) {
-            //        $('.wishlist').text(totalWishlistCount);
-            //      }
-            //      else {
-            //        $('.wishlist').text('9+');
-            //      }
-            //  }
-            //  else {
-            //       return;
-            //  }
-            //});
+          showCardTotalPrice = 0;
+          $('.show-seat-count').each((index, item) => {
+              showCardTotalPrice += parseFloat($(item).parent().next('.final-price').find('.name-price-price').find('span').text());
+              $(showCardTotal).text(showCardTotalPrice);
+          });
+      });
+
+      $('.times-side-btn').on('click', function(e) {
+              let showId = $(e.currentTarget).closest('.movie-checkout-item').data('show-id');
+              $(e.currentTarget).closest('.movie-checkout-item').remove();
+
+              let checkoutFromCookieArr = $.cookie("checkout-show").split(',').map(v => Number(v))
+              let index = checkoutFromCookieArr.indexOf(showId);
+              if (index != -1) {
+                  checkoutFromCookieArr.splice(index, 1);
+                  $.cookie("checkout-show", checkoutFromCookieArr.toString(), { expires: 365, path: '/' });
+                  alertify.success("Seçdiyiniz məhsul səbətdən silindi!", "Uğurlu!");
+
+                  let checkoutShow = $.cookie('checkout-show');
+                  if (checkoutShow == null || checkoutShow == '') {
+                    checkoutShow = [];
+                  }
+                  else {
+                    checkoutShow = checkoutShow.split(',').map(v => parseInt(v));
+                  }
+
+                  let checkoutMovie= $.cookie('checkout-movie');
+                  if (checkoutMovie == null || checkoutMovie == '') {
+                    checkoutMovie = [];
+                  }
+                  else {
+                    checkoutMovie = checkoutMovie.split(',').map(v => parseInt(v));
+                  }
+
+                  let checkoutShowCount = checkoutShow.length;
+                  let checkoutMovieCount = checkoutMovie.length;
+                  let totalCheckoutCount = checkoutShowCount + checkoutMovieCount;
+
+                  if (totalCheckoutCount <= 9) {
+                    $('.card-budget').text(totalCheckoutCount);
+                  }
+                  else {
+                    $('.card-budget').text('9+');
+                  }
+
+                  let showCardTotalPrice = 0;
+                  $('.show-seat-count').each((index, item) => {
+                    showCardTotalPrice += parseFloat($(item).parent().next('.final-price').find('.name-price-price').find('span').text());
+                    $(showCardTotal).text(showCardTotalPrice);
+                  });
+              }
+              else {
+                   return;
+              }
+            });
+            //---Shows---
 
             $('.purchase-movie-btn').on('click', function(){
                 let formData = new FormData();
@@ -371,10 +431,59 @@
                     success: (response) => {
                       if(response.error == false) {
                           toastr.success(response.message, "Uğurlu!");
+                          document.cookie = 'checkout-movie'+'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
                           setTimeout(() => {
                               window.location.href = '@Url.Action("Index")';
                           }, 2500);
-                          $.removeCookie('checkout-movie');
+                          return;
+                      }
+
+                      toastr.error(response.message, "Xəta!");
+                    },
+                    error: (response) => {
+                      console.log(response);
+                    }
+                });
+            });
+
+            $('.purchase-show-btn').on('click', function(){
+                let formData = new FormData();
+                let counter = 0;
+
+                $('.the-show-item').each((index, item) => {
+                    if($(item).find('.show-seat-count').val() <= 0) {
+                       $(item).find('.error-input').removeClass('d-none');
+                       return;
+                    }
+
+                    let showId = $(item).data('show-id');
+                    let totalPrice = $(item).find('.final-price').find('span').text();
+                    let peopleCount;
+                    if($(item).find('.show-seat-count').val() > 0) {
+                        $(item).find('.error-input').addClass('d-none');
+                        peopleCount = $(item).find('.show-seat-count').val();
+                    }
+
+                    formData.append(`ShowCheckouts[${counter}].ShowId`, showId);
+                    formData.append(`ShowCheckouts[${counter}].TotalPrice`, totalPrice);
+                    formData.append(`ShowCheckouts[${counter}].PeopleCount`, peopleCount);
+
+                    counter++;
+                });
+
+                $.ajax({
+                    url: '@Url.Action("ShowCheckout")',
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (response) => {
+                      if(response.error == false) {
+                          toastr.success(response.message, "Uğurlu!");
+                          document.cookie = 'checkout-show'+'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+                          setTimeout(() => {
+                              window.location.href = '@Url.Action("Index")';
+                          }, 2500);
                           return;
                       }
 

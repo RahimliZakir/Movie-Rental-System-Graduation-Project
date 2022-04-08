@@ -14,7 +14,9 @@ namespace MovieRentalSystem.WebUI.AppCode.Extensions
 
             int seatCount = show.Room.Seats.Count;
 
+            sb.Append("<div class='cinema-seats left col-6 col-xl-6 col-lg-6 col-md-6 col-sm-6'>");
 
+            sb.Append("</div>");
 
             sb.Append("</div>");
 

@@ -13,7 +13,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-action="Index" asp-controller="PurchasedMovies">Filmlər</a></li>
-                    <li><a asp-action="Index" asp-controller="Directors">Tamaşalar</a></li>
+                    <li><a asp-action="Index" asp-controller="PurchasedShows">Tamaşalar</a></li>
                 </ul>
             </li>
             @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))

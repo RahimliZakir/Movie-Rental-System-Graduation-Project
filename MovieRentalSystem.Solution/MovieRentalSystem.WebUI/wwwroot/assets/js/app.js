@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     $(item).css(
       "background-image",
-      `linear-gradient(to top, #1e2129, transparent), url(${bgThumbFilmsSwiper})`
+      `linear-gradient(90deg, rgba(0,0,3,0) 0%, rgba(0,0,0,0.647963408996411) 0%), url(${bgThumbFilmsSwiper})`
     );
   });
 
@@ -50,7 +50,7 @@ $(document).ready(function () {
   let bgThumbSelectedMovie = $(selectedMovieSection).attr("bg-thumb");
   $(selectedMovieSection).css(
     "background-image",
-    `url(${bgThumbSelectedMovie})`
+    `linear-gradient(90deg, rgba(0,0,3,0) 0%, rgba(0,0,0,0.647963408996411) 0%), url(${bgThumbSelectedMovie})`
   );
 
   $(".selected-movie-play-btn").magnificPopup({

@@ -6,8 +6,11 @@ using MovieRentalSystem.WebUI.AppCode.Infrastructure;
 using MovieRentalSystem.WebUI.AppCode.Modules.ContactMessagesModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.ContactMessageTypesModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.FaqsModule;
+using MovieRentalSystem.WebUI.AppCode.Modules.MoviesModule;
+using MovieRentalSystem.WebUI.AppCode.Modules.ShowsModule;
 using MovieRentalSystem.WebUI.AppCode.Modules.SubscriptionsModule;
 using MovieRentalSystem.WebUI.Models.Entities;
+using MovieRentalSystem.WebUI.Models.ViewModels;
 
 namespace MovieRentalSystem.WebUI.Controllers
 {
@@ -23,10 +26,18 @@ namespace MovieRentalSystem.WebUI.Controllers
             this.config = config;
         }
 
-        public IActionResult Index()
+        async public Task<IActionResult> Index()
         {
+            HomeViewModel vm = new();
 
-            return View();
+            IEnumerable<Show> shows = await mediator.Send(new ShowGetAllActiveQuery());
+            vm.Shows = shows.OrderByDescending(m => m.Id).Take(3);
+
+            IEnumerable<Movie> latestMovies = await mediator.Send(new MovieGetAllActiveQuery());
+            vm.LatestMovies = latestMovies.OrderByDescending(m => m.Id);
+            vm.LatestShows = shows.OrderByDescending(s => s.Id);
+
+            return View(vm);
         }
 
         public async Task<IActionResult> ContactUs()

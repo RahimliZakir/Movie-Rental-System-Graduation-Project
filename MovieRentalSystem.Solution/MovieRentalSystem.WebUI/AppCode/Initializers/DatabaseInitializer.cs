@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieRentalSystem.WebUI.Models.DataContexts;
 using MovieRentalSystem.WebUI.Models.Entities;
@@ -481,7 +481,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         IsPremium = true,
                         ImagePath = "show-e7e194e2f9934bbdbd516cbee23ce22d.jpg",
                         Duration = "190 Min",
-                        DirectorId = 4,
+                        DirectorId = 1,
                         RoomId = 1,
                         Price = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
@@ -494,7 +494,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         Description = @"Anar Sadoqov",
                         IsPremium = false,
                         ImagePath = "show-bc2aafef1d4d4d43b40dc2bdb38bd915.jpg",
-                        DirectorId = 6,
+                        DirectorId = 2,
                         RoomId = 2,
                         Price = 7,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
@@ -521,7 +521,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         IsPremium = false,
                         ImagePath = "show-e94c73f5959c4c82ab69b4348cce776c.jpg",
                         Duration = "150 Min",
-                        DirectorId = 6,
+                        DirectorId = 1,
                         RoomId = 2,
                         Price = 5,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
@@ -535,8 +535,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 1,
-                        GenreId = 7,
-                        CastId = 5,
+                        GenreId = 1,
+                        CastId = 1,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -544,8 +544,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 1,
-                        GenreId = 8,
-                        CastId = 6,
+                        GenreId = 2,
+                        CastId = 2,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -553,8 +553,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 1,
-                        GenreId = 9,
-                        CastId = 7,
+                        GenreId = 3,
+                        CastId = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -562,7 +562,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 2,
-                        GenreId = 7,
+                        GenreId = 1,
                         CastId = 1,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
@@ -571,7 +571,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 2,
-                        GenreId = 9,
+                        GenreId = 2,
                         CastId = 2,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
@@ -580,7 +580,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 3,
-                        GenreId = 8,
+                        GenreId = 3,
                         CastId = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
@@ -589,7 +589,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 3,
-                        GenreId = 9,
+                        GenreId = 4,
                         CastId = 4,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
@@ -598,7 +598,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 4,
-                        GenreId = 9,
+                        GenreId = 2,
                         CastId = 2,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
@@ -607,7 +607,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.ShowGenreCastItems.AddAsync(new ShowGenreCastItem
                     {
                         ShowId = 4,
-                        GenreId = 8,
+                        GenreId = 3,
                         CastId = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
@@ -628,7 +628,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         IsPremium = false,
                         Price = 3.00M,
                         Duration = "180 Min",
-                        DirectorId = 4,
+                        DirectorId = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -655,7 +655,7 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         Price = 5.00M,
                         Duration = "200 Min",
                         Quality = "HD",
-                        DirectorId = 4,
+                        DirectorId = 1,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -667,8 +667,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.MovieGenreCastItems.AddAsync(new MovieGenreCastItem
                     {
                         MovieId = 1,
-                        GenreId = 3,
-                        CastId = 8,
+                        GenreId = 7,
+                        CastId = 1,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -676,8 +676,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.MovieGenreCastItems.AddAsync(new MovieGenreCastItem
                     {
                         MovieId = 1,
-                        GenreId = 4,
-                        CastId = 9,
+                        GenreId = 8,
+                        CastId = 1,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -685,8 +685,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.MovieGenreCastItems.AddAsync(new MovieGenreCastItem
                     {
                         MovieId = 2,
-                        GenreId = 5,
-                        CastId = 10,
+                        GenreId = 8,
+                        CastId = 2,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -694,8 +694,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.MovieGenreCastItems.AddAsync(new MovieGenreCastItem
                     {
                         MovieId = 2,
-                        GenreId = 6,
-                        CastId = 11,
+                        GenreId = 9,
+                        CastId = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -703,8 +703,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.MovieGenreCastItems.AddAsync(new MovieGenreCastItem
                     {
                         MovieId = 3,
-                        GenreId = 3,
-                        CastId = 12,
+                        GenreId = 7,
+                        CastId = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -712,8 +712,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.MovieGenreCastItems.AddAsync(new MovieGenreCastItem
                     {
                         MovieId = 3,
-                        GenreId = 4,
-                        CastId = 13,
+                        GenreId = 8,
+                        CastId = 3,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -721,8 +721,8 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                     await db.MovieGenreCastItems.AddAsync(new MovieGenreCastItem
                     {
                         MovieId = 3,
-                        GenreId = 6,
-                        CastId = 14,
+                        GenreId = 8,
+                        CastId = 4,
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
                     });
@@ -732,73 +732,6 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                 //---Movie---
 
                 //---Blogs---
-                if (!await db.BlogImages.AnyAsync())
-                {
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-36123afea37b49f298908b98420a60db.jpg",
-                        IsMain = true,
-                        BlogId = 13
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-f4911199640444f1bd4f89b8e1081ed0.jpg",
-                        IsMain = false,
-                        BlogId = 13
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-5aae0a1908d441a5baec65a62bee14c8.jpg",
-                        IsMain = false,
-                        BlogId = 13
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-d1fce48e21d044c5b6b807d08790629f.jpg",
-                        IsMain = true,
-                        BlogId = 14
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-3e3bc2ef81134ac38d0d246491e13628.jpeg",
-                        IsMain = false,
-                        BlogId = 14
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-d7791fbdfa6248629a535221e9856cf5.jpg",
-                        IsMain = false,
-                        BlogId = 14
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-2f84898479f64a2cb5642f469fde69a3.jpeg",
-                        IsMain = false,
-                        BlogId = 15
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-7d852c08ad5841f3a56ca01af48f5e7b.jpg",
-                        IsMain = true,
-                        BlogId = 15
-                    });
-
-                    await db.BlogImages.AddAsync(new BlogImage
-                    {
-                        ImagePath = "blog-e2fe18b4daf3457a8fda2f9d9698949f.webp",
-                        IsMain = false,
-                        BlogId = 15
-                    });
-
-                    await db.SaveChangesAsync();
-                }
                 if (!await db.Blogs.AnyAsync())
                 {
                     await db.Blogs.AddAsync(new Blog
@@ -823,6 +756,74 @@ namespace MovieRentalSystem.WebUI.AppCode.Initializers
                         Description = "Game of Thrones is an American fantasy drama television series created by David Benioff and D. B. Weiss for HBO. It is an adaptation of A Song of Ice and Fire, a series of fantasy novels by George R. R. Martin, the first of which is A Game of Thrones. The show was shot in the United Kingdom, Canada, Croatia, Iceland, Malta, Morocco, and Spain. It premiered on HBO in the United States on April 17, 2011, and concluded on May 19, 2019, with 73 episodes broadcast over eight seasons.",
                         CreatedDate = DateTime.UtcNow.AddHours(4),
                         CreatedByUserId = 1
+                    });
+
+                    await db.SaveChangesAsync();
+                }
+
+                if (!await db.BlogImages.AnyAsync())
+                {
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-36123afea37b49f298908b98420a60db.jpg",
+                        IsMain = true,
+                        BlogId = 1
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-f4911199640444f1bd4f89b8e1081ed0.jpg",
+                        IsMain = false,
+                        BlogId = 1
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-5aae0a1908d441a5baec65a62bee14c8.jpg",
+                        IsMain = false,
+                        BlogId = 1
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-d1fce48e21d044c5b6b807d08790629f.jpg",
+                        IsMain = true,
+                        BlogId = 2
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-3e3bc2ef81134ac38d0d246491e13628.jpeg",
+                        IsMain = false,
+                        BlogId = 2
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-d7791fbdfa6248629a535221e9856cf5.jpg",
+                        IsMain = false,
+                        BlogId = 2
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-2f84898479f64a2cb5642f469fde69a3.jpeg",
+                        IsMain = false,
+                        BlogId = 3
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-7d852c08ad5841f3a56ca01af48f5e7b.jpg",
+                        IsMain = true,
+                        BlogId = 3
+                    });
+
+                    await db.BlogImages.AddAsync(new BlogImage
+                    {
+                        ImagePath = "blog-e2fe18b4daf3457a8fda2f9d9698949f.webp",
+                        IsMain = false,
+                        BlogId = 3
                     });
 
                     await db.SaveChangesAsync();
